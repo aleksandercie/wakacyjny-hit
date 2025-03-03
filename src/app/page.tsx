@@ -1,4 +1,4 @@
-import { Banner, Gallery } from '@/components';
+import { Banner, Gallery, Offers } from '@/components';
 
 export default function Home() {
   return (
@@ -9,6 +9,7 @@ export default function Home() {
           title="Podróżujmy razem po świecie"
           description="Odkrywaj z nami najpiękniejsze zakątki świata, w których każda chwila staje się niezapomnianą przygodą. Twoje wymarzone wakacje czekają."
         />
+        <Offers />
         <Gallery />
       </main>
     </div>

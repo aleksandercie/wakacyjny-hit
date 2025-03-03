@@ -4,8 +4,8 @@
 
 @theme {
   --font-sans: var(--font-montserrat-sans);
-  --color-primary: #4393F1;
-  --color-secondary: #162146;
+  --color-primary: #162146;
+  --color-secondary: #4393F1;
   --color-accent: #F47336;
   --color-dark: #292B3C;
 }
