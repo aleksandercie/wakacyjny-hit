@@ -11,7 +11,7 @@ export const Banner = ({
   description: string;
 }) => {
   return (
-    <div className="w-full  m-auto p-2">
+    <div className="w-full  m-auto">
       <div className="relative">
         <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center max-w-[500px] z-1">
           <h1 className="text-4xl font-semibold mb-6 max-w-[380px] mx-auto">
