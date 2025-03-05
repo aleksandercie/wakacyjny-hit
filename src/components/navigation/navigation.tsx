@@ -31,7 +31,9 @@ export const Navigation = () => {
         </ul>
         <div className="flex gap-4">
           <Button variant="link">
-            <ShoppingCart />
+            <Link href="/koszyk">
+              <ShoppingCart />
+            </Link>
           </Button>
           <Button>Zaloguj się</Button>
         </div>

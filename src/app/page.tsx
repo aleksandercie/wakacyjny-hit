@@ -1,4 +1,4 @@
-import { Banner, Gallery, Offers } from '@/components';
+import { Banner, Gallery, HowItWorks, Offers } from '@/components';
 
 export default function Home() {
   return (
@@ -11,6 +11,7 @@ export default function Home() {
         />
         <Offers />
         <Gallery />
+        <HowItWorks />
       </main>
     </div>
   );
