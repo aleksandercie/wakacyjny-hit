@@ -32,7 +32,7 @@ export const Card = ({
           <p>{date}</p>
           <p>od {price} zł/os</p>
         </div>
-        <p className="text-white font-semibold">{title}</p>
+        <p className="text-white font-bold">{title}</p>
       </div>
     </div>
   );

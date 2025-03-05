@@ -53,7 +53,7 @@ export const Gallery = () => {
             />
             <div className="absolute top-4 left-4 text-dark">
               <p className="opacity-60">{location}</p>
-              <p className="font-semibold text-sm opacity-80">{country}</p>
+              <p className="font-bold text-sm opacity-80">{country}</p>
             </div>
           </div>
         ))}

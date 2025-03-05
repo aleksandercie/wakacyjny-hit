@@ -22,7 +22,7 @@ export const Navigation = () => {
             <li key={name}>
               <Link
                 href={link}
-                className="font-semibold text-dark hover:text-accent focus:text-accent"
+                className="font-bold text-dark hover:text-accent focus:text-accent"
               >
                 {name}
               </Link>

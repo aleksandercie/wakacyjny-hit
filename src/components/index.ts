@@ -5,3 +5,4 @@ export * from './gallery';
 export * from './header';
 export * from './offers';
 export * from './card';
+export * from './footer';

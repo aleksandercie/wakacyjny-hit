@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import './globals.css';
-import { Navigation } from '@/components';
+import { Footer, Navigation } from '@/components';
 
-const montserratSans = Montserrat({
-  variable: '--font-montserrat-sans',
+const nunitoSans = Nunito({
+  variable: '--font-nunito-sans',
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
   fallback: ['Arial', 'sans-serif']
@@ -22,11 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body
-        className={`${montserratSans.variable} antialiased relative bg-white`}
-      >
+      <body className={`${nunitoSans.variable} antialiased relative bg-white`}>
         <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   );
