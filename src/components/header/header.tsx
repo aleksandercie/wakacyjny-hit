@@ -7,11 +7,19 @@ export const Header = ({
 }: {
   title: string;
   subtitle: string;
-  description: string;
+  description?: string;
 }) => {
   return (
-    <div className="flex justify-between mb-12 items-end">
-      <div className="flex flex-col size-[58%]">
+    <div
+      className={`flex justify-between  items-end ${
+        description ? 'mb-12' : 'mb-2'
+      }`}
+    >
+      <div
+        className={`flex flex-col ${
+          description ? 'size-[58%]' : 'size-[100%]'
+        }`}
+      >
         <h2 className="text-sm opacity-60">{title}</h2>
         <h3 className="text-xl font-bold mt-4">{subtitle}</h3>
       </div>

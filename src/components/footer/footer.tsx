@@ -30,7 +30,7 @@ export const Footer = () => {
   ];
   return (
     <div className="w-full bg-primary flex flex-col text-white gap-12 p-8 mt-12">
-      <div className="flex gap-12 justify-between">
+      <div className="flex gap-12 justify-between mb-8">
         {sections.map(({ title, links }) => (
           <div key={title} className="flex flex-col gap-4">
             <h4 className="text-lg font-bold">{title}</h4>
