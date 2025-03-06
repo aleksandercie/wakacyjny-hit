@@ -7,3 +7,4 @@ export * from './offers';
 export * from './card';
 export * from './footer';
 export * from './howItWorks';
+export * from './faq';
