@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
 import { Footer, Navigation } from '@/components';
+import { Toaster } from 'sonner';
 
 const nunitoSans = Nunito({
   variable: '--font-nunito-sans',
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

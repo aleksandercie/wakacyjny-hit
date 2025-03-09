@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 import { Header } from '../header';
-import { wrapperWidth } from '@/lib/utils';
 
 export const Gallery = () => {
   const photos = [
@@ -32,7 +31,7 @@ export const Gallery = () => {
   ];
 
   return (
-    <div className={`w-full max-w-[${wrapperWidth.xl}] mx-auto`}>
+    <div className={`w-full max-w-[1000px] mx-auto`}>
       <Header
         title="Najpiekniejsze kierunki"
         subtitle="Odkryj niezwykłe miejsca na ziemi"

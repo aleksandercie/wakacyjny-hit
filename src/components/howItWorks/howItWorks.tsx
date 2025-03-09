@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Header } from '../header';
 import { MailCheck, MessageCircle, MessagesSquare, Search } from 'lucide-react';
-import { wrapperWidth } from '@/lib/utils';
 
 export const HowItWorks = () => {
   const points = [
@@ -31,8 +30,8 @@ export const HowItWorks = () => {
   ];
   return (
     <div className="flex justify-center">
-      <div className={`flex gap-8 max-w-[${wrapperWidth.xl}] max-h-[580px]`}>
-        <div className={`max-w-[${wrapperWidth.m}}] h-full`}>
+      <div className="flex gap-8 max-w-[1000px] max-h-[580px]">
+        <div className="max-w-[480px] h-full">
           <Image
             src="/tourist.jpg"
             alt="Turystka robiąca zdjęcie"

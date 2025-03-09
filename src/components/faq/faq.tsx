@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion';
-import { wrapperWidth } from '@/lib/utils';
 
 export const Faq = () => {
   const faqs = [
@@ -27,9 +26,7 @@ export const Faq = () => {
   ];
 
   return (
-    <div
-      className={`flex flex-col gap-8 max-w-[${wrapperWidth.l}] mx-auto w-full mt-12`}
-    >
+    <div className={`flex flex-col gap-8 max-w-[1000px] mx-auto w-full mt-12`}>
       <h2 className="text-3xl text-center">Najczęściej zadawane pytania</h2>
       <div className="flex flex-col gap-4 w-full">
         {faqs.map(({ question, answer }) => (

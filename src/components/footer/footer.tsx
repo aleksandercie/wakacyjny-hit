@@ -1,8 +1,8 @@
-import { Facebook, Instagram, Mail } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { Contact } from '../contact';
 
 export const Footer = () => {
   const sections = [
@@ -23,11 +23,6 @@ export const Footer = () => {
     }
   ];
 
-  const contact = [
-    { link: 'facebook', icon: <Facebook /> },
-    { link: 'instagram', icon: <Instagram /> },
-    { link: 'mail', icon: <Mail /> }
-  ];
   return (
     <div className="w-full bg-primary flex flex-col text-white gap-12 p-8 mt-12">
       <div className="flex gap-12 justify-between mb-8">
@@ -48,21 +43,7 @@ export const Footer = () => {
             </ul>
           </div>
         ))}
-        <div className="flex flex-col gap-4">
-          <h4 className="text-lg font-bold">Kontakt</h4>
-          <p className="text-sm opacity-60">+48 800 800 800 900</p>
-          <div className="flex gap-4">
-            {contact.map(({ link, icon }) => (
-              <Link
-                key={link}
-                href={link}
-                className="text-sm hover:text-accent focus:text-accent"
-              >
-                {icon}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <Contact title="Kontakt" />
         <div className="flex flex-col max-w-[520px] gap-4">
           <h4 className="text-lg font-bold">Newsletter</h4>
           <p className="text-sm opacity-60">
