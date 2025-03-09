@@ -7,7 +7,7 @@ export const Header = ({
 }: {
   title: string;
   subtitle: string;
-  description?: string;
+  description: string;
 }) => {
   return (
     <div
@@ -16,14 +16,14 @@ export const Header = ({
       }`}
     >
       <div
-        className={`flex flex-col ${
-          description ? 'size-[58%]' : 'size-[100%]'
-        }`}
+        className={`flex flex-col 
+           'size-[58%]' 
+        `}
       >
-        <h2 className="text-sm opacity-60">{title}</h2>
-        <h3 className="text-xl font-bold mt-4">{subtitle}</h3>
+        <h2 className="text-lg opacity-60">{title}</h2>
+        <h3 className="text-4xl font-bold mt-4">{subtitle}</h3>
       </div>
-      <p className="opacity-60 size-[40%] text-sm">{description}</p>
+      <p className="opacity-60 size-[40%] text-base">{description}</p>
     </div>
   );
 };

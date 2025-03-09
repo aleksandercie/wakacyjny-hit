@@ -52,8 +52,8 @@ export const Gallery = () => {
               className="rounded-md object-cover w-full h-full shadow-[14px_17px_34px_-4px_rgba(0,_0,_0,_0.1)]"
             />
             <div className="absolute top-4 left-4 text-dark">
-              <p className="opacity-60">{location}</p>
-              <p className="font-bold text-sm opacity-80">{country}</p>
+              <p className="opacity-60 text-lg">{location}</p>
+              <p className="font-bold text-base opacity-80">{country}</p>
             </div>
           </div>
         ))}

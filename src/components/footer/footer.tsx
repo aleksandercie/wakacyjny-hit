@@ -28,13 +28,13 @@ export const Footer = () => {
       <div className="flex gap-12 justify-between mb-8">
         {sections.map(({ title, links }) => (
           <div key={title} className="flex flex-col gap-4">
-            <h4 className="text-lg font-bold">{title}</h4>
+            <h4 className="text-xl font-bold">{title}</h4>
             <ul className="flex flex-col gap-2">
               {links.map(({ name, link }) => (
                 <li key={name}>
                   <Link
                     href={link}
-                    className="text-sm opacity-60 hover:text-accent focus:text-accent"
+                    className="text-base opacity-60 hover:text-accent focus:text-accent"
                   >
                     {name}
                   </Link>
@@ -45,13 +45,13 @@ export const Footer = () => {
         ))}
         <Contact title="Kontakt" />
         <div className="flex flex-col max-w-[520px] gap-4">
-          <h4 className="text-lg font-bold">Newsletter</h4>
-          <p className="text-sm opacity-60">
+          <h4 className="text-xl font-bold">Newsletter</h4>
+          <p className="text-base opacity-60">
             Dołącz do naszego newslettera i bądź na bieżąco! Otrzymuj
             ekskluzywne oferty, nowości i inspiracje prosto na swoją skrzynkę.
             Zapisz się już teraz!
           </p>
-          <div className="flex w-full max-w-sm items-center space-x-4">
+          <div className="flex w-full max-w-sm items-center space-x-4 mt-4">
             <Input type="email" placeholder="Email" className="rounded-md" />
             <Button type="submit" variant="submit">
               Subscribe
@@ -59,7 +59,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="text-center text-sm opacity-60">© WakacyjnyHit.pl 2025</p>
+      <p className="text-center text-base opacity-60">© WakacyjnyHit.pl 2025</p>
     </div>
   );
 };

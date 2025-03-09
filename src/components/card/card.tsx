@@ -26,14 +26,12 @@ export const Card = ({
         />
       </div>
 
-      <p className="absolute top-2 left-2 bg-white py-1 px-2 rounded-3xl text-xs text-primary">
+      <p className="absolute top-2 left-2 bg-white py-1 px-2 rounded-3xl text-base text-primary">
         {duration}
       </p>
-      <div className="flex flex-col bg-white absolute w-[94%] rounded-md p-2 left-1/2 transform -translate-x-1/2 bottom-2">
-        <div className="flex justify-between text-sm text-primary">
-          <p>{date}</p>
-          <p>od {price} zł/os</p>
-        </div>
+      <div className="flex flex-col bg-white absolute w-[94%] rounded-md p-2 left-1/2 transform -translate-x-1/2 bottom-2 text-base gap-1">
+        <p>{date}</p>
+        <p>od {price} zł/os</p>
         <p className="text-primary font-bold">{title}</p>
       </div>
     </div>

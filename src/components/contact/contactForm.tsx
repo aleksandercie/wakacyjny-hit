@@ -67,11 +67,11 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-8 rounded-md md:p-8">
       <h2 className="text-xl font-bold">Formularz kontaktowy</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="flex flex-col gap-4">
-          <Label htmlFor="email" className="opacity-60">
+          <Label htmlFor="email" className="opacity-60 text-base">
             Adres e-mail
           </Label>
           <Input
@@ -81,11 +81,11 @@ export const ContactForm = () => {
             className="border border-black"
           />
           {errors.email && (
-            <p className="text-red-600 text-sm">{errors.email.message}</p>
+            <p className="text-red-600 text-base">{errors.email.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="phone" className="opacity-60">
+          <Label htmlFor="phone" className="opacity-60 text-base">
             Numer telefonu
           </Label>
           <Input
@@ -95,11 +95,11 @@ export const ContactForm = () => {
             className="border border-black"
           />
           {errors.phone && (
-            <p className="text-red-600 text-sm">{errors.phone.message}</p>
+            <p className="text-red-600 text-base">{errors.phone.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="title" className="opacity-60">
+          <Label htmlFor="title" className="opacity-60 text-base">
             Tytuł
           </Label>
           <Input
@@ -109,29 +109,29 @@ export const ContactForm = () => {
             className="border border-black"
           />
           {errors.title && (
-            <p className="text-red-600 text-sm">{errors.title.message}</p>
+            <p className="text-red-600 text-base">{errors.title.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="message" className="opacity-60">
+          <Label htmlFor="message" className="opacity-60 text-base">
             Wiadomość
           </Label>
           <Textarea id="message" {...register('message')} />
           {errors.message && (
-            <p className="text-red-600 text-sm">{errors.message.message}</p>
+            <p className="text-red-600 text-base">{errors.message.message}</p>
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <Checkbox id="terms" {...register('terms')} />
-          <Label htmlFor="terms" className="opacity-60">
+          <Label htmlFor="terms" className="opacity-60 text-base">
             Akceptuję{' '}
-            <Link href="" className="text-accent font-semibold">
+            <Link href="" className="text-accent font-semibold text-base">
               regulamin
             </Link>
           </Label>
         </div>
         {errors.terms && (
-          <p className="text-red-600 text-sm">{errors.terms.message}</p>
+          <p className="text-red-600 text-base">{errors.terms.message}</p>
         )}
         <Button type="submit" disabled={isSubmitting} className="mt-4">
           {isSubmitting ? 'Wysyłanie...' : 'Wyślij'}

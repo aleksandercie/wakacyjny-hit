@@ -27,15 +27,15 @@ export const Faq = () => {
 
   return (
     <div className={`flex flex-col gap-8 max-w-[1000px] mx-auto w-full mt-12`}>
-      <h2 className="text-3xl text-center">Najczęściej zadawane pytania</h2>
+      <h2 className="text-4xl text-center">Najczęściej zadawane pytania</h2>
       <div className="flex flex-col gap-4 w-full">
         {faqs.map(({ question, answer }) => (
           <Accordion type="single" collapsible key={question}>
             <AccordionItem value="item-1" className="w-full">
-              <AccordionTrigger className="text-xl w-full">
+              <AccordionTrigger className="text-2xl w-full">
                 {question}
               </AccordionTrigger>
-              <AccordionContent className="opacity-60 text-md w-full">
+              <AccordionContent className="opacity-60 text-base w-full">
                 {answer}
               </AccordionContent>
             </AccordionItem>
