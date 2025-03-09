@@ -71,7 +71,7 @@ export const Footer = () => {
             Zapisz się już teraz!
           </p>
           <div className="flex w-full max-w-sm items-center space-x-4">
-            <Input type="email" placeholder="Email" className="rounded-xl" />
+            <Input type="email" placeholder="Email" className="rounded-md" />
             <Button type="submit" variant="submit">
               Subscribe
             </Button>

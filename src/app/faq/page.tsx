@@ -1,9 +1,10 @@
-import { Faq } from '@/components';
+import { Faq, ImageBanner } from '@/components';
 
 export default function FaqPage() {
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
-      <main className="flex flex-col gap-12 p-2">
+      <main className="flex flex-col gap-16 p-2">
+        <ImageBanner image="/banner.jpg" alt="Plaza" />
         <Faq />
       </main>
     </div>

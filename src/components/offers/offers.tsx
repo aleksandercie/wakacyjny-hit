@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from '../header';
 import { Card } from '../card';
 import { Button } from '../ui/button';
+import { wrapperWidth } from '@/lib/utils';
 
 export const Offers = () => {
   const offers = [
@@ -28,7 +29,7 @@ export const Offers = () => {
     }
   ];
   return (
-    <div className="w-full max-w-[1000px] mx-auto">
+    <div className={`w-full max-w-[${wrapperWidth.xl}] mx-auto`}>
       <Header
         title="Pakiety podrózne"
         subtitle="Nasze kierunki"

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 export const Navigation = () => {
   const navItems = [
     { name: 'Oferty', link: './oferty' },
-    { name: 'O nas', link: './o-nas' },
+    { name: 'Jak to działa', link: './jak-to-dziala' },
     { name: 'FAQ', link: './faq' },
     { name: 'Kontakt', link: './kontakt' }
   ];

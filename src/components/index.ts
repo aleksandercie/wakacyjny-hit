@@ -8,3 +8,4 @@ export * from './card';
 export * from './footer';
 export * from './howItWorks';
 export * from './faq';
+export * from './imageBanner';
