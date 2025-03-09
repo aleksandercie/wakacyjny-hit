@@ -24,9 +24,9 @@ export const Footer = () => {
   ];
 
   const contact = [
-    { link: '', icon: <Facebook /> },
-    { link: '', icon: <Instagram /> },
-    { link: '', icon: <Mail /> }
+    { link: 'facebook', icon: <Facebook /> },
+    { link: 'instagram', icon: <Instagram /> },
+    { link: 'mail', icon: <Mail /> }
   ];
   return (
     <div className="w-full bg-primary flex flex-col text-white gap-12 p-8 mt-12">

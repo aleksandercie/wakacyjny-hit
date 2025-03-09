@@ -3,6 +3,8 @@ import React from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+import { NavigationLink } from './navigationLink';
+
 export const Navigation = () => {
   const navItems = [
     { name: 'Oferty', link: './oferty' },
@@ -20,12 +22,7 @@ export const Navigation = () => {
         <ul className="flex gap-8">
           {navItems.map(({ name, link }) => (
             <li key={name}>
-              <Link
-                href={link}
-                className="font-bold text-dark hover:text-accent focus:text-accent"
-              >
-                {name}
-              </Link>
+              <NavigationLink name={name} link={link} />
             </li>
           ))}
         </ul>
