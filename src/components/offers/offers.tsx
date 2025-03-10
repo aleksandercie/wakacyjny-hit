@@ -35,7 +35,7 @@ export const Offers = () => {
         description="Najcudowniejsze miejsca na świecie to prawdziwe cuda natury, które
           zapierają dech w piersiach."
       />
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col sm:flex-row">
         {offers.map(({ title, price, duration, date, photo }, index) => (
           <Card
             key={index}

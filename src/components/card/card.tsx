@@ -15,7 +15,7 @@ export const Card = ({
   photo: string;
 }) => {
   return (
-    <div className="relative w-1/3 h-[480px] group">
+    <div className="relative w-full md:w-1/3 h-[480px] group">
       <div className="overflow-hidden h-full rounded-md">
         <Image
           src={photo}

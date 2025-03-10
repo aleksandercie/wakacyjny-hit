@@ -8,25 +8,26 @@ export const Gallery = () => {
       location: 'Bora Bora',
       country: 'Polinezja Francuska',
       photo: '/bora-bora.jpg',
-      width: 'basis-[58%]'
+
+      width: 'w-full md:w-[53%]'
     },
     {
       location: 'Santorini',
       country: 'Grecja',
       photo: '/santorini.jpg',
-      width: 'basis-[40%]'
+      width: 'w-full md:w-[44%]'
     },
     {
       location: 'Machu Picchu',
       country: 'Chile',
       photo: '/machu-picchu.jpg',
-      width: 'basis-[40%]'
+      width: 'w-full md:w-[44%]'
     },
     {
       location: 'Kilimandżaro',
       country: 'Tanzania',
       photo: '/kilimanjaro.jpg',
-      width: 'basis-[58%]'
+      width: 'w-full md:w-[53%]'
     }
   ];
 
@@ -38,11 +39,11 @@ export const Gallery = () => {
         description="Najcudowniejsze miejsca na świecie to prawdziwe cuda natury, które
           zapierają dech w piersiach."
       />
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-col md:flex-row md:flex-wrap gap-4 justify-center">
         {photos.map(({ location, country, photo, width }) => (
           <div
             key={location}
-            className={`${width} text-white relative max-h-[320px]`}
+            className={`${width} text-white relative md:max-h-[320px]`}
           >
             <Image
               src={photo}

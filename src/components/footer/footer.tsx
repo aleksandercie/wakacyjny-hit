@@ -25,26 +25,28 @@ export const Footer = () => {
 
   return (
     <div className="w-full bg-primary flex flex-col text-white gap-12 p-8 mt-12">
-      <div className="flex gap-12 justify-between mb-8">
-        {sections.map(({ title, links }) => (
-          <div key={title} className="flex flex-col gap-4">
-            <h4 className="text-xl font-bold">{title}</h4>
-            <ul className="flex flex-col gap-2">
-              {links.map(({ name, link }) => (
-                <li key={name}>
-                  <Link
-                    href={link}
-                    className="text-base opacity-60 hover:text-accent focus:text-accent"
-                  >
-                    {name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        <Contact title="Kontakt" />
-        <div className="flex flex-col max-w-[520px] gap-4">
+      <div className="flex flex-col lg:flex-row gap-12 justify-between mb-8">
+        <div className="flex flex-col md:flex-row gap-12 md:mx-auto">
+          {sections.map(({ title, links }) => (
+            <div key={title} className="flex flex-col gap-4">
+              <h4 className="text-xl font-bold">{title}</h4>
+              <ul className="flex flex-col gap-2">
+                {links.map(({ name, link }) => (
+                  <li key={name}>
+                    <Link
+                      href={link}
+                      className="text-base opacity-60 hover:text-accent focus:text-accent"
+                    >
+                      {name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <Contact title="Kontakt" />
+        </div>
+        <div className="flex flex-col max-w-[520px] gap-4 md:mx-auto">
           <h4 className="text-xl font-bold">Newsletter</h4>
           <p className="text-base opacity-60">
             Dołącz do naszego newslettera i bądź na bieżąco! Otrzymuj
