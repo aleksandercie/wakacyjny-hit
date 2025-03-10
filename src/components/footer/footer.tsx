@@ -9,7 +9,7 @@ export const Footer = () => {
     {
       title: 'Informacje',
       links: [
-        { name: 'Oferty', link: '/oferty' },
+        { name: 'Wakacyjny hit', link: '/wakacyjny-hit' },
         { name: 'O nas', link: '/o-nas' }
       ]
     },

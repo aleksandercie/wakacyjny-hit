@@ -7,15 +7,15 @@ import { NavigationLink } from './navigationLink';
 
 export const Navigation = () => {
   const navItems = [
-    { name: 'Oferty', link: './oferty' },
-    { name: 'Jak to działa', link: './jak-to-dziala' },
-    { name: 'FAQ', link: './faq' },
-    { name: 'Kontakt', link: './kontakt' }
+    { name: 'Oferty', link: '/oferty' },
+    { name: 'O nas', link: '/o-nas' },
+    { name: 'FAQ', link: '/faq' },
+    { name: 'Kontakt', link: '/kontakt' }
   ];
 
   return (
     <div className="w-full flex sticky top-0 z-10 py-4 px-8 justify-between bg-white items-center rounded-b-lg">
-      <Link href="/" className="font-bold text-secondary">
+      <Link href="/" className="font-bold text-secondary text-xl">
         Wakacyjny<span className="text-primary">Hit</span>
       </Link>
       <div className="flex items-center gap-16">
