@@ -50,7 +50,7 @@ export const Gallery = () => {
               alt={location}
               width={680}
               height={320}
-              className="rounded-md object-cover w-full h-full shadow-[14px_17px_34px_-4px_rgba(0,_0,_0,_0.1)]"
+              className="rounded-md object-cover w-full h-full"
             />
             <div className="absolute top-4 left-4 text-dark">
               <p className="opacity-60 text-lg">{location}</p>

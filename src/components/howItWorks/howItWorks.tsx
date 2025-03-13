@@ -37,7 +37,7 @@ export const HowItWorks = () => {
             alt="Turystka robiąca zdjęcie"
             width={468}
             height={580}
-            className="h-full rounded-md shadow-[14px_17px_34px_-4px_rgba(0,_0,_0,_0.1)]"
+            className="h-full rounded-md"
           />
         </div>
         <div className="flex flex-col w-full md:w-1/2 max-w-[460px]">
@@ -53,7 +53,7 @@ export const HowItWorks = () => {
                 key={title}
                 className="flex p-6 gap-8 items-center rounded-xl"
               >
-                <div className="p-4 flex justify-center items-center rounded-xl shadow-[14px_17px_34px_-4px_rgba(0,_0,_0,_0.1)]">
+                <div className="p-2 flex justify-center items-center">
                   {icon}
                 </div>
                 <p className="opacity-60 text-sm md:text-base">{title}</p>
