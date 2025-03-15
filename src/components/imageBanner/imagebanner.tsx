@@ -23,7 +23,6 @@ export const ImageBanner = ({
 
         {/* <div className="bg-black opacity-25 absolute w-full h-full p-2 rounded-md" /> */}
         <div className="w-full max-h-[500px] overflow-hidden rounded-md ">
-          {' '}
           <Image
             src={image}
             width={1920}

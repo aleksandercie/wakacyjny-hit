@@ -12,11 +12,11 @@ const buttonVariants = cva(
         default:
           'bg-primary text-white shadow-xs hover:bg-secondary rounded-md cursor-pointer',
         secondary:
-          'bg-secondary text-white shadow-xs hover:primary cursor-pointer rounded-md',
+          'bg-secondary text-white shadow-xs hover:bg-primary cursor-pointer rounded-md',
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 cursor-pointer',
         outline:
-          'border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground cursor-pointer',
+          'border border-input bg-background shadow-xs hover:bg-secondary hover:text-secondary-foreground hover:text-white cursor-pointer',
         ghost: 'hover:text-accent-foreground cursor-pointer',
         link: 'text-primary underline-offset-4 hover:underline hover:text-accent cursor-pointer',
         submit:

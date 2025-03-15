@@ -14,7 +14,7 @@ export const Offers = () => {
         description="Najcudowniejsze miejsca na świecie to prawdziwe cuda natury, które
           zapierają dech w piersiach."
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {offers
           .slice(0, 6)
           .map(
