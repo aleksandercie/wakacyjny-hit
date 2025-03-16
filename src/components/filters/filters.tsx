@@ -3,7 +3,7 @@
 import { DatePickerWithRange } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MapPin, SlidersHorizontal } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,54 +16,30 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import { Slider } from '../ui/slider';
-import { Label } from '../ui/label';
-
-const PriceInput = ({
-  id,
-  label,
-  value,
-  onChange,
-  min,
-  max
-}: {
-  id: string;
-  label: string;
-  value: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  min: number;
-  max: number;
-}) => {
-  return (
-    <div className="flex flex-col gap-1">
-      <Label
-        htmlFor={id}
-        className="opacity-40 text-xs text-center w-full block"
-      >
-        {label}
-      </Label>
-      <div className="relative">
-        <Input
-          type="text"
-          value={value}
-          min={min}
-          max={max}
-          onChange={onChange}
-          className="w-24 pl-8 rounded-full"
-          id={id}
-        />
-        <span className="text-sm absolute top-2 left-4">zł</span>
-      </div>
-    </div>
-  );
-};
+import { Separator } from '../ui/separator';
+import { DateRange } from 'react-day-picker';
+import { AdditionalFilters } from './additionalFilters';
+import { airportOptions } from '@/lib/airports';
+import { eatingOptions } from '@/lib/eatings';
 
 export const Filters = ({
   priceRange,
-  setPriceRange
+  setPriceRange,
+  date,
+  setDate,
+  selectedAirports,
+  setSelectedAirports,
+  selectedEatingOptions,
+  setSelectedEatingOptions
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
+  date: DateRange | undefined;
+  setDate: Dispatch<SetStateAction<DateRange | undefined>>;
+  selectedAirports: string[];
+  setSelectedAirports: Dispatch<SetStateAction<string[]>>;
+  selectedEatingOptions: string[];
+  setSelectedEatingOptions: Dispatch<SetStateAction<string[]>>;
 }) => {
   const handlePriceChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,61 +56,66 @@ export const Filters = ({
     }
   }, [priceRange, setPriceRange]);
 
+  const additionalFilters = (
+    <AdditionalFilters
+      priceRange={priceRange}
+      setPriceRange={setPriceRange}
+      handlePriceChange={handlePriceChange}
+      selectedAirports={selectedAirports}
+      setSelectedAirports={setSelectedAirports}
+      selectedEatingOptions={selectedEatingOptions}
+      setSelectedEatingOptions={setSelectedEatingOptions}
+      airportOptions={airportOptions}
+      eatingOptions={eatingOptions}
+    />
+  );
+
   return (
-    <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-2 md:border rounded-md md:rounded-full gap-2 md:gap-4 justify-between items-center">
-      <div className="pl-2 md:pl-0 flex items-center w-[260px]">
-        <MapPin />
-        <Input placeholder="Wyszukaj hit" variant="unstyled" />
+    <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-2 md:border rounded-md md:rounded-full gap-8 md:gap-0 justify-between md:items-center">
+      <div className=" flex items-center w-full md:w-[260px] relative">
+        <Search className="absolute md:relative" />
+        <Input
+          placeholder="Wyszukaj hit"
+          variant="unstyled"
+          className="hidden md:block"
+        />
+        <Input placeholder="Wyszukaj hit" className="block md:hidden pl-8" />
       </div>
-      <DatePickerWithRange className="border-0 px-0 md:px-4 max-w-[260px]" />
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button variant="outline" className="rounded-full">
-            <SlidersHorizontal />
-            Filtry
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Filtry</AlertDialogTitle>
-            <AlertDialogDescription></AlertDialogDescription>
-          </AlertDialogHeader>
-          <span className="text-base font-semibold">Przedział cenowy:</span>
-          <Slider
-            value={priceRange}
-            onValueChange={setPriceRange}
-            min={0}
-            max={10000}
-            step={100}
-            className="w-full"
-          />
-          <div className="flex items-center gap-2 justify-between">
-            <PriceInput
-              id="min-price"
-              label="Minimalnie"
-              value={priceRange[0]}
-              onChange={handlePriceChange(0)}
-              min={0}
-              max={priceRange[1]}
-            />
-            <PriceInput
-              id="max-price"
-              label="Maksymalnie"
-              value={priceRange[1]}
-              onChange={handlePriceChange(1)}
-              min={priceRange[0]}
-              max={10000}
-            />
-          </div>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Wyczyść</AlertDialogCancel>
-            <AlertDialogAction>Zapisz</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <Separator orientation="vertical" className="hidden md:block" />
+      <DatePickerWithRange
+        className="border-0 px-0 max-w-[260px] md:max-w-[240px]"
+        date={date}
+        setDate={setDate}
+      />
+      <Separator orientation="vertical" className="mr-3 hidden md:block" />
+      <div className="hidden md:block">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="outline" className="rounded-full">
+              <SlidersHorizontal />
+              Filtry
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Filtry</AlertDialogTitle>
+              <AlertDialogDescription></AlertDialogDescription>
+            </AlertDialogHeader>
+            {additionalFilters}
+            <AlertDialogFooter>
+              <AlertDialogCancel>Wyczyść</AlertDialogCancel>
+              <AlertDialogAction>Zapisz</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+      <div className="flex flex-col md:hidden gap-4 w-full">
+        {additionalFilters}
+      </div>
+      <Separator orientation="vertical" className="mx-3 hidden md:block" />
       <Button
         variant="secondary"
-        className="rounded-full max-w-[260px] md:max-w-none w-full md:w-auto"
+        className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto"
       >
         Szukaj
       </Button>

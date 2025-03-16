@@ -12,3 +12,4 @@ export * from './imageBanner';
 export * from './contact';
 export * from './datePickerWithRange';
 export * from './filters';
+export * from './multiSelect';
