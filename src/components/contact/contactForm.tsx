@@ -74,12 +74,7 @@ export const ContactForm = () => {
           <Label htmlFor="email" className="opacity-60 text-base">
             Adres e-mail
           </Label>
-          <Input
-            id="email"
-            type="email"
-            {...register('email')}
-            className="border border-black"
-          />
+          <Input id="email" type="email" {...register('email')} />
           {errors.email && (
             <p className="text-red-600 text-base">{errors.email.message}</p>
           )}
@@ -88,12 +83,7 @@ export const ContactForm = () => {
           <Label htmlFor="phone" className="opacity-60 text-base">
             Numer telefonu
           </Label>
-          <Input
-            id="phone"
-            type="text"
-            {...register('phone')}
-            className="border border-black"
-          />
+          <Input id="phone" type="text" {...register('phone')} />
           {errors.phone && (
             <p className="text-red-600 text-base">{errors.phone.message}</p>
           )}
@@ -102,12 +92,7 @@ export const ContactForm = () => {
           <Label htmlFor="title" className="opacity-60 text-base">
             Tytuł
           </Label>
-          <Input
-            id="title"
-            type="text"
-            {...register('title')}
-            className="border border-black"
-          />
+          <Input id="title" type="text" {...register('title')} />
           {errors.title && (
             <p className="text-red-600 text-base">{errors.title.message}</p>
           )}

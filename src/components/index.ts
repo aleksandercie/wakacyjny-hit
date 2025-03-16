@@ -11,3 +11,4 @@ export * from './faq';
 export * from './imageBanner';
 export * from './contact';
 export * from './datePickerWithRange';
+export * from './filters';
