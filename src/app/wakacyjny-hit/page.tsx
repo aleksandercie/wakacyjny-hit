@@ -8,7 +8,8 @@ import { useState } from 'react';
 import { DateRange } from 'react-day-picker';
 
 export default function OffersPage() {
-  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const defaultPriceRange = [0, 10000];
+  const [priceRange, setPriceRange] = useState(defaultPriceRange);
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined
@@ -35,6 +36,7 @@ export default function OffersPage() {
           setSelectedAirports={setSelectedAirports}
           selectedEatingOptions={selectedEatingOptions}
           setSelectedEatingOptions={setSelectedEatingOptions}
+          defaultPriceRange={defaultPriceRange}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {offers.map(

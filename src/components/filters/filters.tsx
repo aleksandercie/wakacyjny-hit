@@ -9,7 +9,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -30,7 +29,8 @@ export const Filters = ({
   selectedAirports,
   setSelectedAirports,
   selectedEatingOptions,
-  setSelectedEatingOptions
+  setSelectedEatingOptions,
+  defaultPriceRange
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
@@ -40,6 +40,7 @@ export const Filters = ({
   setSelectedAirports: Dispatch<SetStateAction<string[]>>;
   selectedEatingOptions: string[];
   setSelectedEatingOptions: Dispatch<SetStateAction<string[]>>;
+  defaultPriceRange: number[];
 }) => {
   const handlePriceChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +57,15 @@ export const Filters = ({
     }
   }, [priceRange, setPriceRange]);
 
+  const activeFiltersCount =
+    (priceRange[0] !== defaultPriceRange[0] ||
+    priceRange[1] !== defaultPriceRange[1]
+      ? 1
+      : 0) +
+    (selectedAirports.length > 0 ? 1 : 0) +
+    (selectedEatingOptions.length > 0 ? 1 : 0) +
+    (date?.from || date?.to ? 1 : 0);
+
   const additionalFilters = (
     <AdditionalFilters
       priceRange={priceRange}
@@ -69,6 +79,13 @@ export const Filters = ({
       eatingOptions={eatingOptions}
     />
   );
+
+  const reset = () => {
+    setPriceRange(defaultPriceRange);
+    setDate({ from: undefined, to: undefined });
+    setSelectedAirports([]);
+    setSelectedEatingOptions([]);
+  };
 
   return (
     <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-2 md:border rounded-md md:rounded-full gap-8 md:gap-0 justify-between md:items-center">
@@ -91,19 +108,25 @@ export const Filters = ({
       <div className="hidden md:block">
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="rounded-full relative">
               <SlidersHorizontal />
               Filtry
+              {activeFiltersCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-secondary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                  {activeFiltersCount}
+                </span>
+              )}
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Filtry</AlertDialogTitle>
-              <AlertDialogDescription></AlertDialogDescription>
             </AlertDialogHeader>
             {additionalFilters}
             <AlertDialogFooter>
-              <AlertDialogCancel>Wyczyść</AlertDialogCancel>
+              <AlertDialogCancel onClick={reset} className="pl-0">
+                Wyczyść
+              </AlertDialogCancel>
               <AlertDialogAction>Zapisz</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
