@@ -15,7 +15,10 @@ export default function ContactPage() {
             <Contact title="Skontaktuj się z nami" />
             <p className="text-base">
               Sprawdź naszą sekcję{' '}
-              <Link href="/faq" className="font-semibold text-accent">
+              <Link
+                href="/faq"
+                className="font-semibold text-primary hover:font-bold"
+              >
                 FAQ
               </Link>
             </p>

@@ -20,7 +20,7 @@ export const Navigation = () => {
       <div className="hidden md:flex items-center gap-16">
         <ul className="flex gap-8">
           {links.map(({ name, link }) => (
-            <li key={name}>
+            <li key={name} className="text-black">
               <NavigationLink name={name} link={link} />
             </li>
           ))}
@@ -28,7 +28,7 @@ export const Navigation = () => {
         <div className="flex gap-4">
           <Button variant="link">
             <Link href="/koszyk">
-              <ShoppingCart />
+              <ShoppingCart size={20} />
             </Link>
           </Button>
           <Button>Zaloguj się</Button>

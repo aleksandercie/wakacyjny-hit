@@ -6,7 +6,7 @@ export default function HowItWorksPage() {
       <main className="flex flex-col gap-16 p-2">
         <ImageBanner image="/banner.jpg" alt="Plaza" title="Poznaj nas!" />
         <div className="max-w-[1000px] mx-auto flex flex-col gap-4">
-          <p className="text-base opacity-60">
+          <p className="text-base text-gray-400">
             Jesteśmy pasjonatami podróży, którzy na własnej skórze odkryli setki
             miejsc na całym świecie. Jako doradcy podróży dzielimy się tymi
             doświadczeniami, pomagając Wam znaleźć najlepsze oferty i stworzyć
@@ -16,7 +16,7 @@ export default function HowItWorksPage() {
             tylko planujecie wyjazd, ale także doświadczacie świata w sposób,
             który zostaje w pamięci na zawsze.
           </p>
-          <p className="text-base opacity-60">
+          <p className="text-base text-gray-400">
             Wakacyjnyhit.pl to zespół doradców, którzy pomagają w znalezieniu
             najlepszych okazji na przeloty, hotele oraz transfery. Zgodnie z
             ustawą z dnia 24 listopada 2017 roku o imprezach turystycznych i

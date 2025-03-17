@@ -10,7 +10,7 @@ export const Logo: React.FC<LogoProps> = ({ style, onClick }) => {
   return (
     <Link
       href="/"
-      className={`font-bold text-secondary text-xl ${style}`}
+      className={`font-bold text-black text-xl ${style}`}
       onClick={onClick}
     >
       Wakacyjny<span className="text-primary">Hit</span>

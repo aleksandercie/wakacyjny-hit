@@ -90,7 +90,7 @@ export const Filters = ({
   return (
     <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-2 md:border rounded-md md:rounded-full gap-8 md:gap-0 justify-between md:items-center">
       <div className=" flex items-center w-full md:w-[260px] relative">
-        <Search className="absolute md:relative" />
+        <Search className="absolute md:relative" size={16} />
         <Input
           placeholder="Wyszukaj hit"
           variant="unstyled"
@@ -109,10 +109,10 @@ export const Filters = ({
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="outline" className="rounded-full relative">
-              <SlidersHorizontal />
+              <SlidersHorizontal size={16} />
               Filtry
               {activeFiltersCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-secondary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
                   {activeFiltersCount}
                 </span>
               )}
@@ -136,10 +136,7 @@ export const Filters = ({
         {additionalFilters}
       </div>
       <Separator orientation="vertical" className="mx-3 hidden md:block" />
-      <Button
-        variant="secondary"
-        className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto"
-      >
+      <Button className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto">
         Szukaj
       </Button>
     </div>

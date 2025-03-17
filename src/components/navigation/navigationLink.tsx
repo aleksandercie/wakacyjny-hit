@@ -14,13 +14,13 @@ export const NavigationLink = ({
   onClick?: () => void;
 }) => {
   const pathname = usePathname();
-  const isActive = link.includes(pathname);
+  const isActive = pathname !== '/' && link.includes(pathname);
 
   return (
     <Link
       href={link}
-      className={`font-bold text-dark hover:text-accent focus:text-accent text-l ${
-        isActive ? 'text-accent' : ''
+      className={`font-bold text-black hover:text-primary focus:text-primary text-l ${
+        isActive ? 'text-primary' : ''
       }`}
       onClick={onClick}
     >

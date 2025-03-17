@@ -42,7 +42,9 @@ export const HowItWorks = () => {
         </div>
         <div className="flex flex-col w-full md:w-1/2 max-w-[460px]">
           <div className="px-8 w-full">
-            <h2 className="text-base md:text-lg opacity-60">Jak to działa?</h2>
+            <h2 className="text-base md:text-lg text-gray-400">
+              Jak to działa?
+            </h2>
             <h3 className="text-2xl md:text-4xl font-bold mt-4">
               Zaplanuj wakacje swoich marzeń!
             </h3>
@@ -56,7 +58,7 @@ export const HowItWorks = () => {
                 <div className="p-2 flex justify-center items-center">
                   {icon}
                 </div>
-                <p className="opacity-60 text-sm md:text-base">{title}</p>
+                <p className="text-gray-400 text-sm md:text-base">{title}</p>
               </div>
             ))}
           </div>

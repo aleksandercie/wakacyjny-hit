@@ -71,7 +71,7 @@ export const ContactForm = () => {
       <h2 className="text-xl font-bold">Formularz kontaktowy</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="flex flex-col gap-4">
-          <Label htmlFor="email" className="opacity-60 text-base">
+          <Label htmlFor="email" className="text-gray-400 text-base">
             Adres e-mail
           </Label>
           <Input id="email" type="email" {...register('email')} />
@@ -80,7 +80,7 @@ export const ContactForm = () => {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="phone" className="opacity-60 text-base">
+          <Label htmlFor="phone" className="text-gray-400 text-base">
             Numer telefonu
           </Label>
           <Input id="phone" type="text" {...register('phone')} />
@@ -89,7 +89,7 @@ export const ContactForm = () => {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="title" className="opacity-60 text-base">
+          <Label htmlFor="title" className="text-gray-400 text-base">
             Tytuł
           </Label>
           <Input id="title" type="text" {...register('title')} />
@@ -98,7 +98,7 @@ export const ContactForm = () => {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="message" className="opacity-60 text-base">
+          <Label htmlFor="message" className="text-gray-400 text-base">
             Wiadomość
           </Label>
           <Textarea id="message" {...register('message')} />
@@ -108,9 +108,12 @@ export const ContactForm = () => {
         </div>
         <div className="flex gap-2 items-center">
           <Checkbox id="terms" {...register('terms')} />
-          <Label htmlFor="terms" className="opacity-60 text-base">
+          <Label htmlFor="terms" className="text-gray-400 text-base">
             Akceptuję{' '}
-            <Link href="" className="text-accent font-semibold text-base">
+            <Link
+              href=""
+              className="text-primary font-semibold text-base hover:font-bold"
+            >
               regulamin
             </Link>
           </Label>

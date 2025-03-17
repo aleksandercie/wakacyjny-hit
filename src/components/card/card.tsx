@@ -29,14 +29,16 @@ export const Card = ({
             className="rounded-md object-cover w-full h-full"
           />
         </div>
-        <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm text-primary bg-secondary">
+        <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">
           {duration}
         </p>
         <div className="flex flex-col bg-white w-full p-2 bottom-2 text-base gap-1">
-          <p className="text-primary text-base">{title}</p>
-          <p className="opacity-60 text-sm">{date}</p>
-          <p className="opacity-60 text-sm">od {price} zł/os</p>
-          {description && <p className="opacity-60 text-sm">{description}</p>}
+          <p className="text-base">{title}</p>
+          <p className="text-gray-400 text-sm">{date}</p>
+          <p className="text-gray-400 text-sm">od {price} zł/os</p>
+          {description && (
+            <p className="text-gray-400 text-sm">{description}</p>
+          )}
         </div>
       </Link>
     </div>

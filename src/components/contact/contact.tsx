@@ -12,14 +12,14 @@ export const Contact = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col gap-4">
       <h4 className="text-xl font-bold">{title}</h4>
-      <p className="text-base opacity-60">+48 800 800 800 900</p>
-      <p className="text-base opacity-60">info@wakacyjnyhit.pl</p>
+      <p className="text-base text-gray-400">+48 800 800 800 900</p>
+      <p className="text-base text-gray-400">info@wakacyjnyhit.pl</p>
       <div className="flex gap-4">
         {contact.map(({ link, icon }) => (
           <Link
             key={link}
             href={link}
-            className="text-sm hover:text-accent focus:text-accent"
+            className="text-sm hover:text-primary focus:text-primary"
           >
             {icon}
           </Link>

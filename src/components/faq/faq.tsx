@@ -39,7 +39,7 @@ export const Faq = () => {
               <AccordionTrigger className="text-base md:text-2xl w-full">
                 {question}
               </AccordionTrigger>
-              <AccordionContent className="opacity-60 text-sm md:text-base w-full">
+              <AccordionContent className="text-gray-400 text-sm md:text-base w-full">
                 {answer}
               </AccordionContent>
             </AccordionItem>

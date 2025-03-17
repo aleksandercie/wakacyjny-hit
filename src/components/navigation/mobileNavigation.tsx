@@ -47,10 +47,10 @@ export const MobileNavigation = ({
             <Button variant="link">
               <Link
                 href="/koszyk"
-                className="flex gap-2 items-center font-bold text-dark hover:text-accent focus:text-accent text-l"
+                className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l"
                 onClick={closeMenu}
               >
-                <ShoppingCart /> Koszyk
+                <ShoppingCart size={20} /> Koszyk
               </Link>
             </Button>
             <Button onClick={closeMenu}>Zaloguj się</Button>

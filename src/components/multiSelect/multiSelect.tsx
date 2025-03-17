@@ -52,7 +52,7 @@ export const MultiSelect = ({
                 htmlFor={option.value}
                 className={`block w-full py-2 ${
                   selected.includes(option.value)
-                    ? 'font-semibold text-secondary'
+                    ? 'font-semibold text-primary'
                     : ''
                 }`}
               >

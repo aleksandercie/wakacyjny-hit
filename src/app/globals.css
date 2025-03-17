@@ -4,8 +4,5 @@
 
 @theme {
   --font-sans: var(--font-nunito-sans);
-  --color-primary: #08102a;
-  --color-secondary: #4393F1;
-  --color-accent: #F47336;
-  --color-dark: #292B3C;
+  --color-primary: #f14360;
 }

@@ -31,7 +31,7 @@ export const DatePickerWithRange = ({
             id="date"
             variant="link"
             className={cn(
-              'w-[260px] justify-start text-left font-normal hover:text-secondary has-[>svg]:px-0 md:has-[>svg]:px-3',
+              'w-[260px] justify-start text-left font-normal hover:text-primary has-[>svg]:px-0 md:has-[>svg]:px-3',
               !date && 'text-muted-foreground'
             )}
           >
