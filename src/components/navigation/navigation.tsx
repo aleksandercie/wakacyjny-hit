@@ -8,7 +8,7 @@ import { Logo } from '../logo';
 
 export const Navigation = () => {
   const links = [
-    { name: 'Wakacyjny hit', link: '/wakacyjny-hit' },
+    { name: 'Oferty', link: '/oferty' },
     { name: 'O nas', link: '/o-nas' },
     { name: 'FAQ', link: '/faq' },
     { name: 'Kontakt', link: '/kontakt' }

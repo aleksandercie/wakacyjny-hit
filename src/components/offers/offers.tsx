@@ -17,22 +17,21 @@ export const Offers = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {offers
           .slice(0, 6)
-          .map(
-            ({ title, price, duration, date, photo, description }, index) => (
-              <Card
-                key={index}
-                title={title}
-                price={price}
-                duration={duration}
-                date={date}
-                photo={photo}
-                description={description}
-              />
-            )
-          )}
+          .map(({ title, price, duration, date, photo, description, id }) => (
+            <Card
+              id={id}
+              key={id}
+              title={title}
+              price={price}
+              duration={duration}
+              date={date}
+              photo={photo}
+              description={description}
+            />
+          ))}
       </div>
       <div className="flex justify-center my-8">
-        <Link href="/wakacyjny-hit">
+        <Link href="/oferty">
           <Button>Zobacz więcej</Button>
         </Link>
       </div>

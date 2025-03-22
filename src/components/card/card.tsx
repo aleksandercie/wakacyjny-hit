@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const Card = ({
+  id,
   title,
   price,
   duration,
@@ -10,6 +11,7 @@ export const Card = ({
   photo,
   description
 }: {
+  id: number;
   title: string;
   price: number;
   duration: string;
@@ -19,7 +21,7 @@ export const Card = ({
 }) => {
   return (
     <div className="relative w-full">
-      <Link href="#" className="w-full">
+      <Link href={`/oferty/${id}`} className="w-full">
         <div className="overflow-hidden rounded-md">
           <Image
             src={photo}

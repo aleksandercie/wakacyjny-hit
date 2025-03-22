@@ -1,5 +1,6 @@
 export const offers = [
   {
+    id: 1,
     title: 'Malediwy',
     price: 399.99,
     duration: '7 dni',
@@ -9,6 +10,7 @@ export const offers = [
       'Zanurz się w luksusie na Malediwach, gdzie krystalicznie czyste wody i białe plaże tworzą idealne miejsce na wakacje.'
   },
   {
+    id: 2,
     title: 'Santorini, Grecja',
     price: 249.99,
     duration: '4 dni',
@@ -18,6 +20,7 @@ export const offers = [
       'Odkryj urok Santorini z jego malowniczymi białymi domkami i zapierającymi dech w piersiach widokami na morze.'
   },
   {
+    id: 3,
     title: 'Bali, Indonezja',
     price: 349.99,
     duration: '6 dni',
@@ -27,6 +30,7 @@ export const offers = [
       'Przeżyj niezapomniane chwile na Bali, wyspie bogatej w kulturę, piękne plaże i bujną roślinność.'
   },
   {
+    id: 4,
     title: 'Maui, Hawaje',
     price: 299.99,
     duration: '5 dni',
@@ -36,6 +40,7 @@ export const offers = [
       'Odkryj raj na Maui, gdzie spektakularne krajobrazy i ciepłe wody oceanu tworzą idealne miejsce na relaks.'
   },
   {
+    id: 5,
     title: 'Phuket, Tajlandia',
     price: 199.99,
     duration: '3 dni',
@@ -45,6 +50,7 @@ export const offers = [
       'Zanurz się w egzotycznym pięknie Phuket, gdzie tropikalne plaże i tętniące życiem nocne życie czekają na odkrycie.'
   },
   {
+    id: 6,
     title: 'Fidżi',
     price: 399.99,
     duration: '7 dni',
@@ -54,6 +60,7 @@ export const offers = [
       'Odkryj raj na Fidżi, gdzie turkusowe laguny i białe plaże tworzą idealne miejsce na wakacje.'
   },
   {
+    id: 7,
     title: 'Seychelles',
     price: 349.99,
     duration: '6 dni',
@@ -63,6 +70,7 @@ export const offers = [
       'Przeżyj niezapomniane chwile na Seszelach, wyspach bogatych w piękne plaże i bujną roślinność.'
   },
   {
+    id: 8,
     title: 'Tahiti, Polinezja Francuska',
     price: 299.99,
     duration: '5 dni',
@@ -72,6 +80,7 @@ export const offers = [
       'Odkryj raj na Tahiti, gdzie spektakularne krajobrazy i ciepłe wody oceanu tworzą idealne miejsce na relaks.'
   },
   {
+    id: 9,
     title: 'Mauritius',
     price: 249.99,
     duration: '4 dni',
@@ -81,6 +90,7 @@ export const offers = [
       'Odkryj urok Mauritiusa z jego malowniczymi plażami i zapierającymi dech w piersiach widokami na morze.'
   },
   {
+    id: 10,
     title: 'Bora Bora Polinezja Franzuska',
     price: 299.99,
     duration: '5 dni',

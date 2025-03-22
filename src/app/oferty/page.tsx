@@ -40,9 +40,10 @@ export default function OffersPage() {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {offers.map(
-            ({ title, price, duration, date, photo, description }, index) => (
+            ({ title, price, duration, date, photo, description, id }) => (
               <Card
-                key={index}
+                id={id}
+                key={id}
                 title={title}
                 price={price}
                 duration={duration}
@@ -54,7 +55,7 @@ export default function OffersPage() {
           )}
         </div>
         <div className="flex justify-center my-8">
-          <Link href="/wakacyjny-hit">
+          <Link href="/oferty">
             <Button>Zobacz więcej</Button>
           </Link>
         </div>
