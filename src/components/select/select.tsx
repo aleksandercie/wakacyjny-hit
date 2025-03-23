@@ -36,7 +36,7 @@ export const Select = ({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="p-2 bg-white max-w-[var(--radix-popover-trigger-width)]">
+      <PopoverContent className="p-2 bg-white min-w-[var(--radix-popover-trigger-width)] md:max-w-[var(--radix-popover-trigger-width)]">
         <div className="flex flex-col gap-2 w-full">
           <RadioGroup
             value={selected as string}
@@ -45,10 +45,16 @@ export const Select = ({
             {options.map((option) => (
               <div
                 key={option.value}
-                className="flex items-center gap-2 py-2 cursor-pointer"
+                className="w-full flex items-center gap-2 py-2"
               >
-                <RadioGroupItem id={option.value} value={option.value} />
-                <Label htmlFor={option.value}>{option.label}</Label>
+                <RadioGroupItem
+                  id={option.value}
+                  value={option.value}
+                  className="cursor-pointer"
+                />
+                <Label htmlFor={option.value} className="cursor-pointer">
+                  {option.label}
+                </Label>
               </div>
             ))}
           </RadioGroup>

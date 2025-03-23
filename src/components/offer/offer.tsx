@@ -16,12 +16,14 @@ import { Label } from '@radix-ui/react-label';
 import { Select } from '@/components/select';
 import { useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
+import { useCart } from '@/context/CartContext';
 
 export const Offer = ({ id }: { id: string }) => {
   console.log(id);
   const { title, photo, description, price, duration, date } = offers[0];
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
+  const { addToCart } = useCart();
 
   const details = [
     {
@@ -49,8 +51,14 @@ export const Offer = ({ id }: { id: string }) => {
 
   const { handleSubmit, reset } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
-    console.log({ data, quantity: selectedQuantity });
+  const onSubmit = async () => {
+    addToCart({
+      id,
+      name: title,
+      quantity: selectedQuantity,
+      rooms: selectedRooms
+    });
+
     toast('Super!', {
       description: 'Twoja oferta została dodana do koszyka.'
     });
@@ -72,7 +80,7 @@ export const Offer = ({ id }: { id: string }) => {
       setSelected: setSelectedQuantity
     },
     {
-      label: 'ilość pokoi',
+      label: 'Ilość pokoi',
       name: 'rooms',
       options: [
         { label: '1 pokój', value: '1' },
@@ -90,17 +98,17 @@ export const Offer = ({ id }: { id: string }) => {
 
   const about = [
     {
-      name: 'Kiedy wyjazd?',
+      name: 'Termin wyjazdu',
       icon: <CalendarDays size={28} className="text-gray-500" />,
       value: date
     },
     {
-      name: 'Długość wyjazdu',
+      name: 'Długość pobytu',
       icon: <Clock10 size={28} className="text-gray-500" />,
       value: duration
     },
     {
-      name: 'Cena wyjazdu',
+      name: 'Cena',
       icon: <HandCoins size={28} className="text-gray-500" />,
       value: `${price} zł`
     }
@@ -141,7 +149,7 @@ export const Offer = ({ id }: { id: string }) => {
           </div>
         </div>
       )}
-      <Button disabled={selectedQuantity === '' && selectedRooms === ''}>
+      <Button disabled={selectedQuantity === '' || selectedRooms === ''}>
         Zamów teraz
       </Button>
     </form>

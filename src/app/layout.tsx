@@ -3,6 +3,7 @@ import { Nunito } from 'next/font/google';
 import './globals.css';
 import { Footer, Navigation } from '@/components';
 import { Toaster } from 'sonner';
+import { CartProvider } from '@/context/CartContext';
 
 const nunitoSans = Nunito({
   variable: '--font-nunito-sans',
@@ -24,10 +25,12 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body className={`${nunitoSans.variable} antialiased relative bg-white`}>
-        <Navigation />
-        {children}
-        <Footer />
-        <Toaster />
+        <CartProvider>
+          <Navigation />
+          {children}
+          <Footer />
+          <Toaster />
+        </CartProvider>
       </body>
     </html>
   );

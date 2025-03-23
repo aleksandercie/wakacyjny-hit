@@ -53,7 +53,7 @@ export const Footer = () => {
             ekskluzywne oferty, nowości i inspiracje prosto na swoją skrzynkę.
             Zapisz się już teraz!
           </p>
-          <div className="flex w-full max-w-sm items-center space-x-4 mt-4">
+          <div className="flex w-full max-w-sm space-x-4 mt-4 flex-col gap-4 sm:flex-row sm:items-center">
             <Input type="email" placeholder="Email" />
             <Button type="submit" variant="secondary">
               Subscribe
