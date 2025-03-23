@@ -1,0 +1,20 @@
+export type Trip = {
+  id: string;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  secondaryDescription: string;
+  createdAt: string;
+  price: number;
+  flight: string[];
+  accommodation: string[];
+  transfer: string[];
+  duration: string;
+  startDate: string;
+  endDate: string;
+  expired: boolean;
+  desktopImage: string;
+  mobileImage: string;
+  tags: string[];
+  departures: string[];
+};

@@ -2,10 +2,10 @@ import React from 'react';
 import { Header } from '../header';
 import { Card } from '../card';
 import { Button } from '../ui/button';
-import { offers } from '@/lib/offers';
 import Link from 'next/link';
+import { Trip } from '@/types/trip';
 
-export const Offers = () => {
+export const Offers = ({ trips }: { trips: Trip[] }) => {
   return (
     <div className={`w-full max-w-[1000px] mx-auto`}>
       <Header
@@ -15,20 +15,31 @@ export const Offers = () => {
           zapierają dech w piersiach."
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {offers
-          .slice(0, 6)
-          .map(({ title, price, duration, date, photo, description, id }) => (
-            <Card
-              id={id}
-              key={id}
-              title={title}
-              price={price}
-              duration={duration}
-              date={date}
-              photo={photo}
-              description={description}
-            />
-          ))}
+        {trips
+          ?.slice(0, 6)
+          .map(
+            ({
+              title,
+              price,
+              duration,
+              shortDescription,
+              mobileImage,
+              id,
+              startDate,
+              endDate
+            }) => (
+              <Card
+                id={id}
+                key={id}
+                title={title}
+                price={price}
+                duration={duration}
+                date={`${startDate} - ${endDate}`}
+                photo={mobileImage}
+                description={shortDescription}
+              />
+            )
+          )}
       </div>
       <div className="flex justify-center my-8">
         <Link href="/oferty">

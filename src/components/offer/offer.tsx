@@ -159,9 +159,9 @@ export const Offer = ({ id }: { id: string }) => {
       <Image
         src={photo}
         alt={title}
-        width={1000}
-        height={560}
-        className="rounded-md"
+        width={1080}
+        height={720}
+        className="rounded-md max-h-[500px]"
       />
       <div className="flex gap-8">
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">

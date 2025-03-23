@@ -11,7 +11,7 @@ export const Card = ({
   photo,
   description
 }: {
-  id: number;
+  id: string | number;
   title: string;
   price: number;
   duration: string;
@@ -28,7 +28,7 @@ export const Card = ({
             alt={title}
             width={600}
             height={600}
-            className="rounded-md object-cover w-full h-full"
+            className="rounded-md object-cover"
           />
         </div>
         <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">
@@ -39,7 +39,7 @@ export const Card = ({
           <p className="text-gray-400 text-sm">{date}</p>
           <p className="text-gray-400 text-sm">od {price} zł/os</p>
           {description && (
-            <p className="text-gray-400 text-sm">{description}</p>
+            <p className="text-gray-400 text-sm w-4/5">{description}</p>
           )}
         </div>
       </Link>

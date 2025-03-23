@@ -1,6 +1,9 @@
 import { Banner, Gallery, HowItWorks, Offers } from '@/components';
+import { getTrips } from '@/lib/api/getTrips';
 
-export default function Home() {
+export default async function Home() {
+  const trips = await getTrips();
+
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-16 p-2">
@@ -9,7 +12,7 @@ export default function Home() {
           title="Podróżujmy razem po świecie"
           description="Odkrywaj z nami najpiękniejsze zakątki świata, w których każda chwila staje się niezapomnianą przygodą. Twoje wymarzone wakacje czekają."
         />
-        <Offers />
+        <Offers trips={trips} />
         <Gallery />
         <HowItWorks />
       </main>

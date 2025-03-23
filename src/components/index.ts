@@ -15,3 +15,4 @@ export * from './filters';
 export * from './multiSelect';
 export * from './select';
 export * from './offer';
+export * from './offersList';
