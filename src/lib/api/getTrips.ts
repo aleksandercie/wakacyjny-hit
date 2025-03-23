@@ -10,5 +10,6 @@ export const getTrips = async (): Promise<Trip[]> => {
   }
 
   const trips = await res.json();
+
   return trips;
 };

@@ -1,5 +1,5 @@
 'use client';
-import { offers } from '@/lib/offers';
+
 import Image from 'next/image';
 import {
   BedDouble,
@@ -17,10 +17,23 @@ import { Select } from '@/components/select';
 import { useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
 import { useCart } from '@/context/CartContext';
+import { Trip } from '@/types/trip';
 
-export const Offer = ({ id }: { id: string }) => {
-  console.log(id);
-  const { title, photo, description, price, duration, date } = offers[0];
+export const OfferDetails = ({ trip }: { trip: Trip }) => {
+  const {
+    id,
+    title,
+    price,
+    duration,
+    desktopImage,
+    startDate,
+    endDate,
+    transfer,
+    flight,
+    accomodation,
+    longDescription,
+    secondaryDescription
+  } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
   const { addToCart } = useCart();
@@ -29,23 +42,17 @@ export const Offer = ({ id }: { id: string }) => {
     {
       title: 'Nocleg',
       icon: <BedDouble size={28} className="text-gray-500" />,
-      details: [
-        '3 noce bez wyżywienia w Affittacamere Villa Arazurrina – blisko centrum'
-      ]
+      details: accomodation
     },
     {
       title: 'Przelot',
       icon: <PlaneTakeoff size={28} className="text-gray-500" />,
-      details: [
-        'Trasa: Poznań – Sardynia – Poznań',
-        'Czas podróży: około 2,5h (lot bezpośredni)',
-        'Bagaż: bagaż podręczny 10 kg na osobę (rejestrowany +300PLN za osobę)'
-      ]
+      details: flight
     },
     {
       title: 'Transfer',
       icon: <Bus size={28} className="text-gray-500" />,
-      details: ['transfer z lotniska i na lotnisko – lokalny autobus']
+      details: transfer
     }
   ];
 
@@ -100,7 +107,7 @@ export const Offer = ({ id }: { id: string }) => {
     {
       name: 'Termin wyjazdu',
       icon: <CalendarDays size={28} className="text-gray-500" />,
-      value: date
+      value: `${startDate} - ${endDate}`
     },
     {
       name: 'Długość pobytu',
@@ -157,7 +164,7 @@ export const Offer = ({ id }: { id: string }) => {
   return (
     <>
       <Image
-        src={photo}
+        src={desktopImage}
         alt={title}
         width={1080}
         height={720}
@@ -186,7 +193,7 @@ export const Offer = ({ id }: { id: string }) => {
               className="h-[1px] bg-gray-300"
             />
             <h1 className="text-2xl">{title}</h1>
-            <p className="text-gray-500">{description}</p>
+            <p className="text-gray-500">{longDescription}</p>
             <Separator
               orientation="horizontal"
               className="h-[1px] bg-gray-300"
@@ -195,22 +202,27 @@ export const Offer = ({ id }: { id: string }) => {
           <div className="flex flex-col gap-8">
             <h2 className="text-xl">Szczegóły oferty</h2>
             <div className="flex flex-col gap-8">
-              {details.map(({ title, details, icon }) => (
-                <div key={title} className="flex flex-col gap-4">
-                  <div className="flex gap-2 items-center">
-                    {icon}
-                    <h3 className="text-xl">{title}</h3>
-                  </div>
-                  <ul className="flex flex-col gap-4">
-                    {details.map((detail) => (
-                      <li key={detail} className="text-gray-500">
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-              <p className="text-gray-500">{description}</p>
+              {details?.map(
+                ({ title, details, icon }) =>
+                  details?.length > 0 && (
+                    <div key={title} className="flex flex-col gap-4">
+                      <div className="flex gap-2 items-center">
+                        {icon}
+                        <h3 className="text-xl">{title}</h3>
+                      </div>
+                      <ul className="flex flex-col gap-4">
+                        {details?.map((detail) => (
+                          <li key={detail} className="text-gray-500">
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+              )}
+              {secondaryDescription && (
+                <p className="text-gray-500">{secondaryDescription}</p>
+              )}
             </div>
           </div>
         </div>

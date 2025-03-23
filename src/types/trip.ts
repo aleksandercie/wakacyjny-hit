@@ -7,7 +7,7 @@ export type Trip = {
   createdAt: string;
   price: number;
   flight: string[];
-  accommodation: string[];
+  accomodation: string[];
   transfer: string[];
   duration: string;
   startDate: string;
