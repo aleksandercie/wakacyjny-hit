@@ -9,10 +9,10 @@ export const AdditionalFilters = ({
   handlePriceChange,
   selectedAirports,
   setSelectedAirports,
-  selectedEatingOptions,
-  setSelectedEatingOptions,
+  selectedfoodOptions,
+  setSelectedfoodOptions,
   airportOptions,
-  eatingOptions
+  foodOptions
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
@@ -21,10 +21,10 @@ export const AdditionalFilters = ({
   ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   selectedAirports: string[];
   setSelectedAirports: Dispatch<SetStateAction<string[]>>;
-  selectedEatingOptions: string[];
-  setSelectedEatingOptions: Dispatch<SetStateAction<string[]>>;
+  selectedfoodOptions: string[];
+  setSelectedfoodOptions: Dispatch<SetStateAction<string[]>>;
   airportOptions: { label: string; value: string }[];
-  eatingOptions: { label: string; value: string }[];
+  foodOptions: { label: string; value: string }[];
 }) => {
   return (
     <>
@@ -69,9 +69,9 @@ export const AdditionalFilters = ({
           Wybierz rodzaj wyżywienia
         </span>
         <MultiSelect
-          options={eatingOptions}
-          selected={selectedEatingOptions}
-          setSelected={setSelectedEatingOptions}
+          options={foodOptions}
+          selected={selectedfoodOptions}
+          setSelected={setSelectedfoodOptions}
           placeholder="Wyżywienie"
         />
       </div>

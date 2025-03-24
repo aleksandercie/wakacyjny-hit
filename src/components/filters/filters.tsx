@@ -14,12 +14,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react';
 import { Separator } from '../ui/separator';
 import { DateRange } from 'react-day-picker';
 import { AdditionalFilters } from './additionalFilters';
 import { airportOptions } from '@/lib/airports';
-import { eatingOptions } from '@/lib/eatings';
+import { foodOptions } from '@/lib/food';
 
 export const Filters = ({
   priceRange,
@@ -28,9 +28,12 @@ export const Filters = ({
   setDate,
   selectedAirports,
   setSelectedAirports,
-  selectedEatingOptions,
-  setSelectedEatingOptions,
-  defaultPriceRange
+  selectedfoodOptions,
+  setSelectedfoodOptions,
+  defaultPriceRange,
+  onSearch,
+  search,
+  setSearch
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
@@ -38,9 +41,12 @@ export const Filters = ({
   setDate: Dispatch<SetStateAction<DateRange | undefined>>;
   selectedAirports: string[];
   setSelectedAirports: Dispatch<SetStateAction<string[]>>;
-  selectedEatingOptions: string[];
-  setSelectedEatingOptions: Dispatch<SetStateAction<string[]>>;
+  selectedfoodOptions: string[];
+  setSelectedfoodOptions: Dispatch<SetStateAction<string[]>>;
   defaultPriceRange: number[];
+  onSearch: () => void;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const handlePriceChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +69,7 @@ export const Filters = ({
       ? 1
       : 0) +
     (selectedAirports.length > 0 ? 1 : 0) +
-    (selectedEatingOptions.length > 0 ? 1 : 0) +
+    (selectedfoodOptions.length > 0 ? 1 : 0) +
     (date?.from || date?.to ? 1 : 0);
 
   const additionalFilters = (
@@ -73,10 +79,10 @@ export const Filters = ({
       handlePriceChange={handlePriceChange}
       selectedAirports={selectedAirports}
       setSelectedAirports={setSelectedAirports}
-      selectedEatingOptions={selectedEatingOptions}
-      setSelectedEatingOptions={setSelectedEatingOptions}
+      selectedfoodOptions={selectedfoodOptions}
+      setSelectedfoodOptions={setSelectedfoodOptions}
       airportOptions={airportOptions}
-      eatingOptions={eatingOptions}
+      foodOptions={foodOptions}
     />
   );
 
@@ -84,19 +90,29 @@ export const Filters = ({
     setPriceRange(defaultPriceRange);
     setDate({ from: undefined, to: undefined });
     setSelectedAirports([]);
-    setSelectedEatingOptions([]);
+    setSelectedfoodOptions([]);
   };
 
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>
+    setSearch(e.target.value);
+
   return (
-    <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-2 md:border rounded-md md:rounded-full gap-8 md:gap-0 justify-between md:items-center">
+    <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-3 md:border-b gap-8 md:gap-0 justify-between md:items-center">
       <div className=" flex items-center w-full md:w-[260px] relative">
         <Search className="absolute md:relative" size={16} />
         <Input
           placeholder="Wyszukaj hit"
           variant="unstyled"
           className="hidden md:block"
+          value={search}
+          onChange={handleSearch}
         />
-        <Input placeholder="Wyszukaj hit" className="block md:hidden pl-8" />
+        <Input
+          placeholder="Wyszukaj hit"
+          className="block md:hidden pl-8"
+          value={search}
+          onChange={handleSearch}
+        />
       </div>
       <Separator orientation="vertical" className="hidden md:block" />
       <DatePickerWithRange
@@ -136,7 +152,10 @@ export const Filters = ({
         {additionalFilters}
       </div>
       <Separator orientation="vertical" className="mx-3 hidden md:block" />
-      <Button className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto">
+      <Button
+        className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto"
+        onClick={onSearch}
+      >
         Szukaj
       </Button>
     </div>

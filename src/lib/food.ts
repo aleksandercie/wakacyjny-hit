@@ -1,4 +1,4 @@
-export const eatingOptions = [
+export const foodOptions = [
   { label: 'Bez wyżywienia', value: 'no-meals' },
   { label: 'Śniadanie', value: 'breakfast' },
   { label: 'HB - Śniadanie + Obiadokolacja', value: 'half-board' },

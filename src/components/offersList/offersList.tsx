@@ -1,4 +1,5 @@
 'use client';
+
 import { Trip } from '@/types/trip';
 import React, { useState } from 'react';
 import { DateRange } from 'react-day-picker';
@@ -7,8 +8,9 @@ import { ImageBanner } from '../imageBanner';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { Card } from '../card';
+import { getTrips } from '@/lib/api/getTrips';
 
-export const OffersList = ({ trips }: { trips: Trip[] }) => {
+export const OffersList = ({ trips: initialTrips }: { trips: Trip[] }) => {
   const defaultPriceRange = [0, 10000];
   const [priceRange, setPriceRange] = useState(defaultPriceRange);
   const [date, setDate] = useState<DateRange | undefined>({
@@ -16,9 +18,27 @@ export const OffersList = ({ trips }: { trips: Trip[] }) => {
     to: undefined
   });
   const [selectedAirports, setSelectedAirports] = useState<string[]>([]);
-  const [selectedEatingOptions, setSelectedEatingOptions] = useState<string[]>(
-    []
-  );
+  const [selectedfoodOptions, setSelectedfoodOptions] = useState<string[]>([]);
+  const [trips, setTrips] = useState<Trip[]>(initialTrips);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
+
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      const filteredTrips = await getTrips({
+        priceRange,
+        date,
+        departures: selectedAirports,
+        food: selectedfoodOptions,
+        search
+      });
+      setTrips(filteredTrips);
+    } catch (err) {
+      console.error(err);
+    }
+    setLoading(false);
+  };
 
   return (
     <>
@@ -34,35 +54,31 @@ export const OffersList = ({ trips }: { trips: Trip[] }) => {
         setDate={setDate}
         selectedAirports={selectedAirports}
         setSelectedAirports={setSelectedAirports}
-        selectedEatingOptions={selectedEatingOptions}
-        setSelectedEatingOptions={setSelectedEatingOptions}
+        selectedfoodOptions={selectedfoodOptions}
+        setSelectedfoodOptions={setSelectedfoodOptions}
         defaultPriceRange={defaultPriceRange}
+        onSearch={handleSearch}
+        search={search}
+        setSearch={setSearch}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {trips.map(
-          ({
-            title,
-            price,
-            duration,
-            id,
-            shortDescription,
-            mobileImage,
-            startDate,
-            endDate
-          }) => (
+      {loading ? (
+        <p className="text-center py-10">Ładowanie ofert...</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {trips.map((trip) => (
             <Card
-              id={id}
-              key={id}
-              title={title}
-              price={price}
-              duration={duration}
-              date={`${startDate} - ${endDate}`}
-              photo={mobileImage}
-              description={shortDescription}
+              id={trip.id}
+              key={trip.id}
+              title={trip.title}
+              price={trip.price}
+              duration={trip.duration}
+              date={`${trip.startDate} - ${trip.endDate}`}
+              photo={trip.mobileImage}
+              description={trip.shortDescription}
             />
-          )
-        )}
-      </div>
+          ))}
+        </div>
+      )}
       <div className="flex justify-center my-8">
         <Link href="/oferty">
           <Button>Zobacz więcej</Button>

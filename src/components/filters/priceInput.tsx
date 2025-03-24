@@ -33,6 +33,7 @@ export const PriceInput = ({
           onChange={onChange}
           className="w-24 pl-8 z-1"
           id={id}
+          disabled
         />
         <span className="text-sm absolute top-2 left-4 z-0">zł</span>
       </div>
