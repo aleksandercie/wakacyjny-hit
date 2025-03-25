@@ -1,28 +1,23 @@
 import React from 'react';
 import Image from 'next/image';
-import { MailCheck, MessageCircle, MessagesSquare, Search } from 'lucide-react';
+import { FileText, MailCheck, ShoppingCart } from 'lucide-react';
 
 export const HowItWorks = () => {
   const points = [
     {
-      title: 'Wybierz spośród naszych usług odpowiedni pakiet.',
+      title:
+        'Dodaj interesującą Cię ofertę do koszyka, wybierając liczbę podróżnych, termin oraz rodzaj wyżywienia, jeśli oferta oferuje różne opcje.',
       description: '',
-      icon: <Search />
+      icon: <ShoppingCart />
     },
     {
-      title: 'Wpisz w formularzu wytyczne dot. wyjazdu i złóż zamówienie.',
+      title: 'Wprowadź swoje dane, opłać usługę i zrealizuj zamówienie.',
       description: '',
-      icon: <MessageCircle />
+      icon: <FileText />
     },
     {
       title:
-        'Otrzymasz spersonalizowane oferty wyjazdu lub w przypadku oferty dnia linki do rezerwacji wyjazdu.',
-      description: '',
-      icon: <MessagesSquare />
-    },
-    {
-      title:
-        'Dokonaj rezerwacji według naszych instrukcji. W tym czasie możesz liczyć na nasze wsparcie.',
+        'Po opłaceniu usługi, w ciągu maksymalnie 24h otrzymasz linki do rezerwacji wraz z instrukcją "gdzie kliknąć" :). Nie martw się - w razie czego pomożemy Ci przejść przez cały proces rezerwacji!',
       description: '',
       icon: <MailCheck />
     }
@@ -30,23 +25,23 @@ export const HowItWorks = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col md:flex-row gap-8 max-w-[1000px] lg:max-h-[580px]">
-        <div className="w-full md:w-1/2 h-full max-w-[460px]">
+      <div className="flex flex-col md:flex-row gap-8 max-w-[1000px]">
+        <div className="w-full md:w-1/2 h-full md:flex md:items-center">
           <Image
-            src="/tourist.jpg"
+            src="/guide.jpg"
             alt="Turystka robiąca zdjęcie"
             width={468}
-            height={580}
-            className="h-full rounded-md"
+            height={585}
+            className="w-full rounded-md"
           />
         </div>
-        <div className="flex flex-col w-full md:w-1/2 max-w-[460px]">
+        <div className="flex flex-col w-full md:w-1/2">
           <div className="px-8 w-full">
             <h2 className="text-base md:text-lg text-gray-400">
               Jak to działa?
             </h2>
-            <h3 className="text-2xl md:text-4xl font-bold mt-4">
-              Zaplanuj wakacje swoich marzeń!
+            <h3 className="text-xl md:text-4xl font-bold mt-4">
+              Jak zarezerwować ofertę Wakacyjny Hit?
             </h3>
           </div>
           <div className="flex flex-col gap-4">

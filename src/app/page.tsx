@@ -9,8 +9,8 @@ export default async function Home() {
       <main className="flex flex-col gap-16 p-2">
         <Banner
           video="/video.mp4"
-          title="Podróżujmy razem po świecie"
-          description="Odkrywaj z nami najpiękniejsze zakątki świata, w których każda chwila staje się niezapomnianą przygodą. Twoje wymarzone wakacje czekają."
+          title="Planujesz wymarzone wakacje?"
+          description="Znajdź najlepsze oferty wyjazdów w najniższych cenach! Wiele destynacji na całym świecie – idealne miejsca na relaks, przygody i niezapomniane wspomnienia."
         />
         <Offers trips={trips} />
         <Gallery />

@@ -13,7 +13,7 @@ export const Banner = ({
   return (
     <div className="w-full m-auto">
       <div className="relative">
-        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center max-w-[600px] z-1 w-full px-4">
+        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center max-w-[700px] z-1 w-full px-4">
           <h1 className="text-l xs:text-2xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-6 w-full mx-auto">
             {title}
           </h1>

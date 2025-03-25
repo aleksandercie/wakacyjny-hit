@@ -9,10 +9,9 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
   return (
     <div className={`w-full max-w-[1000px] mx-auto`}>
       <Header
-        title="Pakiety podrózne"
+        title="Pakiety podróżne"
         subtitle="Nasze kierunki"
-        description="Najcudowniejsze miejsca na świecie to prawdziwe cuda natury, które
-          zapierają dech w piersiach."
+        description="Odkryj z nami najciekawsze miejsca na świecie. Znajdź ofertę, która spełni Twoje oczekiwania!"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {trips
