@@ -1,14 +1,20 @@
+'use client';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import React from 'react';
 
 export const Video = ({
   videoSrc,
-  width = 640,
-  height = 360
+  videoSrcMobile
 }: {
   videoSrc: string;
-  width: number;
-  height: number;
+  videoSrcMobile: string;
 }) => {
+  const isMobile = useIsMobile();
+
+  const selectedSrc = isMobile ? videoSrcMobile : videoSrc;
+  const width = isMobile ? 960 : 2048;
+  const height = isMobile ? 540 : 988;
+
   return (
     <video
       width={width}
@@ -19,7 +25,7 @@ export const Video = ({
       loop
       className="w-full h-auto rounded-md"
     >
-      <source src={videoSrc} type="video/mp4" />
+      <source src={selectedSrc} type="video/mp4" />
       Twoja przeglądarka nie obsługuje tagu video.
     </video>
   );

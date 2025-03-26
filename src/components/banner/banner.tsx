@@ -3,10 +3,12 @@ import { Video } from '../video';
 
 export const Banner = ({
   video,
+  videoMobile,
   title,
   description
 }: {
   video: string;
+  videoMobile: string;
   title: string;
   description: string;
 }) => {
@@ -22,7 +24,7 @@ export const Banner = ({
           </p>
         </div>
         <div className="w-full h-auto rounded-md">
-          <Video videoSrc={video} width={2048} height={988} />
+          <Video videoSrc={video} videoSrcMobile={videoMobile} />
         </div>
       </div>
     </div>
