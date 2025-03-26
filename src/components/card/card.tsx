@@ -28,7 +28,7 @@ export const Card = ({
             alt={title}
             width={600}
             height={600}
-            className="rounded-md object-cover"
+            className="rounded-md object-cover w-full"
           />
         </div>
         <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">

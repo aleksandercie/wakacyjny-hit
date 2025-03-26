@@ -1,16 +1,15 @@
 'use client';
 
 import { Trip } from '@/types/trip';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { DateRange } from 'react-day-picker';
 import { Filters } from '../filters';
-import { ImageBanner } from '../imageBanner';
-import Link from 'next/link';
-import { Button } from '../ui/button';
 import { Card } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
 
-export const OffersList = ({ trips: initialTrips }: { trips: Trip[] }) => {
+const LIMIT = 6;
+
+export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const defaultPriceRange = [0, 10000];
   const [priceRange, setPriceRange] = useState(defaultPriceRange);
   const [date, setDate] = useState<DateRange | undefined>({
@@ -22,31 +21,84 @@ export const OffersList = ({ trips: initialTrips }: { trips: Trip[] }) => {
   const [trips, setTrips] = useState<Trip[]>(initialTrips);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
+  const [offset, setOffset] = useState(initialTrips.length);
+  const [hasMore, setHasMore] = useState(initialTrips.length === LIMIT);
 
-  const handleSearch = async () => {
-    setLoading(true);
-    try {
-      const filteredTrips = await getTrips({
-        priceRange,
-        date,
-        departures: selectedAirports,
-        food: selectedfoodOptions,
-        search
-      });
-      setTrips(filteredTrips);
-    } catch (err) {
-      console.error(err);
-    }
-    setLoading(false);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const fetchTrips = useCallback(
+    async (reset = false) => {
+      if (loading) return;
+
+      setLoading(true);
+      try {
+        const response = await getTrips({
+          priceRange,
+          date,
+          departures: selectedAirports,
+          food: selectedfoodOptions,
+          search,
+          limit: LIMIT,
+          offset: reset ? 0 : offset
+        });
+
+        if (reset) {
+          setTrips(response);
+          setOffset(LIMIT);
+          setHasMore(response.length === LIMIT);
+        } else {
+          setTrips((prev) => [...prev, ...response]);
+          setOffset((prev) => prev + LIMIT);
+          if (response.length < LIMIT) setHasMore(false);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
+    },
+    [
+      priceRange,
+      date,
+      selectedAirports,
+      selectedfoodOptions,
+      search,
+      offset,
+      loading
+    ]
+  );
+
+  const handleSearch = () => {
+    fetchTrips(true); // Reset list and fetch from start
   };
+
+  // Load initial trips
+  useEffect(() => {
+    fetchTrips(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Infinite Scroll Observer
+  useEffect(() => {
+    if (!hasMore || loading) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchTrips();
+        }
+      },
+      { root: null, rootMargin: '400px', threshold: 1.0 }
+    );
+
+    const currentRef = observerRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, [fetchTrips, hasMore, loading]);
 
   return (
     <>
-      <ImageBanner
-        image="/banner.jpg"
-        alt="Plaza"
-        title="Twoje wymarzone wakacje czekają!"
-      />
       <Filters
         priceRange={priceRange}
         setPriceRange={setPriceRange}
@@ -61,29 +113,27 @@ export const OffersList = ({ trips: initialTrips }: { trips: Trip[] }) => {
         search={search}
         setSearch={setSearch}
       />
-      {loading ? (
-        <p className="text-center py-10">Ładowanie ofert...</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {trips.map((trip) => (
-            <Card
-              id={trip.id}
-              key={trip.id}
-              title={trip.title}
-              price={trip.price}
-              duration={trip.duration}
-              date={`${trip.startDate} - ${trip.endDate}`}
-              photo={trip.mobileImage}
-              description={trip.shortDescription}
-            />
-          ))}
-        </div>
-      )}
-      <div className="flex justify-center my-8">
-        <Link href="/oferty">
-          <Button>Zobacz więcej</Button>
-        </Link>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {trips.map((trip) => (
+          <Card
+            id={trip.id}
+            key={`${trip.id}-${trip.title}`}
+            title={trip.title}
+            price={trip.price}
+            duration={trip.duration}
+            date={`${trip.startDate} - ${trip.endDate}`}
+            photo={trip.mobileImage}
+            description={trip.shortDescription}
+          />
+        ))}
       </div>
+      {loading && <p className="text-center py-6">Ładowanie ofert...</p>}
+      {!loading && trips.length === 0 && (
+        <p className="text-center text-gray-500 py-6">
+          Brak ofert spełniających wybrane kryteria.
+        </p>
+      )}
+      {hasMore && !loading && <div ref={observerRef} className="h-10 mt-6" />}
     </>
   );
 };

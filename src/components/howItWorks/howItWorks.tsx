@@ -26,7 +26,7 @@ export const HowItWorks = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col md:flex-row gap-8 max-w-[1000px]">
-        <div className="w-full md:w-1/2 h-full md:flex md:items-center">
+        <div className="w-full md:w-1/2 h-full max-h-[400px] md:max-h-[640px] md:flex md:items-center overflow-hidden rounded-md">
           <Image
             src="/guide.jpg"
             alt="Turystka robiąca zdjęcie"
@@ -35,27 +35,29 @@ export const HowItWorks = () => {
             className="w-full rounded-md"
           />
         </div>
-        <div className="flex flex-col w-full md:w-1/2">
-          <div className="px-8 w-full">
-            <h2 className="text-base md:text-lg text-gray-400">
-              Jak to działa?
-            </h2>
-            <h3 className="text-xl md:text-4xl font-bold mt-4">
-              Jak zarezerwować ofertę Wakacyjny Hit?
-            </h3>
-          </div>
-          <div className="flex flex-col gap-4">
-            {points.map(({ title, icon }) => (
-              <div
-                key={title}
-                className="flex p-6 gap-8 items-center rounded-xl"
-              >
-                <div className="p-2 flex justify-center items-center">
-                  {icon}
+        <div className="flex items-center w-full md:w-1/2">
+          <div className="flex flex-col">
+            <div className="px-8 w-full">
+              <h2 className="text-base lg:text-lg text-gray-400">
+                Jak to działa?
+              </h2>
+              <h3 className="text-xl lg:text-4xl font-bold mt-4 max-w-[300px] lg:max-w-[400px]">
+                Jak zarezerwować ofertę Wakacyjny Hit?
+              </h3>
+            </div>
+            <div className="flex flex-col gap-4 md:mt-8 lg:mt-0">
+              {points.map(({ title, icon }) => (
+                <div
+                  key={title}
+                  className="flex p-6 md:py-0 lg:py-6 gap-4 items-center rounded-xl"
+                >
+                  <div className="p-2 flex justify-center items-center">
+                    {icon}
+                  </div>
+                  <p className="text-gray-400 text-sm md:text-base">{title}</p>
                 </div>
-                <p className="text-gray-400 text-sm md:text-base">{title}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

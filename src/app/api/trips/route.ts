@@ -12,12 +12,17 @@ export async function GET(req: Request) {
   const departures = searchParams.getAll('departures');
   const food = searchParams.getAll('food');
 
+  const limit = Number(searchParams.get('limit')) || 6;
+  const offset = Number(searchParams.get('offset')) || 0;
+
+  // Append .range() to paginate
   let query = supabase
     .from('trips_offers')
     .select('*')
     .gte('price', minPrice)
     .lte('price', maxPrice)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
 
   if (search) {
     query = query.ilike('title', `%${search}%`);

@@ -14,31 +14,29 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
         description="Odkryj z nami najciekawsze miejsca na świecie. Znajdź ofertę, która spełni Twoje oczekiwania!"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {trips
-          ?.slice(0, 6)
-          .map(
-            ({
-              title,
-              price,
-              duration,
-              shortDescription,
-              mobileImage,
-              id,
-              startDate,
-              endDate
-            }) => (
-              <Card
-                id={id}
-                key={id}
-                title={title}
-                price={price}
-                duration={duration}
-                date={`${startDate} - ${endDate}`}
-                photo={mobileImage}
-                description={shortDescription}
-              />
-            )
-          )}
+        {trips.map(
+          ({
+            title,
+            price,
+            duration,
+            shortDescription,
+            mobileImage,
+            id,
+            startDate,
+            endDate
+          }) => (
+            <Card
+              id={id}
+              key={id}
+              title={title}
+              price={price}
+              duration={duration}
+              date={`${startDate} - ${endDate}`}
+              photo={mobileImage}
+              description={shortDescription}
+            />
+          )
+        )}
       </div>
       <div className="flex justify-center my-8">
         <Link href="/oferty">

@@ -6,38 +6,30 @@ export const getTrips = async (filters?: {
   departures?: string[];
   food?: string[];
   search?: string;
+  limit?: number;
+  offset?: number;
 }): Promise<Trip[]> => {
   const params = new URLSearchParams();
 
-  if (filters?.search) {
-    params.set('search', filters.search);
-  }
-
+  if (filters?.search) params.set('search', filters.search);
   if (filters?.priceRange) {
     params.set('minPrice', String(filters.priceRange[0]));
     params.set('maxPrice', String(filters.priceRange[1]));
   }
-
-  if (filters?.date?.from) {
-    params.set('from', filters.date.from.toISOString());
-  }
-
-  if (filters?.date?.to) {
-    params.set('to', filters.date.to.toISOString());
-  }
+  if (filters?.date?.from) params.set('from', filters.date.from.toISOString());
+  if (filters?.date?.to) params.set('to', filters.date.to.toISOString());
 
   filters?.departures?.forEach((a) => params.append('departures', a));
   filters?.food?.forEach((e) => params.append('food', e));
 
+  if (filters?.limit) params.set('limit', String(filters.limit));
+  if (filters?.offset) params.set('offset', String(filters.offset));
+
   const url = `${
     process.env.NEXT_PUBLIC_SITE_URL
   }/api/trips?${params.toString()}`;
-
   const res = await fetch(url, { cache: 'no-store' });
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch trips: ${res.status}`);
-  }
-
+  if (!res.ok) throw new Error(`Failed to fetch trips: ${res.status}`);
   return res.json();
 };
