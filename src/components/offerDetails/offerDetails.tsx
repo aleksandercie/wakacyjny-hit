@@ -124,7 +124,10 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const sales = ['249.99'];
 
   const form = (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 min-w-[280px]"
+    >
       {inputs.map(
         ({ label, name, options, placeholder, selected, setSelected }) => (
           <div key={name} className="flex flex-col gap-1">

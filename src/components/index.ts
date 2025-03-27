@@ -16,3 +16,4 @@ export * from './multiSelect';
 export * from './select';
 export * from './offerDetails';
 export * from './offersList';
+export * from './badge';

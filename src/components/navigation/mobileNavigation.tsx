@@ -6,6 +6,7 @@ import { ShoppingCart, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { Logo } from '../logo';
+import { Badge } from '../badge';
 
 export const MobileNavigation = ({
   links
@@ -47,10 +48,12 @@ export const MobileNavigation = ({
             <Button variant="link">
               <Link
                 href="/koszyk"
-                className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l"
+                className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l relative"
                 onClick={closeMenu}
               >
-                <ShoppingCart size={20} /> Koszyk
+                Koszyk
+                <ShoppingCart size={20} />
+                <Badge quantity={1} className="-top-[6px] -right-[10px]" />
               </Link>
             </Button>
             <Button onClick={closeMenu}>Zaloguj się</Button>

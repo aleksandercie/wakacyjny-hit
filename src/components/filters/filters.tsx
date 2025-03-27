@@ -1,6 +1,6 @@
 'use client';
 
-import { DatePickerWithRange } from '@/components';
+import { Badge, DatePickerWithRange } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, SlidersHorizontal } from 'lucide-react';
@@ -128,9 +128,7 @@ export const Filters = ({
               <SlidersHorizontal size={16} />
               Filtry
               {activeFiltersCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
-                  {activeFiltersCount}
-                </span>
+                <Badge quantity={activeFiltersCount} />
               )}
             </Button>
           </AlertDialogTrigger>
