@@ -22,6 +22,20 @@ import { Trip } from '@/types/trip';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { roomsOptions } from '@/lib/roomsOptions';
 
+export const renderPrice = (price: string, className?: string) => {
+  const salePrice = quantityOptions.find(
+    (item) => item.value === price
+  )?.salePrice;
+  return salePrice !== price ? (
+    <>
+      <span className={`line-through ${className}`}>{price} zł</span>
+      <span className="font-bold text-xl">{salePrice} zł</span>
+    </>
+  ) : (
+    <span className="font-bold text-xl">{price} zł</span>
+  );
+};
+
 export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const {
     id,
@@ -39,7 +53,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
-  const { addToCart } = useCart();
+  const { addToCart, cart } = useCart();
 
   const details = [
     {
@@ -59,14 +73,18 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     }
   ];
 
-  const { handleSubmit, reset } = useForm<FormData>();
+  const {
+    handleSubmit,
+    reset,
+    formState: { isSubmitting }
+  } = useForm<FormData>();
 
   const onSubmit = async () => {
     const option = quantityOptions.find(
       (item) => item.value === selectedQuantity
     );
     addToCart({
-      id,
+      id: `${id}-${cart.length + 1}`,
       name: title,
       price: selectedQuantity,
       rooms: selectedRooms,
@@ -83,7 +101,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       description: 'Twoja oferta została dodana do koszyka.',
       icon: <CircleCheck className="text-green-500" size={16} />,
       dismissible: true,
-      duration: 2500
+      duration: 2000
     });
 
     reset();
@@ -126,20 +144,6 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     }
   ];
 
-  const renderPrice = (price: string) => {
-    const salePrice = quantityOptions.find(
-      (item) => item.value === price
-    )?.salePrice;
-    return salePrice !== price ? (
-      <>
-        <div className="line-through">{price} zł</div>
-        <div className="font-bold text-xl">{salePrice} zł</div>
-      </>
-    ) : (
-      <div className="font-bold text-xl">{price} zł</div>
-    );
-  };
-
   const form = (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -167,11 +171,24 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           <div className="flex flex-col">{renderPrice(selectedQuantity)}</div>
         </div>
       )}
-      <Button disabled={selectedQuantity === '' || selectedRooms === ''}>
+      {cart.length === 5 && (
+        <p className="text-red-600">
+          W koszyku znajduje się maksymalna ilość ofert.
+        </p>
+      )}
+      <Button
+        disabled={
+          selectedQuantity === '' ||
+          selectedRooms === '' ||
+          cart.length === 5 ||
+          isSubmitting
+        }
+      >
         Zamów teraz
       </Button>
     </form>
   );
+
   return (
     <>
       <Image

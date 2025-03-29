@@ -60,7 +60,7 @@ export const ContactForm = () => {
       description: 'Dziękujemy! Twoja wiadomość została wysłana.',
       icon: <CircleCheck className="text-green-500" size={16} />,
       dismissible: true,
-      duration: 2500
+      duration: 2000
     });
 
     // toast('Błąd!', {

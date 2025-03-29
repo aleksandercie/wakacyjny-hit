@@ -2,11 +2,15 @@
 
 import { Button } from '@/components/ui/button';
 import { CartItem } from '@/context/CartContext';
+import { quantityOptions } from '@/lib/quantityOptions';
+import { renderPrice } from '../offerDetails';
 
 export const calculateTotalPrice = (cart: CartItem[]) => {
   return cart.reduce((sum, item) => {
-    const price = parseFloat(item.price);
-    return sum + (isNaN(price) ? 0 : price);
+    const priceOption = quantityOptions.find((q) => q.value === item.price);
+    const salePrice = parseFloat(priceOption?.salePrice || item.price);
+
+    return sum + (isNaN(salePrice) ? 0 : salePrice);
   }, 0);
 };
 
@@ -44,23 +48,35 @@ export const hasValidationError = (cart: CartItem[]): boolean => {
 
 export const OrderSummary = ({
   cart,
-  isSubmitting
+  isSubmitting,
+  removeAllItemsCart
 }: {
   cart: CartItem[];
   isSubmitting: boolean;
+  removeAllItemsCart: () => void;
 }) => {
   const isInvalid = hasValidationError(cart);
 
   return (
     <div className="flex flex-col">
-      <h4>Podsumowanie zamówienia</h4>
+      <div className="flex items-center justify-between">
+        <h4>Podsumowanie zamówienia</h4>
+        {cart.length > 0 && (
+          <Button variant="link" size="sm" onClick={removeAllItemsCart}>
+            Wyczyść koszyk
+          </Button>
+        )}
+      </div>
+
       <div className="flex flex-col gap-2 text-sm">
         {cart.map((item) => (
           <OrderItemSummary key={item.id} item={item} />
         ))}
         <div className="flex justify-between font-semibold mt-2">
           <span>Razem</span>
-          <span>{calculateTotalPrice(cart)} zł</span>
+          <span className="text-xl font-bold">
+            {calculateTotalPrice(cart)} zł
+          </span>
         </div>
       </div>
       <Button
@@ -79,7 +95,9 @@ export const OrderItemSummary = ({ item }: { item: CartItem }) => {
     <div className="flex flex-col border-b py-2">
       <div className="flex justify-between">
         <span>{item.name}</span>
-        <span>{item.price} zł</span>
+        <div className="flex flex-col justify-end">
+          {renderPrice(item.price, 'text-right')}
+        </div>
       </div>
 
       {item.roomsDetails?.length > 0 && (

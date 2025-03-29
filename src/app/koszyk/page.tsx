@@ -5,7 +5,15 @@ import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 
 export default function CartPage() {
-  const { cart } = useCart();
+  const { cart, isLoading } = useCart();
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full justify-center min-h-[40vh] items-center">
+        <p>Ładowanie koszyka...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">

@@ -7,21 +7,32 @@ import { CartItem } from '@/context/CartContext';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { roomsOptions } from '@/lib/roomsOptions';
 import { useState } from 'react';
+import { Button } from '../ui/button';
+
+type TouchedRoomsMap = {
+  [itemId: string]: Set<number>;
+};
 
 export const OrderDetailsSection = ({
   cart,
-  updateCartItem
+  updateCartItem,
+  removeItemCart
 }: {
   cart: CartItem[];
   updateCartItem: (item: CartItem) => void;
+  removeItemCart: (id: string) => void;
 }) => {
-  const [touchedItems, setTouchedItems] = useState<{ [id: string]: boolean }>(
-    {}
-  );
+  const [touchedRooms, setTouchedRooms] = useState<TouchedRoomsMap>({});
 
-  const handleTouch = (itemId: string) => {
-    setTouchedItems((prev) => ({ ...prev, [itemId]: true }));
+  const handleRoomTouch = (itemId: string, roomIndex: number) => {
+    setTouchedRooms((prev) => ({
+      ...prev,
+      [itemId]: new Set([...(prev[itemId] ?? []), roomIndex])
+    }));
   };
+
+  const allRoomsTouched = (item: CartItem) =>
+    touchedRooms[item.id]?.size === item.roomsDetails.length;
 
   return (
     <div className="flex flex-col gap-6">
@@ -30,9 +41,18 @@ export const OrderDetailsSection = ({
       </h3>
       {cart.map((item) => (
         <div key={item.id} className="flex flex-col gap-4 border-t pt-4">
-          <p>
-            <span className="text-gray-500">Oferta:</span> {item.name}
-          </p>
+          <div className="flex justify-between items-center">
+            <p>
+              <span className="text-gray-500">Oferta:</span> {item.name}
+            </p>
+            <Button
+              variant="link"
+              size="sm"
+              onClick={() => removeItemCart(item.id)}
+            >
+              Usuń
+            </Button>
+          </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor={`quantity-${item.id}`}>Ilość osób</Label>
             <Select
@@ -87,7 +107,7 @@ export const OrderDetailsSection = ({
                       max={item.maxPersons}
                       value={item.roomsDetails[roomIndex].adults ?? ''}
                       placeholder="Wybierz ilość dorosłych"
-                      onBlur={() => handleTouch(item.id)}
+                      onBlur={() => handleRoomTouch(item.id, roomIndex)}
                       onChange={(e) =>
                         updateCartItem({
                           ...item,
@@ -115,7 +135,7 @@ export const OrderDetailsSection = ({
                         ].children?.length.toString() ?? ''
                       }
                       placeholder="Wybierz ilość dzieci"
-                      onBlur={() => handleTouch(item.id)}
+                      onBlur={() => handleRoomTouch(item.id, roomIndex)}
                       onChange={(e) =>
                         updateCartItem({
                           ...item,
@@ -182,7 +202,7 @@ export const OrderDetailsSection = ({
               </div>
             ))}
           </div>
-          {touchedItems[item.id] && (
+          {allRoomsTouched(item) && (
             <div>
               {(() => {
                 const totalAdults = item.roomsDetails.reduce(
@@ -239,8 +259,8 @@ export const OrderDetailsSection = ({
                     )}
                     {missingBirthDates.length > 0 && (
                       <p className="text-red-600">
-                        Uzupełnij daty urodzenia dzieci w pokoju
-                        {missingBirthDates.length > 1 ? 'ach' : ''}:{' '}
+                        Uzupełnij daty urodzenia dzieci w pokoj
+                        {missingBirthDates.length > 1 ? 'ach' : 'u'}:{' '}
                         {missingBirthDates.map((r) => r.index).join(', ')}.
                       </p>
                     )}

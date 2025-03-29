@@ -16,7 +16,8 @@ import {
 
 export const OrderForm = () => {
   const [selectedCountry, setSelectedCountry] = useState('PL');
-  const { cart, updateCartItem } = useCart();
+  const { cart, updateCartItem, removeItemCart, removeAllItemsCart } =
+    useCart();
 
   const {
     handleSubmit,
@@ -40,7 +41,7 @@ export const OrderForm = () => {
       description: 'Dziękujemy za złożenie zamówienia!',
       icon: <CircleCheck className="text-green-500" size={16} />,
       dismissible: true,
-      duration: 2500
+      duration: 2000
     });
 
     reset();
@@ -56,10 +57,18 @@ export const OrderForm = () => {
             setSelectedCountry={setSelectedCountry}
           />
           {cart.length > 0 && (
-            <OrderDetailsSection cart={cart} updateCartItem={updateCartItem} />
+            <OrderDetailsSection
+              cart={cart}
+              updateCartItem={updateCartItem}
+              removeItemCart={removeItemCart}
+            />
           )}
         </div>
-        <OrderSummary cart={cart} isSubmitting={isSubmitting} />
+        <OrderSummary
+          cart={cart}
+          isSubmitting={isSubmitting}
+          removeAllItemsCart={removeAllItemsCart}
+        />
       </div>
     </form>
   );
