@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function CartPage() {
   const { cart } = useCart();
-  console.log(cart);
+
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-16 p-2">
@@ -18,18 +18,8 @@ export default function CartPage() {
             </Link>
           </div>
         ) : (
-          <>
-            <OrderForm />
-            {cart?.map((item) => (
-              <div key={item.id} className="flex gap-4 items-center">
-                <div className="flex flex-col gap-2">
-                  <p className="text-xl">{item.name}</p>
-                </div>
-              </div>
-            ))}
-          </>
+          <OrderForm />
         )}
-        {}
       </main>
     </div>
   );

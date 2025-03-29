@@ -58,7 +58,9 @@ export const ContactForm = () => {
     console.log(data);
     toast.success('Sukces!', {
       description: 'Dziękujemy! Twoja wiadomość została wysłana.',
-      icon: <CircleCheck className="text-green-500" size={16} />
+      icon: <CircleCheck className="text-green-500" size={16} />,
+      dismissible: true,
+      duration: 2500
     });
 
     // toast('Błąd!', {

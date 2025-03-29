@@ -19,6 +19,8 @@ import { useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
 import { useCart } from '@/context/CartContext';
 import { Trip } from '@/types/trip';
+import { quantityOptions } from '@/lib/quantityOptions';
+import { roomsOptions } from '@/lib/roomsOptions';
 
 export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const {
@@ -60,16 +62,28 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const { handleSubmit, reset } = useForm<FormData>();
 
   const onSubmit = async () => {
+    const option = quantityOptions.find(
+      (item) => item.value === selectedQuantity
+    );
     addToCart({
       id,
       name: title,
-      quantity: selectedQuantity,
-      rooms: selectedRooms
+      price: selectedQuantity,
+      rooms: selectedRooms,
+      maxPersons: option?.maxPersons,
+      minPersons: option?.minPersons,
+      roomsDetails: Array.from({ length: Number(selectedRooms) }).map(() => ({
+        adults: undefined,
+        children: undefined
+      })),
+      orderComments: undefined
     });
 
     toast.success('Super!', {
       description: 'Twoja oferta została dodana do koszyka.',
-      icon: <CircleCheck className="text-green-500" size={16} />
+      icon: <CircleCheck className="text-green-500" size={16} />,
+      dismissible: true,
+      duration: 2500
     });
 
     reset();
@@ -79,11 +93,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     {
       label: 'Ilość osób',
       name: 'quantity',
-      options: [
-        { label: '1-2 osoby (249.99 zł)', value: '249.99' },
-        { label: '3-6 osoby (299.99 zł)', value: '299.99' },
-        { label: '7-10 osoby (499.99 zł)', value: '499.99' }
-      ],
+      options: quantityOptions,
       placeholder: 'Wybierz ilość osób',
       selected: selectedQuantity,
       setSelected: setSelectedQuantity
@@ -91,14 +101,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     {
       label: 'Ilość pokoi',
       name: 'rooms',
-      options: [
-        { label: '1 pokój', value: '1' },
-        { label: '2 pokoje', value: '2' },
-        { label: '3 pokoje', value: '3' },
-        { label: '4 pokoje', value: '4' },
-        { label: '5 pokoi', value: '5' },
-        { label: '6 pokoi', value: '6' }
-      ],
+      options: roomsOptions,
       placeholder: 'Wybierz ilość pokoi',
       selected: selectedRooms,
       setSelected: setSelectedRooms
@@ -123,7 +126,19 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     }
   ];
 
-  const sales = ['249.99'];
+  const renderPrice = (price: string) => {
+    const salePrice = quantityOptions.find(
+      (item) => item.value === price
+    )?.salePrice;
+    return salePrice !== price ? (
+      <>
+        <div className="line-through">{price} zł</div>
+        <div className="font-bold text-xl">{salePrice} zł</div>
+      </>
+    ) : (
+      <div className="font-bold text-xl">{price} zł</div>
+    );
+  };
 
   const form = (
     <form
@@ -149,16 +164,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       {selectedQuantity !== '' && (
         <div className="flex gap-2 flex-col">
           <p>Cena pakietu podróży:</p>
-          <div className="flex flex-col">
-            {sales.includes(selectedQuantity) ? (
-              <>
-                <div className="line-through">{selectedQuantity} zł</div>
-                <div className="font-bold text-xl">199.99 zł</div>
-              </>
-            ) : (
-              <div className="font-bold text-xl">{selectedQuantity} zł</div>
-            )}
-          </div>
+          <div className="flex flex-col">{renderPrice(selectedQuantity)}</div>
         </div>
       )}
       <Button disabled={selectedQuantity === '' || selectedRooms === ''}>
