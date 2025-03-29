@@ -6,7 +6,7 @@ import { ShoppingCart, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { Logo } from '../logo';
-import { Badge } from '../badge';
+import { NavigationBadge } from './navigationBadge';
 
 export const MobileNavigation = ({
   links
@@ -53,7 +53,7 @@ export const MobileNavigation = ({
               >
                 Koszyk
                 <ShoppingCart size={20} />
-                <Badge quantity={1} className="-top-[6px] -right-[10px]" />
+                <NavigationBadge className="-top-[6px] -right-[10px]" />
               </Link>
             </Button>
             <Button onClick={closeMenu}>Zaloguj się</Button>

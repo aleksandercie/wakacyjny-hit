@@ -1,5 +1,7 @@
+'use client';
+
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
@@ -19,8 +21,15 @@ export const Select = ({
   setSelected,
   placeholder
 }: MultiSelectProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleValueChange = (value: string) => {
+    setSelected(value);
+    setIsOpen(false);
+  };
+
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild id={id}>
         <Button
           variant="outline"
@@ -40,7 +49,7 @@ export const Select = ({
         <div className="flex flex-col gap-2 w-full">
           <RadioGroup
             value={selected as string}
-            onValueChange={setSelected as Dispatch<SetStateAction<string>>}
+            onValueChange={handleValueChange}
           >
             {options.map((option) => (
               <div

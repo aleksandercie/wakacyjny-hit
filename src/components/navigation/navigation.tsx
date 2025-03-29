@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { MobileNavigation } from './mobileNavigation';
 import { Logo } from '../logo';
-import { Badge } from '../badge';
+import { NavigationBadge } from './navigationBadge';
 
 export const Navigation = () => {
   const links = [
@@ -30,7 +30,7 @@ export const Navigation = () => {
           <Button variant="link">
             <Link href="/koszyk" className="relative">
               <ShoppingCart size={20} />
-              <Badge quantity={2} className="-top-[8px] -right-[10px]" />
+              <NavigationBadge className="-top-[8px] -right-[10px]" />
             </Link>
           </Button>
           <Button>Zaloguj się</Button>

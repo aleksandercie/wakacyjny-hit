@@ -5,6 +5,7 @@ import {
   BedDouble,
   Bus,
   CalendarDays,
+  CircleCheck,
   Clock10,
   HandCoins,
   PlaneTakeoff
@@ -66,8 +67,9 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       rooms: selectedRooms
     });
 
-    toast('Super!', {
-      description: 'Twoja oferta została dodana do koszyka.'
+    toast.success('Super!', {
+      description: 'Twoja oferta została dodana do koszyka.',
+      icon: <CircleCheck className="text-green-500" size={16} />
     });
 
     reset();

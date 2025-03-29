@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { CircleCheck } from 'lucide-react';
 
 const formSchema = z.object({
   email: z
@@ -55,8 +56,9 @@ export const ContactForm = () => {
 
   const onSubmit = async (data: FormData) => {
     console.log(data);
-    toast('Sukces!', {
-      description: 'Dziękujemy! Twoja wiadomość została wysłana.'
+    toast.success('Sukces!', {
+      description: 'Dziękujemy! Twoja wiadomość została wysłana.',
+      icon: <CircleCheck className="text-green-500" size={16} />
     });
 
     // toast('Błąd!', {

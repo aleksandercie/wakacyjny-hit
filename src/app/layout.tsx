@@ -29,7 +29,7 @@ export default function RootLayout({
           <Navigation />
           {children}
           <Footer />
-          <Toaster />
+          <Toaster position="top-right" />
         </CartProvider>
       </body>
     </html>
