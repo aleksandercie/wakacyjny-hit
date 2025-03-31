@@ -3,7 +3,7 @@ import { getTripById } from '@/lib/api/getTrip';
 import { notFound } from 'next/navigation';
 
 type OfferPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function OfferPage({ params }: OfferPageProps) {

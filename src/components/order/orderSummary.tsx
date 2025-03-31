@@ -58,22 +58,26 @@ export const OrderSummary = ({
   const isInvalid = hasValidationError(cart);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between">
-        <h4>Podsumowanie zamówienia</h4>
+    <div className="flex flex-col p-4 rounded-md border md:mx-12 lg:mx-0 mt-4 lg:mt-0 lg:max-h-fit">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+        <h4 className="text-2xl font-bold">Podsumowanie zamówienia</h4>
         {cart.length > 0 && (
-          <Button variant="link" size="sm" onClick={removeAllItemsCart}>
-            Wyczyść koszyk
+          <Button
+            size="sm"
+            onClick={removeAllItemsCart}
+            className="w-full max-w-[200px] sm:max-w-[80px]"
+          >
+            <span className="text-wrap block p-2">Wyczyść</span>
           </Button>
         )}
       </div>
 
-      <div className="flex flex-col gap-2 text-sm">
+      <div className="flex flex-col gap-4 text-sm">
         {cart.map((item) => (
           <OrderItemSummary key={item.id} item={item} />
         ))}
         <div className="flex justify-between font-semibold mt-2">
-          <span>Razem</span>
+          <span className="text-xl">Razem</span>
           <span className="text-xl font-bold">
             {calculateTotalPrice(cart)} zł
           </span>
@@ -92,16 +96,16 @@ export const OrderSummary = ({
 
 export const OrderItemSummary = ({ item }: { item: CartItem }) => {
   return (
-    <div className="flex flex-col border-b py-2">
-      <div className="flex justify-between">
-        <span>{item.name}</span>
-        <div className="flex flex-col justify-end">
+    <div className="flex flex-col border-b border-gray-300 pt-2 pb-6">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
+        <span className="text-base">{item.name}</span>
+        <div className="flex flex-col justify-end w-full sm:w-[124px] items-end">
           {renderPrice(item.price, 'text-right')}
         </div>
       </div>
 
       {item.roomsDetails?.length > 0 && (
-        <div className="mt-2 text-xs text-gray-600">
+        <div className="mt-2 text-s text-gray-600">
           <p>Liczba pokoi: {item.roomsDetails.length}</p>
           {item.roomsDetails.map((room, index) => (
             <RoomBreakdown

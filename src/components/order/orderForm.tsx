@@ -50,8 +50,8 @@ export const OrderForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col gap-8 rounded-md md:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8 lg:px-8 lg:gap-8">
+        <div className="flex flex-col gap-8 md:px-8 lg:px-0 lg:gap-16">
           <CustomerInfoSection
             selectedCountry={selectedCountry}
             setSelectedCountry={setSelectedCountry}

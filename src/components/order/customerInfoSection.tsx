@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select } from '../select';
+import { useEffect } from 'react';
 
 export const orderSchema = z
   .object({
@@ -14,7 +15,7 @@ export const orderSchema = z
     firstName: z.string().min(1, 'Imię jest wymagane'),
     lastName: z.string().min(1, 'Nazwisko jest wymagane'),
     country: z.string().min(1, 'Wybierz kraj'),
-    street: z.string().min(1, 'Ulica jest wymagana'),
+    address: z.string().min(1, 'Ulica jest wymagana'),
     postalCode: z.string().regex(/^\d{2}-\d{3}$/, 'Niepoprawny kod pocztowy'),
     phone: z
       .string()
@@ -67,6 +68,8 @@ const countries = [
   { label: 'Ukraina', value: 'UA' }
 ];
 
+const LOCAL_STORAGE_KEY = 'orderFormData';
+
 export const CustomerInfoSection = ({
   selectedCountry,
   setSelectedCountry
@@ -74,7 +77,9 @@ export const CustomerInfoSection = ({
   const {
     register,
     control,
-    formState: { errors }
+    formState: { errors },
+    reset,
+    watch
   } = useForm<OrderFormData>({
     resolver: zodResolver(orderSchema),
     defaultValues: {
@@ -82,12 +87,29 @@ export const CustomerInfoSection = ({
       country: 'PL'
     }
   });
+
+  const watchAllFields = watch();
   const watchVat = useWatch({ control, name: 'vatInvoice' });
 
+  useEffect(() => {
+    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      reset(parsed);
+      if (parsed.country) {
+        setSelectedCountry(parsed.country);
+      }
+    }
+  }, [reset, setSelectedCountry]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(watchAllFields));
+  }, [watchAllFields]);
+
   return (
-    <>
-      <h2 className="text-xl font-bold">Dane do zamówienia</h2>
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8 md:px-4 lg:px-0">
+      <h2 className="text-2xl font-bold">Dane do zamówienia</h2>
+      <div className="flex flex-col gap-4 md:px-4">
         <div>
           <Label htmlFor="email">Email</Label>
           <Input
@@ -100,90 +122,91 @@ export const CustomerInfoSection = ({
             <p className="text-red-600">{errors.email.message}</p>
           )}
         </div>
-        <div>
-          <Label htmlFor="firstName">Imię</Label>
-          <Input
-            id="firstName"
-            type="text"
-            {...register('firstName')}
-            maxLength={50}
-          />
-          {errors.firstName && (
-            <p className="text-red-600">{errors.firstName.message}</p>
-          )}
-        </div>
-        <div>
-          <Label htmlFor="lastName">Nazwisko</Label>
-          <Input
-            id="lastName"
-            type="text"
-            {...register('lastName')}
-            maxLength={50}
-          />
-          {errors.lastName && (
-            <p className="text-red-600">{errors.lastName.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="country" className="mb-2">
-            Kraj
-          </Label>
-          <Controller
-            control={control}
-            name="country"
-            render={({ field: { onChange } }) => (
-              <Select
-                id="country"
-                options={countries}
-                selected={selectedCountry}
-                setSelected={(value) => {
-                  onChange(value);
-                  setSelectedCountry(value as string);
-                }}
-                placeholder="Wybierz kraj"
-              />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="firstName">Imię</Label>
+            <Input
+              id="firstName"
+              type="text"
+              {...register('firstName')}
+              maxLength={50}
+            />
+            {errors.firstName && (
+              <p className="text-red-600">{errors.firstName.message}</p>
             )}
-          />
-          {errors.country && (
-            <p className="text-red-600">{errors.country.message}</p>
-          )}
+          </div>
+          <div>
+            <Label htmlFor="lastName">Nazwisko</Label>
+            <Input
+              id="lastName"
+              type="text"
+              {...register('lastName')}
+              maxLength={50}
+            />
+            {errors.lastName && (
+              <p className="text-red-600">{errors.lastName.message}</p>
+            )}
+          </div>
         </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="country" className="mb-2">
+              Kraj
+            </Label>
+            <Controller
+              control={control}
+              name="country"
+              render={({ field: { onChange } }) => (
+                <Select
+                  id="country"
+                  options={countries}
+                  selected={selectedCountry}
+                  setSelected={(value) => {
+                    onChange(value);
+                    setSelectedCountry(value as string);
+                  }}
+                  placeholder="Wybierz kraj"
+                />
+              )}
+            />
+            {errors.country && (
+              <p className="text-red-600">{errors.country.message}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="postalCode">Kod pocztowy</Label>
+            <Input
+              id="postalCode"
+              type="text"
+              maxLength={6}
+              {...register('postalCode')}
+              onInput={(e) => {
+                const input = e.currentTarget;
+                let raw = input.value.replace(/[^0-9]/g, '').slice(0, 5);
+                if (raw.length > 2) {
+                  raw = raw.slice(0, 2) + '-' + raw.slice(2);
+                }
+                input.value = raw;
+              }}
+              className="mt-2"
+            />
+            {errors.postalCode && (
+              <p className="text-red-600">{errors.postalCode.message}</p>
+            )}
+          </div>
+        </div>
         <div>
-          <Label htmlFor="street">Ulica</Label>
+          <Label htmlFor="address">Adres</Label>
           <Input
-            id="street"
+            id="address"
             type="text"
-            {...register('street')}
+            {...register('address')}
             maxLength={100}
           />
-          {errors.street && (
-            <p className="text-red-600">{errors.street.message}</p>
+          {errors.address && (
+            <p className="text-red-600">{errors.address.message}</p>
           )}
         </div>
-
-        <div>
-          <Label htmlFor="postalCode">Kod pocztowy</Label>
-          <Input
-            id="postalCode"
-            type="text"
-            maxLength={6}
-            {...register('postalCode')}
-            onInput={(e) => {
-              const input = e.currentTarget;
-              let raw = input.value.replace(/[^0-9]/g, '').slice(0, 5);
-              if (raw.length > 2) {
-                raw = raw.slice(0, 2) + '-' + raw.slice(2);
-              }
-              input.value = raw;
-            }}
-          />
-          {errors.postalCode && (
-            <p className="text-red-600">{errors.postalCode.message}</p>
-          )}
-        </div>
-
         <div>
           <Label htmlFor="phone">Numer telefonu</Label>
           <Input
@@ -207,7 +230,6 @@ export const CustomerInfoSection = ({
             <p className="text-red-600">{errors.phone.message}</p>
           )}
         </div>
-
         <div className="flex items-center gap-2">
           <Controller
             control={control}
@@ -223,7 +245,7 @@ export const CustomerInfoSection = ({
           <Label htmlFor="vatInvoice">Chcę otrzymać fakturę VAT</Label>
         </div>
         {watchVat && (
-          <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="companyName">Nazwa firmy</Label>
               <Input
@@ -236,7 +258,6 @@ export const CustomerInfoSection = ({
                 <p className="text-red-600">{errors.companyName.message}</p>
               )}
             </div>
-
             <div>
               <Label htmlFor="taxId">Numer NIP</Label>
               <Input
@@ -253,9 +274,9 @@ export const CustomerInfoSection = ({
                 <p className="text-red-600">{errors.taxId.message}</p>
               )}
             </div>
-          </>
+          </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
