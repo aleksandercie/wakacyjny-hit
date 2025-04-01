@@ -30,7 +30,7 @@ export const Video = ({
         autoPlay
         muted
         loop
-        className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md  min-[720px]:hidden"
+        className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md min-[720px]:hidden"
       >
         <source src={videoSrcMobile} type="video/mp4" />
         Twoja przeglądarka nie obsługuje tagu video.

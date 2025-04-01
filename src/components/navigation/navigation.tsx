@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { MobileNavigation } from './mobileNavigation';
@@ -33,7 +33,10 @@ export const Navigation = () => {
               <NavigationBadge className="-top-[8px] -right-[10px]" />
             </Link>
           </Button>
-          <Button>Zaloguj się</Button>
+          <Button variant="link">
+            <User size={20} />
+            Zaloguj się
+          </Button>
         </div>
       </div>
       <MobileNavigation links={links} />

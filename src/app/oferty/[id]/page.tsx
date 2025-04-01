@@ -15,7 +15,7 @@ export default async function OfferPage({ params }: OfferPageProps) {
 
     return (
       <div className="font-[family-name:var(--font-nunito-sans)]">
-        <main className="flex flex-col p-2 gap-8 items-center max-w-[1000px] mx-auto">
+        <main className="flex flex-col p-2 gap-8 items-center max-w-[1000px] mx-auto mb-12">
           <OfferDetails trip={trip} />
         </main>
       </div>

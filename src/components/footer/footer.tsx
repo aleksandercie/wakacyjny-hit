@@ -24,7 +24,7 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="w-full bg-black flex flex-col text-white gap-12 p-8 mt-12">
+    <div className="w-full bg-black flex flex-col text-white gap-12 p-8">
       <div className="flex flex-col lg:flex-row gap-12 justify-between mb-8">
         <div className="flex flex-col md:flex-row gap-12 md:mx-auto">
           {sections.map(({ title, links }) => (

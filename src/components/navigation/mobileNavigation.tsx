@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { Logo } from '../logo';
@@ -56,7 +56,10 @@ export const MobileNavigation = ({
                 <NavigationBadge className="-top-[6px] -right-[10px]" />
               </Link>
             </Button>
-            <Button onClick={closeMenu}>Zaloguj się</Button>
+            <Button onClick={closeMenu} variant="link">
+              <User size={20} />
+              Zaloguj się
+            </Button>
           </div>
         </div>
       )}

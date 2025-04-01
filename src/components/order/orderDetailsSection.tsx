@@ -36,24 +36,18 @@ export const OrderDetailsSection = ({
     touchedRooms[item.id]?.size === item.roomsDetails.length;
 
   return (
-    <div className="flex flex-col gap-8 md:px-4 lg:px-0">
+    <div className="flex flex-col gap-8 p-4 rounded-md bg-white">
       <h3 className="text-2xl font-bold pt-4 lg:pt-0 max-w-[390px]">
         Dodatkowe informacje dotyczące zamówienia{' '}
       </h3>
       <div className="flex flex-col gap-8">
         {cart.map((item) => (
-          <div
-            key={item.id}
-            className="flex flex-col gap-4 pt-4 rounded-md border p-4"
-          >
+          <div key={item.id} className="flex flex-col gap-4 pt-4">
             <div className="flex justify-between items-center gap-4">
               <p className="text-xl block font-bold">{item.name}</p>
-              <Button
-                variant="link"
-                onClick={() => removeItemCart(item.id)}
-                className="[&_svg:not([class*='size-'])]:size-6"
-              >
+              <Button variant="link" onClick={() => removeItemCart(item.id)}>
                 <X />
+                usuń
               </Button>
             </div>
             <div className="flex flex-col gap-2">

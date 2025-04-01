@@ -107,9 +107,9 @@ export const CustomerInfoSection = ({
   }, [watchAllFields]);
 
   return (
-    <div className="flex flex-col gap-8 md:px-4 lg:px-0">
+    <div className="flex flex-col gap-8 p-4 pb-8 rounded-md bg-white">
       <h2 className="text-2xl font-bold">Dane do zamówienia</h2>
-      <div className="flex flex-col gap-4 md:px-4">
+      <div className="flex flex-col gap-4">
         <div>
           <Label htmlFor="email">Email</Label>
           <Input

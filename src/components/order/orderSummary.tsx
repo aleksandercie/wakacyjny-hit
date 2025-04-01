@@ -58,7 +58,7 @@ export const OrderSummary = ({
   const isInvalid = hasValidationError(cart);
 
   return (
-    <div className="flex flex-col p-4 rounded-md border md:mx-12 lg:mx-0 mt-4 lg:mt-0 lg:max-h-fit">
+    <div className="flex flex-col p-4 rounded-md md:mx-8 lg:mx-0 mt-4 lg:mt-0 lg:max-h-fit bg-white">
       <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
         <h4 className="text-2xl font-bold">Podsumowanie zamówienia</h4>
         {cart.length > 0 && (

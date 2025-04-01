@@ -6,7 +6,7 @@ export default async function OffersPage() {
 
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
-      <main className="flex flex-col p-2 gap-8 md:gap-16 items-center">
+      <main className="flex flex-col p-2 gap-8 md:gap-16 items-center mb-12">
         <OffersList initialTrips={trips} />
       </main>
     </div>
