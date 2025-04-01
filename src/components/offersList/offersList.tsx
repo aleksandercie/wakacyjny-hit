@@ -6,8 +6,13 @@ import { DateRange } from 'react-day-picker';
 import { Filters } from '../filters';
 import { Card, CardSkeleton } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
+import { ArrowUp } from 'lucide-react';
 
 const LIMIT = 6;
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
 export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const defaultPriceRange = [0, 10000];
@@ -23,6 +28,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const [search, setSearch] = useState('');
   const [offset, setOffset] = useState(initialTrips.length);
   const [hasMore, setHasMore] = useState(initialTrips.length === LIMIT);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -97,6 +103,16 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
     };
   }, [fetchTrips, hasMore, loading]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const shouldShow = window.scrollY > 800 && trips.length > 6;
+      setShowScrollTop(shouldShow);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [trips.length]);
+
   return (
     <>
       <Filters
@@ -131,6 +147,15 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
             <CardSkeleton key={index} />
           ))}
       </div>
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 bg-primary text-white p-3 rounded-full shadow-md hover:bg-primary/90 transition"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+      )}
       {!loading && trips.length === 0 && (
         <p className="text-center text-gray-500 py-6">
           Brak ofert spełniających wybrane kryteria.

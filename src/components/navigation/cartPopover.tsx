@@ -37,7 +37,7 @@ export const CartPopover = () => {
         </Link>
       </Button>
 
-      {isHovered && (
+      {isHovered && cart.length > 0 && (
         <div
           className="absolute right-0 mt-2 z-50"
           onMouseEnter={handleMouseEnter}

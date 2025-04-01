@@ -26,7 +26,7 @@ export const HowItWorks = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col md:flex-row gap-8 max-w-[1000px]">
-        <div className="w-full md:w-1/2 h-full max-h-[400px] md:max-h-[640px] md:flex md:items-center overflow-hidden rounded-md">
+        <div className="w-full md:w-1/2 h-full max-h-[400px] md:max-h-[580px] md:flex md:items-center overflow-hidden rounded-md">
           <Image
             src="/guide.jpg"
             alt="Turystka robiąca zdjęcie"
