@@ -23,19 +23,47 @@ export const MultiSelect = ({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-full flex flex-wrap h-auto justify-start"
+          className="w-full flex flex-wrap h-auto justify-start cursor-pointer"
         >
-          {selected.length > 0
-            ? options
-                .filter((opt) => selected.includes(opt.value))
-                .map((opt) => <span key={opt.label}>{opt.label}</span>)
-            : placeholder}
+          <div className="w-full break-words flex flex-wrap text-wrap">
+            {selected.length > 0
+              ? options
+                  .filter((opt) => selected.includes(opt.value))
+                  .map((opt) => opt.label)
+                  .join(', ')
+              : placeholder}
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-2 bg-white min-w-[var(--radix-popover-trigger-width)]">
         <div className="flex flex-col gap-2 w-full">
           {options.map((option) => (
-            <div key={option.value} className="flex items-center gap-2">
+            <div
+              key={option.value}
+              className={`flex items-center gap-2 w-full ${
+                selected.includes(option.value)
+                  ? 'font-semibold text-primary'
+                  : ''
+              }`}
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                setSelected((prev) =>
+                  prev.includes(option.value)
+                    ? prev.filter((val) => val !== option.value)
+                    : [...prev, option.value]
+                );
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  setSelected((prev) =>
+                    prev.includes(option.value)
+                      ? prev.filter((val) => val !== option.value)
+                      : [...prev, option.value]
+                  );
+                }
+              }}
+            >
               <Checkbox
                 id={option.value}
                 checked={selected.includes(option.value)}
@@ -50,7 +78,7 @@ export const MultiSelect = ({
               />
               <Label
                 htmlFor={option.value}
-                className={`block w-full py-2 ${
+                className={`block w-full py-2 cursor-pointer ${
                   selected.includes(option.value)
                     ? 'font-semibold text-primary'
                     : ''

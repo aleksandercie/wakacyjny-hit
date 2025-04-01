@@ -12,8 +12,8 @@ export const Contact = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col gap-4">
       <h4 className="text-xl font-bold">{title}</h4>
-      <p className="text-base text-gray-400">+48 800 800 800 900</p>
-      <p className="text-base text-gray-400">info@wakacyjnyhit.pl</p>
+      <p className="text-base text-gray-500">+48 800 800 800 900</p>
+      <p className="text-base text-gray-500">info@wakacyjnyhit.pl</p>
       <div className="flex gap-4">
         {contact.map(({ link, icon }) => (
           <Link

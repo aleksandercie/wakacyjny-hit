@@ -88,7 +88,7 @@ export const Faq = () => {
               <AccordionTrigger className="text-base md:text-2xl w-full">
                 {question}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-400 text-sm md:text-base w-full">
+              <AccordionContent className="text-gray-500 text-sm md:text-base w-full">
                 <div className="flex flex-col gap-2">
                   {answers.map((answer, index) => (
                     <p key={`${question}-${index}`}>{answer}</p>

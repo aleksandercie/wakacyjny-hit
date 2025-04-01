@@ -152,7 +152,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       {inputs.map(
         ({ label, name, options, placeholder, selected, setSelected }) => (
           <div key={name} className="flex flex-col gap-1">
-            <Label htmlFor={name} className="text-gray-400 text-base">
+            <Label htmlFor={name} className="text-gray-500 text-base">
               {label}
             </Label>
             <Select

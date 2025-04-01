@@ -36,10 +36,10 @@ export const Card = ({
         </p>
         <div className="flex flex-col bg-white w-full p-2 bottom-2 text-base gap-1">
           <p className="text-base">{title}</p>
-          <p className="text-gray-400 text-sm">{date}</p>
-          <p className="text-gray-400 text-sm">od {price} zł/os</p>
+          <p className="text-gray-500 text-sm">{date}</p>
+          <p className="text-gray-500 text-sm">od {price} zł/os</p>
           {description && (
-            <p className="text-gray-400 text-sm w-4/5">{description}</p>
+            <p className="text-gray-500 text-sm w-4/5">{description}</p>
           )}
         </div>
       </Link>

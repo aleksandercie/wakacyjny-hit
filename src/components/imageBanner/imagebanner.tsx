@@ -14,14 +14,20 @@ export const ImageBanner = ({
     <div className="w-full m-auto">
       <div className="relative">
         {title && (
-          <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center max-w-[800px] z-1">
+          <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center w-4/5 max-w-[800px] z-1">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 mx-auto">
               {title}
             </h1>
           </div>
         )}
         <div className="w-full h-[260px] md:h-[400px] overflow-hidden rounded-md">
-          <Image src={image} width={1920} height={1329} alt={alt} />
+          <Image
+            src={image}
+            width={1920}
+            height={1329}
+            alt={alt}
+            className="w-full h-full object-cover rounded-md object-middle"
+          />
         </div>
       </div>
     </div>

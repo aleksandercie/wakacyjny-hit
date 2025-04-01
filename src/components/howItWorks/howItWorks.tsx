@@ -30,15 +30,15 @@ export const HowItWorks = () => {
           <Image
             src="/guide.jpg"
             alt="Turystka robiąca zdjęcie"
-            width={468}
-            height={585}
-            className="w-full rounded-md"
+            width={640}
+            height={960}
+            className="w-full h-full object-cover object-bottom rounded-md"
           />
         </div>
         <div className="flex items-center w-full md:w-1/2">
           <div className="flex flex-col">
             <div className="px-8 w-full">
-              <h2 className="text-base lg:text-lg text-gray-400">
+              <h2 className="text-base lg:text-lg text-gray-500">
                 Jak to działa?
               </h2>
               <h3 className="text-xl lg:text-4xl font-bold mt-4 max-w-[300px] lg:max-w-[400px]">
@@ -54,7 +54,7 @@ export const HowItWorks = () => {
                   <div className="p-2 flex justify-center items-center">
                     {icon}
                   </div>
-                  <p className="text-gray-400 text-sm md:text-base">{title}</p>
+                  <p className="text-gray-500 text-sm md:text-base">{title}</p>
                 </div>
               ))}
             </div>

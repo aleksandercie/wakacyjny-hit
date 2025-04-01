@@ -35,7 +35,7 @@ export const Footer = () => {
                   <li key={name}>
                     <Link
                       href={link}
-                      className="text-base text-gray-400 hover:text-primary focus:text-primary"
+                      className="text-base text-gray-500 hover:text-primary focus:text-primary"
                     >
                       {name}
                     </Link>
@@ -48,7 +48,7 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col max-w-[520px] gap-4 md:mx-auto">
           <h4 className="text-xl font-bold">Newsletter</h4>
-          <p className="text-base text-gray-400">
+          <p className="text-base text-gray-500">
             Dołącz do naszego newslettera i bądź na bieżąco! Otrzymuj
             ekskluzywne oferty, nowości i inspiracje prosto na swoją skrzynkę.
             Zapisz się już teraz!
@@ -61,7 +61,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="text-center text-base text-gray-400">
+      <p className="text-center text-base text-gray-500">
         © WakacyjnyHit.pl 2025
       </p>
     </div>

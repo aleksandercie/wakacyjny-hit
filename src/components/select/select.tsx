@@ -50,11 +50,20 @@ export const Select = ({
           <RadioGroup
             value={selected as string}
             onValueChange={handleValueChange}
+            className="w-full"
           >
             {options.map((option) => (
               <div
                 key={option.value}
-                className="w-full flex items-center gap-2 py-2"
+                onClick={() => handleValueChange(option.value)}
+                className="w-full flex items-center gap-2 py-2 cursor-pointer"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleValueChange(option.value);
+                  }
+                }}
               >
                 <RadioGroupItem
                   id={option.value}
