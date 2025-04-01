@@ -68,6 +68,7 @@ export const OrderForm = () => {
           cart={cart}
           isSubmitting={isSubmitting}
           removeAllItemsCart={removeAllItemsCart}
+          variant="cart"
         />
       </div>
     </form>

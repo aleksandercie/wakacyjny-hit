@@ -1,11 +1,10 @@
-import Link from 'next/link';
 import React from 'react';
-import { ShoppingCart, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { MobileNavigation } from './mobileNavigation';
 import { Logo } from '../logo';
-import { NavigationBadge } from './navigationBadge';
+import { CartPopover } from './cartPopover';
 
 export const Navigation = () => {
   const links = [
@@ -27,12 +26,7 @@ export const Navigation = () => {
           ))}
         </ul>
         <div className="flex gap-4">
-          <Button variant="link">
-            <Link href="/koszyk" className="relative">
-              <ShoppingCart size={20} />
-              <NavigationBadge className="-top-[8px] -right-[10px]" />
-            </Link>
-          </Button>
+          <CartPopover />
           <Button variant="link">
             <User size={20} />
             Zaloguj się

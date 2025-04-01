@@ -21,18 +21,26 @@ import { useCart } from '@/context/CartContext';
 import { Trip } from '@/types/trip';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { roomsOptions } from '@/lib/roomsOptions';
+import { OrderSummaryVariant } from '../order/orderSummary';
 
-export const renderPrice = (price: string, className?: string) => {
+export const renderPrice = (price: string, variant?: OrderSummaryVariant) => {
   const salePrice = quantityOptions.find(
     (item) => item.value === price
   )?.salePrice;
+  const isNavigationVariant = variant === 'navigation';
+
+  const className = isNavigationVariant ? 'text-right text-xs' : 'text-right';
+  const fontSize = isNavigationVariant ? 'text-s' : 'text-xl';
+
   return salePrice !== price ? (
     <>
-      <span className={`line-through ${className}`}>{price} zł</span>
-      <span className="font-bold text-xl">{salePrice} zł</span>
+      <span className={`line-through ${variant ? className : ''}`}>
+        {price} zł
+      </span>
+      <span className={`font-bold ${fontSize}`}>{salePrice} zł</span>
     </>
   ) : (
-    <span className="font-bold text-xl">{price} zł</span>
+    <span className={`font-bold ${fontSize}`}>{price} zł</span>
   );
 };
 
