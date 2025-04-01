@@ -4,7 +4,7 @@ import { Trip } from '@/types/trip';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { DateRange } from 'react-day-picker';
 import { Filters } from '../filters';
-import { Card } from '../card';
+import { Card, CardSkeleton } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
 
 const LIMIT = 6;
@@ -126,8 +126,11 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
             description={trip.shortDescription}
           />
         ))}
+        {loading &&
+          Array.from({ length: LIMIT }).map((_, index) => (
+            <CardSkeleton key={index} />
+          ))}
       </div>
-      {loading && <p className="text-center py-6">Ładowanie ofert...</p>}
       {!loading && trips.length === 0 && (
         <p className="text-center text-gray-500 py-6">
           Brak ofert spełniających wybrane kryteria.
