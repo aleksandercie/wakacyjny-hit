@@ -13,6 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
+import { pl } from 'date-fns/locale';
 
 export const DatePickerWithRange = ({
   className,
@@ -39,11 +40,11 @@ export const DatePickerWithRange = ({
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, 'dd/LL/yyyy')} -{' '}
-                  {format(date.to, 'dd/LL/yyyy')}
+                  {format(date.from, 'dd MMM yyyy', { locale: pl })} -{' '}
+                  {format(date.to, 'dd MMM yyyy', { locale: pl })}
                 </>
               ) : (
-                format(date.from, 'dd/LL/yyyy')
+                format(date.from, 'dd MMM yyyy', { locale: pl })
               )
             ) : (
               <span>Wybierz datę</span>

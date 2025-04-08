@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '../ui/select';
+import { countries } from '@/lib/countries';
 
 export const orderSchema = z
   .object({
@@ -61,18 +62,6 @@ type CustomerInfoSectionProps = {
   selectedCountry: string;
   setSelectedCountry: (val: string) => void;
 };
-
-const countries = [
-  { label: 'Polska', value: 'PL' },
-  { label: 'Niemcy', value: 'DE' },
-  { label: 'Francja', value: 'FR' },
-  { label: 'Włochy', value: 'IT' },
-  { label: 'Hiszpania', value: 'ES' },
-  { label: 'Czechy', value: 'CZ' },
-  { label: 'Słowacja', value: 'SK' },
-  { label: 'Litwa', value: 'LT' },
-  { label: 'Ukraina', value: 'UA' }
-];
 
 const LOCAL_STORAGE_KEY = 'orderFormData';
 

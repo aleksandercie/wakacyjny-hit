@@ -15,7 +15,7 @@ export const Navigation = () => {
   ];
 
   return (
-    <div className="w-full flex sticky top-0 z-10 py-4 px-4 md:px-8 justify-between bg-white items-center rounded-b-lg">
+    <div className="w-full flex sticky top-0 z-100 py-4 px-4 md:px-8 justify-between bg-white items-center rounded-b-lg">
       <Logo style="hidden md:block" />
       <div className="hidden md:flex items-center gap-8 md:gap-16">
         <ul className="flex gap-8">

@@ -170,7 +170,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
             <Label htmlFor={name} className="text-gray-500 text-base">
               {label}
             </Label>
-            <div className="w-[280px]">
+            <div className="w-[260px] md:w-[280px]">
               <Select
                 onValueChange={(value) => setSelected(value)}
                 value={selected}

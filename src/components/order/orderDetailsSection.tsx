@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '../ui/select';
+import { DateOfBirthPicker } from '../dateOfBirthPicker';
 
 type TouchedRoomsMap = {
   [itemId: string]: Set<number>;
@@ -188,12 +189,14 @@ export const OrderDetailsSection = ({
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                             {item.roomsDetails[roomIndex].children?.map(
                               (child, childIndex) => (
-                                <Input
+                                <DateOfBirthPicker
                                   key={`${child.dateOfBirth}-${childIndex}`}
-                                  type="date"
-                                  value={child.dateOfBirth}
-                                  className="max-w-[164px]"
-                                  onChange={(e) =>
+                                  value={
+                                    child.dateOfBirth
+                                      ? new Date(child.dateOfBirth)
+                                      : undefined
+                                  }
+                                  onChange={(newDate) => {
                                     updateCartItem({
                                       ...item,
                                       roomsDetails: item.roomsDetails.map(
@@ -207,15 +210,15 @@ export const OrderDetailsSection = ({
                                                       ? {
                                                           ...c,
                                                           dateOfBirth:
-                                                            e.target.value
+                                                            newDate.toISOString()
                                                         }
                                                       : c
                                                 )
                                               }
                                             : room
                                       )
-                                    })
-                                  }
+                                    });
+                                  }}
                                 />
                               )
                             )}
