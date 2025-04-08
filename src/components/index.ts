@@ -13,7 +13,7 @@ export * from './contact';
 export * from './datePickerWithRange';
 export * from './filters';
 export * from './multiSelect';
-export * from './select';
 export * from './offerDetails';
 export * from './offersList';
 export * from './badge';
+export * from './dateOfBirthPicker';

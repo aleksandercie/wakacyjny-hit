@@ -6,8 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Select } from '../select';
 import { useEffect } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/select';
 
 export const orderSchema = z
   .object({
@@ -158,15 +164,23 @@ export const CustomerInfoSection = ({
               name="country"
               render={({ field: { onChange } }) => (
                 <Select
-                  id="country"
-                  options={countries}
-                  selected={selectedCountry}
-                  setSelected={(value) => {
-                    onChange(value);
-                    setSelectedCountry(value as string);
+                  value={selectedCountry}
+                  onValueChange={(val) => {
+                    onChange(val);
+                    setSelectedCountry(val);
                   }}
-                  placeholder="Wybierz kraj"
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz kraj" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countries.map((country) => (
+                      <SelectItem key={country.value} value={country.value}>
+                        {country.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               )}
             />
             {errors.country && (

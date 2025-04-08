@@ -2,13 +2,19 @@
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select } from '../select';
 import { CartItem } from '@/context/CartContext';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { roomsOptions } from '@/lib/roomsOptions';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import { X } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/select';
 
 type TouchedRoomsMap = {
   [itemId: string]: Set<number>;
@@ -53,12 +59,10 @@ export const OrderDetailsSection = ({
             <div className="flex flex-col gap-2">
               <Label htmlFor={`quantity-${item.id}`}>Ilość osób</Label>
               <Select
-                id={`quantity-${item.id}`}
-                options={quantityOptions}
-                selected={item.price}
-                setSelected={(value) => {
+                value={item.price}
+                onValueChange={(value) => {
                   const maxPersons = quantityOptions.find(
-                    (item) => item.value === value
+                    (option) => option.value === value
                   )?.maxPersons;
                   updateCartItem({
                     ...item,
@@ -66,16 +70,24 @@ export const OrderDetailsSection = ({
                     maxPersons
                   });
                 }}
-                placeholder="Wybierz ilość osób"
-              />
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Wybierz ilość osób" />
+                </SelectTrigger>
+                <SelectContent>
+                  {quantityOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex flex-col gap-2 mb-8">
               <Label htmlFor={`rooms-${item.id}`}>Ilość pokoi</Label>
               <Select
-                id={`rooms-${item.id}`}
-                options={roomsOptions}
-                selected={item.rooms}
-                setSelected={(value) =>
+                value={item.rooms}
+                onValueChange={(value) =>
                   updateCartItem({
                     ...item,
                     rooms: value as string,
@@ -85,8 +97,18 @@ export const OrderDetailsSection = ({
                     )
                   })
                 }
-                placeholder="Wybierz ilość pokoi"
-              />
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Wybierz ilość pokoi" />
+                </SelectTrigger>
+                <SelectContent>
+                  {roomsOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex flex-col gap-12 w-full">
               {item.roomsDetails.map((_, roomIndex) => (

@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { Label } from '@radix-ui/react-label';
-import { Select } from '@/components/select';
+// import { Select } from '@/components/select';
 import { useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
 import { useCart } from '@/context/CartContext';
@@ -22,6 +22,13 @@ import { Trip } from '@/types/trip';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { roomsOptions } from '@/lib/roomsOptions';
 import { OrderSummaryVariant } from '../order/orderSummary';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../ui/select';
 
 export const renderPrice = (price: string, variant?: OrderSummaryVariant) => {
   const salePrice = quantityOptions.find(
@@ -163,13 +170,23 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
             <Label htmlFor={name} className="text-gray-500 text-base">
               {label}
             </Label>
-            <Select
-              id={name}
-              options={options}
-              selected={selected}
-              setSelected={setSelected}
-              placeholder={placeholder}
-            />
+            <div className="w-[280px]">
+              <Select
+                onValueChange={(value) => setSelected(value)}
+                value={selected}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  {options.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         )
       )}
