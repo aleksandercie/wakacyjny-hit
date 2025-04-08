@@ -29,6 +29,7 @@ export const DateOfBirthPicker = ({
   onChange: (date: Date) => void;
 }) => {
   const [date, setDate] = useState<Date | undefined>(value);
+  const [dateYearSelect, setDateYearSelect] = useState<Date | undefined>(value);
 
   useEffect(() => {
     setDate(value);
@@ -44,6 +45,7 @@ export const DateOfBirthPicker = ({
 
     setDate(selected);
     onChange(selected);
+    setDateYearSelect(selected);
   };
 
   return (
@@ -92,14 +94,14 @@ export const DateOfBirthPicker = ({
                 newDate = minAllowedDate;
               }
 
-              handleDateSelect(newDate);
+              setDateYearSelect(newDate);
             }}
-            value={date?.getFullYear().toString()}
+            value={dateYearSelect?.getFullYear().toString()}
           >
             <SelectTrigger>
               <SelectValue placeholder="Wybierz rok urodzenia" />
             </SelectTrigger>
-            <SelectContent position="popper">
+            <SelectContent position="popper" className="max-h-[240px]">
               {years.map((year) => (
                 <SelectItem key={year} value={year.toString()}>
                   {year}
@@ -107,16 +109,15 @@ export const DateOfBirthPicker = ({
               ))}
             </SelectContent>
           </Select>
-
           <div className="rounded-md border">
             <Calendar
-              key={date?.toISOString()}
+              key={dateYearSelect?.toISOString()}
               mode="single"
               selected={date}
               onSelect={handleDateSelect}
               fromDate={minAllowedDate}
               toDate={maxAllowedDate}
-              defaultMonth={date}
+              defaultMonth={dateYearSelect}
             />
           </div>
         </PopoverContent>
