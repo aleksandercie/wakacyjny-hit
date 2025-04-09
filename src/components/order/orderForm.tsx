@@ -38,22 +38,51 @@ export const OrderForm = ({
   } = methods;
 
   const onSubmit = async (data: OrderFormData) => {
-    console.log({
+    delete data.vatInvoice;
+
+    const payload = {
       ...data,
-      orders: cart
-    });
+      orders: cart.map((order) => ({
+        id: order.orderId,
+        price: Number(order.price),
+        rooms: Number(order.rooms),
+        orderId: order.orderId,
+        roomsDetails: order.roomsDetails
+      })),
+      status: 'pending'
+    };
 
-    toast.success('Sukces!', {
-      description: 'Dziękujemy za złożenie zamówienia!',
-      icon: <CircleCheck className="text-green-500" size={16} />,
-      dismissible: true,
-      duration: 2000
-    });
+    try {
+      const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
 
-    reset();
-    removeAllItemsCart();
-    setSelectedCountry('PL');
-    setSuccess(true);
+      if (!res.ok) {
+        throw new Error('Failed to submit order');
+      }
+
+      toast.success('Sukces!', {
+        description: 'Dziękujemy za złożenie zamówienia!',
+        icon: <CircleCheck className="text-green-500" size={16} />,
+        dismissible: true,
+        duration: 2000
+      });
+
+      reset();
+      removeAllItemsCart();
+      setSelectedCountry('PL');
+      setSuccess(true);
+    } catch (err) {
+      toast.error('Błąd', {
+        description:
+          'Nie udało się złożyć zamówienia. Spróbuj ponownie później lub skontaktuj się z naszym zespołem'
+      });
+      console.error(err);
+    }
   };
 
   return (
