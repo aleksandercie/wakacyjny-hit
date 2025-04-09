@@ -100,6 +100,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     );
     addToCart({
       id: `${id}-${cart.length + 1}`,
+      orderId: id,
       name: title,
       price: selectedQuantity,
       rooms: selectedRooms,

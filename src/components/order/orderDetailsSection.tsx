@@ -131,16 +131,30 @@ export const OrderDetailsSection = ({
                         value={item.roomsDetails[roomIndex].adults ?? ''}
                         placeholder="Wybierz ilość dorosłych"
                         onBlur={() => handleRoomTouch(item.id, roomIndex)}
-                        onChange={(e) =>
+                        onKeyDown={(e) => {
+                          if (e.key === '-' || e.key === '+') {
+                            e.preventDefault();
+                          }
+                        }}
+                        onPaste={(e) => e.preventDefault()}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (
+                            item.maxPersons &&
+                            Number(value) > item.maxPersons
+                          ) {
+                            return;
+                          }
+
                           updateCartItem({
                             ...item,
                             roomsDetails: item.roomsDetails.map((room, i) =>
                               i === roomIndex
-                                ? { ...room, adults: e.target.value }
+                                ? { ...room, adults: value }
                                 : room
                             )
-                          })
-                        }
+                          });
+                        }}
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -159,7 +173,20 @@ export const OrderDetailsSection = ({
                         }
                         placeholder="Wybierz ilość dzieci"
                         onBlur={() => handleRoomTouch(item.id, roomIndex)}
-                        onChange={(e) =>
+                        onKeyDown={(e) => {
+                          if (e.key === '-' || e.key === '+') {
+                            e.preventDefault();
+                          }
+                        }}
+                        onPaste={(e) => e.preventDefault()}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (
+                            item.maxPersons &&
+                            Number(value) > item.maxPersons
+                          ) {
+                            return;
+                          }
                           updateCartItem({
                             ...item,
                             roomsDetails: item.roomsDetails.map((room, i) =>
@@ -175,8 +202,8 @@ export const OrderDetailsSection = ({
                                   }
                                 : room
                             )
-                          })
-                        }
+                          });
+                        }}
                       />
                       {item?.roomsDetails?.[roomIndex]?.children?.length ??
                       0 > 0 ? (
@@ -186,7 +213,7 @@ export const OrderDetailsSection = ({
                           >
                             Podaj datę urodzin dzieci
                           </Label>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+                          <div className="grid grid-cols-1 min-[1200px]:grid-cols-2 gap-x-2 gap-y-4 mt-4">
                             {item.roomsDetails[roomIndex].children?.map(
                               (child, childIndex) => (
                                 <DateOfBirthPicker

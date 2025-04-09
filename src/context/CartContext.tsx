@@ -9,6 +9,7 @@ import {
 
 export type CartItem = {
   id: string;
+  orderId: string;
   name: string;
   price: string;
   rooms: string;

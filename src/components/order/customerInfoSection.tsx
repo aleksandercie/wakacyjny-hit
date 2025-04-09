@@ -1,8 +1,7 @@
 'use client';
 
-import { useForm, Controller, useWatch } from 'react-hook-form';
+import { Controller, useWatch, useFormContext } from 'react-hook-form';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -75,13 +74,7 @@ export const CustomerInfoSection = ({
     formState: { errors },
     reset,
     watch
-  } = useForm<OrderFormData>({
-    resolver: zodResolver(orderSchema),
-    defaultValues: {
-      vatInvoice: false,
-      country: 'PL'
-    }
-  });
+  } = useFormContext<OrderFormData>();
 
   const watchAllFields = watch();
   const watchVat = useWatch({ control, name: 'vatInvoice' });
@@ -144,10 +137,8 @@ export const CustomerInfoSection = ({
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="country" className="mb-2">
-              Kraj
-            </Label>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="country">Kraj</Label>
             <Controller
               control={control}
               name="country"
@@ -225,7 +216,6 @@ export const CustomerInfoSection = ({
               } else {
                 value = '+48' + value.slice(3).replace(/[^0-9]/g, '');
               }
-
               input.value = value.slice(0, 12);
             }}
           />
