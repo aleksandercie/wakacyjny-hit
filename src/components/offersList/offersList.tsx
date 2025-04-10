@@ -138,7 +138,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
             price={trip.price}
             duration={trip.duration}
             date={`${trip.startDate} - ${trip.endDate}`}
-            photo={trip.mobileImage}
+            photo={trip.image}
             description={trip.shortDescription}
           />
         ))}

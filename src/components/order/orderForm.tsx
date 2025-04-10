@@ -43,12 +43,12 @@ export const OrderForm = ({
     const payload = {
       ...data,
       orders: cart.map((order) => ({
-        id: order.orderId,
         price: Number(order.price),
         rooms: Number(order.rooms),
         orderId: order.orderId,
         roomsDetails: order.roomsDetails
       })),
+      totalPrice: cart.reduce((acc, item) => (acc += Number(item.price)), 0),
       status: 'pending'
     };
 

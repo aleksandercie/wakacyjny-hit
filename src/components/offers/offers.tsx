@@ -20,7 +20,7 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
             price,
             duration,
             shortDescription,
-            mobileImage,
+            image,
             id,
             startDate,
             endDate
@@ -32,7 +32,7 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
               price={price}
               duration={duration}
               date={`${startDate} - ${endDate}`}
-              photo={mobileImage}
+              photo={image}
               description={shortDescription}
             />
           )
