@@ -12,6 +12,7 @@ export type CartItem = {
   orderId: string;
   name: string;
   price: string;
+  salePrice?: string;
   rooms: string;
   maxPersons?: number;
   minPersons?: number;

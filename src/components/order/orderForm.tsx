@@ -40,29 +40,34 @@ export const OrderForm = ({
   const onSubmit = async (data: OrderFormData) => {
     delete data.vatInvoice;
 
+    const totalPrice = cart.reduce(
+      (acc, item) => acc + Number(item.salePrice || item.price),
+      0
+    );
+    console.log(totalPrice);
+
     const payload = {
       ...data,
       orders: cart.map((order) => ({
-        price: Number(order.price),
+        price: Number(order.salePrice || order.price),
         rooms: Number(order.rooms),
         orderId: order.orderId,
         roomsDetails: order.roomsDetails
       })),
-      totalPrice: cart.reduce((acc, item) => (acc += Number(item.price)), 0),
-      status: 'pending'
+      status: 'new'
     };
 
     try {
       const res = await fetch('/api/order', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      if (!res.ok) {
-        throw new Error('Failed to submit order');
+      const responseData = await res.json();
+
+      if (!res.ok || !responseData.id) {
+        throw new Error(responseData.error || 'Failed to submit order');
       }
 
       toast.success('Sukces!', {
