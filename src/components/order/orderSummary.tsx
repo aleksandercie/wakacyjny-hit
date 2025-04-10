@@ -5,6 +5,8 @@ import { CartItem } from '@/context/CartContext';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { renderPrice } from '../offerDetails';
 import Link from 'next/link';
+import { PaymentElement } from '@stripe/react-stripe-js';
+import { useState } from 'react';
 
 export const calculateTotalPrice = (cart: CartItem[]) => {
   return cart.reduce((sum, item) => {
@@ -53,15 +55,18 @@ export const OrderSummary = ({
   cart,
   isSubmitting,
   removeAllItemsCart,
-  variant
+  variant,
+  clientSecret
 }: {
   cart: CartItem[];
   isSubmitting: boolean;
   removeAllItemsCart: () => void;
   variant: OrderSummaryVariant;
+  clientSecret?: string;
 }) => {
   const isCartVariant = variant === 'cart';
   const isInvalid = hasValidationError(cart);
+  const [isPaymentReady, setIsPaymentReady] = useState(false);
 
   return (
     <div
@@ -119,13 +124,26 @@ export const OrderSummary = ({
         </div>
       </div>
       {isCartVariant ? (
-        <Button
-          type="submit"
-          disabled={isSubmitting || isInvalid}
-          className="mt-4"
-        >
-          {isSubmitting ? 'Wysyłanie...' : 'Złóż zamówienie'}
-        </Button>
+        <>
+          {clientSecret && (
+            <div className="bg-white p-4 rounded-md">
+              <h2 className="text-xl font-semibold mb-4">Płatność</h2>
+              <PaymentElement
+                onChange={(event) => {
+                  console.log('Payment Element event:', event);
+                  setIsPaymentReady(event.complete); // Stripe tells us if payment input is complete
+                }}
+              />
+            </div>
+          )}
+          <Button
+            type="submit"
+            disabled={isSubmitting || isInvalid || !isPaymentReady}
+            className="mt-4"
+          >
+            {isSubmitting ? 'Wysyłanie...' : 'Złóż zamówienie'}
+          </Button>
+        </>
       ) : (
         <Button className="mt-4 mr-3">
           <Link href="/koszyk" className="relative">
