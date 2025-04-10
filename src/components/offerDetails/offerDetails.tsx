@@ -57,7 +57,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     title,
     price,
     duration,
-    desktopImage,
+    image,
     startDate,
     endDate,
     transfer,
@@ -218,7 +218,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   return (
     <>
       <Image
-        src={desktopImage}
+        src={image}
         alt={title}
         width={1080}
         height={720}

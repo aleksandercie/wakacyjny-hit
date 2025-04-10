@@ -13,8 +13,7 @@ export type Trip = {
   startDate: string;
   endDate: string;
   expired: boolean;
-  desktopImage: string;
-  mobileImage: string;
+  image: string;
   tags: string[];
   departures: string[];
 };
