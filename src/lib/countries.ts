@@ -5,6 +5,7 @@ export const countries = [
   { label: 'Holandia', value: 'NL' },
   { label: 'Niemcy', value: 'DE' },
   { label: 'Norwegia', value: 'NO' },
+  { label: 'Polska', value: 'PL' },
   { label: 'Szwajcaria', value: 'CH' },
   { label: 'Szwecja', value: 'SE' },
   { label: 'Wielka Brytania', value: 'GB' }

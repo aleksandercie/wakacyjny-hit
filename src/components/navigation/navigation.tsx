@@ -1,6 +1,4 @@
 import React from 'react';
-import { User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { MobileNavigation } from './mobileNavigation';
 import { Logo } from '../logo';
@@ -27,10 +25,10 @@ export const Navigation = () => {
         </ul>
         <div className="flex gap-4">
           <CartPopover />
-          <Button variant="link">
+          {/* <Button variant="link">
             <User size={20} />
             Zaloguj się
-          </Button>
+          </Button> */}
         </div>
       </div>
       <MobileNavigation links={links} />

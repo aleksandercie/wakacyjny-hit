@@ -31,8 +31,12 @@ export const CartPopover = () => {
       onMouseLeave={handleMouseLeave}
     >
       <Button variant="link" className="relative">
-        <Link href="/koszyk" className="relative">
+        <Link
+          href="/koszyk"
+          className="relative flex items-center gap-2 font-bold"
+        >
           <ShoppingCart size={20} />
+          Koszyk
           <NavigationBadge className="-top-[8px] -right-[10px]" />
         </Link>
       </Button>
