@@ -74,7 +74,7 @@ type CustomerInfoSectionProps = {
   watchAllFields: OrderFormData;
 };
 
-const LOCAL_STORAGE_KEY = 'orderFormData';
+export const LOCAL_STORAGE_KEY = 'orderFormData';
 
 export const CustomerInfoSection = ({
   selectedCountry,

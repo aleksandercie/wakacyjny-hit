@@ -112,7 +112,7 @@ export const OrderFormContent = ({
       redirect: 'if_required'
     });
 
-    const newStatus = paymentError ? 'failed' : 'paid';
+    const newStatus = paymentError ? paymentError.decline_code : 'paid';
 
     // 3. Patch the order with the new status (and optionally Stripe paymentIntent id)
     try {
@@ -121,7 +121,9 @@ export const OrderFormContent = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           status: newStatus,
-          stripe_payment_intent_id: paymentIntent?.id ?? null
+          stripe_payment_intent_id: paymentError
+            ? paymentError.payment_intent.id
+            : paymentIntent?.id
         })
       });
     } catch (err) {

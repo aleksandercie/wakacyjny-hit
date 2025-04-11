@@ -134,8 +134,7 @@ export const OrderSummary = ({
               <h2 className="text-xl font-semibold">Płatność</h2>
               <PaymentElement
                 onChange={(event) => {
-                  console.log('Payment Element event:', event);
-                  setIsPaymentReady(event.complete); // Stripe tells us if payment input is complete
+                  setIsPaymentReady(event.complete);
                 }}
               />
             </div>
