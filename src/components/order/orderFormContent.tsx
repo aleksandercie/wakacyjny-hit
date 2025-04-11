@@ -44,74 +44,95 @@ export const OrderFormContent = ({
     mode: 'onBlur'
   });
 
-  console.log(isValid);
-
   const watchAllFields = watch();
   const watchVat = useWatch({ control, name: 'vatInvoice' });
 
   const onSubmit = async (data: OrderFormData) => {
     if (!stripe || !elements) return;
 
-    const { error: paymentError } = await stripe.confirmPayment({
+    delete data.vatInvoice;
+
+    const orderPayload = {
+      ...data,
+      orders: cart.map((order) => ({
+        price: Number(order.salePrice || order.price),
+        rooms: Number(order.rooms),
+        orderId: order.orderId,
+        roomsDetails: order.roomsDetails
+      })),
+      status: 'new',
+      stripe_payment_intent_id: 'not_set'
+    };
+
+    let orderId: string | null = null;
+
+    // 1. Create order in Supabase
+    try {
+      const createRes = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderPayload)
+      });
+
+      const createData = await createRes.json();
+
+      if (!createRes.ok || !createData.id) {
+        throw new Error(
+          createData.error || 'Nie udało się utworzyć zamówienia'
+        );
+      }
+
+      orderId = createData.id;
+    } catch (err) {
+      toast.error('Błąd', {
+        description: 'Nie udało się utworzyć zamówienia. Spróbuj ponownie.'
+      });
+      console.error(err);
+      return;
+    }
+
+    // 2. Try payment
+    const { error: paymentError, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.href // fallback if redirect needed (BLIK/Przelewy24 sometimes require it)
+        return_url: window.location.href
       },
-      redirect: 'if_required' // most payments won't need this
+      redirect: 'if_required'
     });
+
+    const newStatus = paymentError ? 'failed' : 'paid';
+
+    // 3. Patch the order with the new status (and optionally Stripe paymentIntent id)
+    try {
+      await fetch(`/api/order/${orderId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          status: newStatus,
+          stripe_payment_intent_id: paymentIntent?.id ?? null
+        })
+      });
+    } catch (err) {
+      console.error('Błąd przy aktualizacji statusu zamówienia:', err);
+    }
 
     if (paymentError) {
       toast.error('Błąd płatności', { description: paymentError.message });
       return;
     }
 
-    // if payment successful, send order
-    delete data.vatInvoice;
+    // 4. Show success
+    toast.success('Sukces!', {
+      description: 'Dziękujemy za złożenie zamówienia!',
+      icon: <CircleCheck className="text-green-500" size={16} />,
+      dismissible: true,
+      duration: 2000
+    });
 
-    try {
-      const payload = {
-        ...data,
-        orders: cart.map((order) => ({
-          price: Number(order.salePrice || order.price),
-          rooms: Number(order.rooms),
-          orderId: order.orderId,
-          roomsDetails: order.roomsDetails
-        })),
-        status: 'paid'
-      };
-
-      const res = await fetch('/api/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const responseData = await res.json();
-
-      if (!res.ok || !responseData.id) {
-        throw new Error(
-          responseData.error || 'Błąd podczas składania zamówienia'
-        );
-      }
-
-      toast.success('Sukces!', {
-        description: 'Dziękujemy za złożenie zamówienia!',
-        icon: <CircleCheck className="text-green-500" size={16} />,
-        dismissible: true,
-        duration: 2000
-      });
-
-      reset();
-      removeAllItemsCart();
-      setSelectedCountry('PL');
-      setSuccess(true);
-    } catch (err) {
-      toast.error('Błąd', {
-        description:
-          'Zamówienie nie zostało zapisane, mimo udanej płatności. Skontaktuj się z nami!'
-      });
-      console.error(err);
-    }
+    reset();
+    removeAllItemsCart();
+    setSelectedCountry('PL');
+    setSuccess(true);
   };
 
   return (

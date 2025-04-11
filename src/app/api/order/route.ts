@@ -16,10 +16,11 @@ const orderSchema = z
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
     taxId: z.string().optional(),
-    orders: z.array(z.any()), // you can define stricter structure here
+    orders: z.array(z.any()),
     status: z
-      .enum(['new', 'pending', 'processing', 'paid', 'cancelled'])
-      .optional()
+      .enum(['new', 'pending', 'processing', 'paid', 'cancelled', 'failed'])
+      .optional(),
+    stripe_payment_intent_id: z.string().optional()
   })
   .superRefine((data, ctx) => {
     if (data.vatInvoice) {
