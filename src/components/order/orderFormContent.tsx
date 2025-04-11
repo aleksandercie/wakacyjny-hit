@@ -4,7 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { CircleCheck } from 'lucide-react';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { OrderSummary } from './orderSummary';
 import { OrderDetailsSection } from './orderDetailsSection';
@@ -14,14 +14,14 @@ import {
   orderSchemaCustomer
 } from './customerInfoSection';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { useRouter } from 'next/navigation';
 
 export const OrderFormContent = ({
-  setSuccess,
   clientSecret
 }: {
-  setSuccess: Dispatch<SetStateAction<boolean>>;
   clientSecret: string | null;
 }) => {
+  const router = useRouter();
   const [selectedCountry, setSelectedCountry] = useState('PL');
   const { cart, updateCartItem, removeItemCart, removeAllItemsCart } =
     useCart();
@@ -141,10 +141,15 @@ export const OrderFormContent = ({
       duration: 2000
     });
 
+    localStorage.setItem('orderSuccess', 'true');
+    localStorage.setItem('orderId', orderId ?? '');
+    localStorage.setItem('orderEmail', data.email);
+
     reset();
     removeAllItemsCart();
     setSelectedCountry('PL');
-    setSuccess(true);
+
+    router.push('/zamowienie-potwierdzone');
   };
 
   return (

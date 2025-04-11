@@ -1,18 +1,14 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { OrderFormContent } from './orderFormContent';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-export const OrderForm = ({
-  setSuccess
-}: {
-  setSuccess: Dispatch<SetStateAction<boolean>>;
-}) => {
+export const OrderForm = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const { cart } = useCart();
 
@@ -52,7 +48,7 @@ export const OrderForm = ({
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <OrderFormContent setSuccess={setSuccess} clientSecret={clientSecret} />
+      <OrderFormContent clientSecret={clientSecret} />
     </Elements>
   );
 };

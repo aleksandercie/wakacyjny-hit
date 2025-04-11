@@ -1,5 +1,3 @@
-// app/api/order/[id]/route.ts
-
 import { supabase } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
 
