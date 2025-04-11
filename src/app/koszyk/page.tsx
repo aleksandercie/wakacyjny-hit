@@ -15,19 +15,15 @@ export default function CartPage() {
     };
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="flex w-full justify-center min-h-[40vh] items-center">
-        <p>Ładowanie koszyka...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-16 p-2 bg-gray-100 pb-12">
         <div className="max-w-[1200px] mx-auto">
-          {success ? (
+          {isLoading ? (
+            <div className="flex w-full justify-center min-h-[40vh] items-center">
+              <p>Ładowanie koszyka...</p>
+            </div>
+          ) : success ? (
             <div className="flex w-full justify-center min-h-[40vh] items-center flex-col gap-4">
               <p className="text-center font-bold">
                 Dziękujemy za złożenie zamówienia!

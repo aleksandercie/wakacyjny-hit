@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { CircleCheck } from 'lucide-react';
@@ -11,7 +11,7 @@ import { OrderDetailsSection } from './orderDetailsSection';
 import {
   CustomerInfoSection,
   OrderFormData,
-  orderSchema
+  orderSchemaCustomer
 } from './customerInfoSection';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -20,7 +20,7 @@ export const OrderFormContent = ({
   clientSecret
 }: {
   setSuccess: Dispatch<SetStateAction<boolean>>;
-  clientSecret: string;
+  clientSecret: string | null;
 }) => {
   const [selectedCountry, setSelectedCountry] = useState('PL');
   const { cart, updateCartItem, removeItemCart, removeAllItemsCart } =
@@ -28,19 +28,26 @@ export const OrderFormContent = ({
   const stripe = useStripe();
   const elements = useElements();
 
-  const methods = useForm<OrderFormData>({
-    resolver: zodResolver(orderSchema),
-    defaultValues: {
-      vatInvoice: false,
-      country: 'PL'
-    }
-  });
-
   const {
     handleSubmit,
     reset,
-    formState: { isSubmitting }
-  } = methods;
+    formState: { isSubmitting, errors, isValid },
+    watch,
+    control,
+    register
+  } = useForm<OrderFormData>({
+    resolver: zodResolver(orderSchemaCustomer),
+    defaultValues: {
+      vatInvoice: false,
+      country: 'PL'
+    },
+    mode: 'onBlur'
+  });
+
+  console.log(isValid);
+
+  const watchAllFields = watch();
+  const watchVat = useWatch({ control, name: 'vatInvoice' });
 
   const onSubmit = async (data: OrderFormData) => {
     if (!stripe || !elements) return;
@@ -108,32 +115,36 @@ export const OrderFormContent = ({
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8 lg:px-8 lg:gap-8">
-          <div className="flex flex-col gap-8 md:px-8 lg:px-0 lg:gap-12">
-            <CustomerInfoSection
-              selectedCountry={selectedCountry}
-              setSelectedCountry={setSelectedCountry}
-            />
-            {cart.length > 0 && (
-              <OrderDetailsSection
-                cart={cart}
-                updateCartItem={updateCartItem}
-                removeItemCart={removeItemCart}
-              />
-            )}
-          </div>
-
-          <OrderSummary
-            cart={cart}
-            isSubmitting={isSubmitting}
-            removeAllItemsCart={removeAllItemsCart}
-            variant="cart"
-            clientSecret={clientSecret}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8 lg:px-8 lg:gap-8">
+        <div className="flex flex-col gap-8 md:px-8 lg:px-0 lg:gap-12">
+          <CustomerInfoSection
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            reset={reset}
+            control={control}
+            errors={errors}
+            register={register}
+            watchVat={watchVat}
+            watchAllFields={watchAllFields}
           />
+          {cart.length > 0 && (
+            <OrderDetailsSection
+              cart={cart}
+              updateCartItem={updateCartItem}
+              removeItemCart={removeItemCart}
+            />
+          )}
         </div>
-      </form>
-    </FormProvider>
+        <OrderSummary
+          cart={cart}
+          isSubmitting={isSubmitting}
+          removeAllItemsCart={removeAllItemsCart}
+          variant="cart"
+          clientSecret={clientSecret}
+          isValidCustomer={isValid}
+        />
+      </div>
+    </form>
   );
 };

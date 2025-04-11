@@ -258,7 +258,7 @@ export const OrderDetailsSection = ({
               ))}
             </div>
             {allRoomsTouched(item) && (
-              <div>
+              <div className="w-full">
                 {(() => {
                   const totalAdults = item.roomsDetails.reduce(
                     (sum, room) => sum + parseInt(room.adults ?? '0'),
@@ -291,7 +291,10 @@ export const OrderDetailsSection = ({
                     .filter((room) => room.missing);
 
                   return (
-                    <div key={`validation-${item.id}`} className="mt-4 text-sm">
+                    <div
+                      key={`validation-${item.id}`}
+                      className="mt-4 text-sm w-full"
+                    >
                       {totalPeople < min && (
                         <p className="text-red-600">
                           Minimalna liczba uczestników dla tej oferty to {min}.

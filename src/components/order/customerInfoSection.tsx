@@ -1,6 +1,12 @@
 'use client';
 
-import { Controller, useWatch, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  UseFormReset,
+  Control,
+  FieldErrors,
+  UseFormRegister
+} from 'react-hook-form';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,7 +21,7 @@ import {
 } from '../ui/select';
 import { countries } from '@/lib/countries';
 
-export const orderSchema = z
+export const orderSchemaCustomer = z
   .object({
     email: z.string().email('Niepoprawny adres e-mail'),
     firstName: z.string().min(1, 'Imię jest wymagane'),
@@ -55,30 +61,31 @@ export const orderSchema = z
     }
   });
 
-export type OrderFormData = z.infer<typeof orderSchema>;
+export type OrderFormData = z.infer<typeof orderSchemaCustomer>;
 
 type CustomerInfoSectionProps = {
   selectedCountry: string;
   setSelectedCountry: (val: string) => void;
+  reset: UseFormReset<OrderFormData>;
+  control: Control<OrderFormData, unknown>;
+  errors: FieldErrors<OrderFormData>;
+  register: UseFormRegister<OrderFormData>;
+  watchVat: boolean | undefined;
+  watchAllFields: OrderFormData;
 };
 
 const LOCAL_STORAGE_KEY = 'orderFormData';
 
 export const CustomerInfoSection = ({
   selectedCountry,
-  setSelectedCountry
+  setSelectedCountry,
+  reset,
+  control,
+  errors,
+  register,
+  watchVat,
+  watchAllFields
 }: CustomerInfoSectionProps) => {
-  const {
-    register,
-    control,
-    formState: { errors },
-    reset,
-    watch
-  } = useFormContext<OrderFormData>();
-
-  const watchAllFields = watch();
-  const watchVat = useWatch({ control, name: 'vatInvoice' });
-
   useEffect(() => {
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (savedData) {
@@ -103,7 +110,7 @@ export const CustomerInfoSection = ({
           <Input
             id="email"
             type="email"
-            {...register('email')}
+            {...register('email', { onBlur: () => {} })}
             maxLength={254}
           />
           {errors.email && (
@@ -116,7 +123,7 @@ export const CustomerInfoSection = ({
             <Input
               id="firstName"
               type="text"
-              {...register('firstName')}
+              {...register('firstName', { onBlur: () => {} })}
               maxLength={50}
             />
             {errors.firstName && (
@@ -128,7 +135,7 @@ export const CustomerInfoSection = ({
             <Input
               id="lastName"
               type="text"
-              {...register('lastName')}
+              {...register('lastName', { onBlur: () => {} })}
               maxLength={50}
             />
             {errors.lastName && (
@@ -173,7 +180,7 @@ export const CustomerInfoSection = ({
               id="postalCode"
               type="text"
               maxLength={6}
-              {...register('postalCode')}
+              {...register('postalCode', { onBlur: () => {} })}
               onInput={(e) => {
                 const input = e.currentTarget;
                 let raw = input.value.replace(/[^0-9]/g, '').slice(0, 5);
@@ -194,7 +201,7 @@ export const CustomerInfoSection = ({
           <Input
             id="address"
             type="text"
-            {...register('address')}
+            {...register('address', { onBlur: () => {} })}
             maxLength={100}
           />
           {errors.address && (
@@ -207,7 +214,7 @@ export const CustomerInfoSection = ({
             id="phone"
             type="tel"
             maxLength={12}
-            {...register('phone')}
+            {...register('phone', { onBlur: () => {} })}
             onInput={(e) => {
               const input = e.currentTarget;
               let value = input.value;
@@ -244,7 +251,7 @@ export const CustomerInfoSection = ({
               <Input
                 id="companyName"
                 type="text"
-                {...register('companyName')}
+                {...register('companyName', { onBlur: () => {} })}
                 maxLength={100}
               />
               {errors.companyName && (
@@ -257,7 +264,7 @@ export const CustomerInfoSection = ({
                 id="taxId"
                 type="text"
                 maxLength={10}
-                {...register('taxId')}
+                {...register('taxId', { onBlur: () => {} })}
                 onInput={(e) => {
                   const input = e.currentTarget;
                   input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);

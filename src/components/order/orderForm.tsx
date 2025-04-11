@@ -16,34 +16,38 @@ export const OrderForm = ({
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const { cart } = useCart();
 
+  const fetchClientSecret = async () => {
+    const amount =
+      cart.reduce(
+        (acc, item) => acc + Number(item.salePrice || item.price),
+        0
+      ) * 100;
+
+    const res = await fetch('/api/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount,
+        currency: 'pln',
+        payment_method_types: ['card', 'p24', 'blik']
+      })
+    });
+
+    const data = await res.json();
+    setClientSecret(data.clientSecret);
+  };
+
   useEffect(() => {
-    const fetchClientSecret = async () => {
-      const amount =
-        cart.reduce(
-          (acc, item) => acc + Number(item.salePrice || item.price),
-          0
-        ) * 100;
-
-      const res = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount,
-          currency: 'pln',
-          payment_method_types: ['card', 'p24', 'blik']
-        })
-      });
-
-      const data = await res.json();
-      setClientSecret(data.clientSecret);
-    };
-
     fetchClientSecret();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!clientSecret) {
-    return <div className="p-4">Ładowanie płatności...</div>;
+    return (
+      <div className="flex w-full justify-center min-h-[40vh] items-center">
+        <p>Ładowanie koszyka...</p>
+      </div>
+    );
   }
 
   return (

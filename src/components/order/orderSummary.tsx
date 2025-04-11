@@ -56,17 +56,21 @@ export const OrderSummary = ({
   isSubmitting,
   removeAllItemsCart,
   variant,
+  isValidCustomer,
   clientSecret
 }: {
   cart: CartItem[];
   isSubmitting: boolean;
   removeAllItemsCart: () => void;
   variant: OrderSummaryVariant;
-  clientSecret?: string;
+  isValidCustomer?: boolean;
+  clientSecret?: string | null;
 }) => {
   const isCartVariant = variant === 'cart';
-  const isInvalid = hasValidationError(cart);
+  const isValidOrder = !hasValidationError(cart);
   const [isPaymentReady, setIsPaymentReady] = useState(false);
+  const isInvalid = !isValidOrder || !isValidCustomer;
+  const isDisabled = isSubmitting || !isPaymentReady || isInvalid;
 
   return (
     <div
@@ -124,10 +128,10 @@ export const OrderSummary = ({
         </div>
       </div>
       {isCartVariant ? (
-        <>
+        <div className="flex flex-col gap-4 mt-6">
           {clientSecret && (
-            <div className="bg-white p-4 rounded-md">
-              <h2 className="text-xl font-semibold mb-4">Płatność</h2>
+            <div className="flex flex-col bg-white rounded-md border-t border-gray-300 py-4 gap-4">
+              <h2 className="text-xl font-semibold">Płatność</h2>
               <PaymentElement
                 onChange={(event) => {
                   console.log('Payment Element event:', event);
@@ -136,14 +140,10 @@ export const OrderSummary = ({
               />
             </div>
           )}
-          <Button
-            type="submit"
-            disabled={isSubmitting || isInvalid || !isPaymentReady}
-            className="mt-4"
-          >
+          <Button type="submit" disabled={isDisabled}>
             {isSubmitting ? 'Wysyłanie...' : 'Złóż zamówienie'}
           </Button>
-        </>
+        </div>
       ) : (
         <Button className="mt-4 mr-3">
           <Link href="/koszyk" className="relative">
