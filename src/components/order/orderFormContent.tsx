@@ -122,8 +122,8 @@ export const OrderFormContent = ({
         body: JSON.stringify({
           status: newStatus,
           stripe_payment_intent_id: paymentError
-            ? paymentError.payment_intent.id
-            : paymentIntent?.id
+            ? paymentError?.payment_intent?.id || 'error_payment_id_not_set'
+            : paymentIntent?.id || 'success_payment_id_not_set'
         })
       });
     } catch (err) {
