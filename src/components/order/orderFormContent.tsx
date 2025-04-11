@@ -95,7 +95,19 @@ export const OrderFormContent = ({
     const { error: paymentError, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.href
+        return_url: window.location.href,
+        payment_method_data: {
+          billing_details: {
+            name: data.firstName + ' ' + data.lastName,
+            email: data.email,
+            phone: data.phone,
+            address: {
+              country: data.country,
+              postal_code: data.postalCode,
+              line1: data.address
+            }
+          }
+        }
       },
       redirect: 'if_required'
     });
