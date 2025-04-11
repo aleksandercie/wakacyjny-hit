@@ -19,15 +19,18 @@ export const OrderForm = () => {
         0
       ) * 100;
 
-    const res = await fetch('/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        amount,
-        currency: 'pln',
-        payment_method_types: ['card', 'p24', 'blik']
-      })
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/create-payment-intent`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount,
+          currency: 'pln',
+          payment_method_types: ['card', 'p24', 'blik']
+        })
+      }
+    );
 
     const data = await res.json();
     setClientSecret(data.clientSecret);

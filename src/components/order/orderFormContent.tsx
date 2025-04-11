@@ -68,11 +68,14 @@ export const OrderFormContent = ({
 
     // 1. Create order in Supabase
     try {
-      const createRes = await fetch('/api/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderPayload)
-      });
+      const createRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/order`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
+        }
+      );
 
       const createData = await createRes.json();
 
@@ -116,7 +119,7 @@ export const OrderFormContent = ({
 
     // 3. Patch the order with the new status (and optionally Stripe paymentIntent id)
     try {
-      await fetch(`/api/order/${orderId}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/order/${orderId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
