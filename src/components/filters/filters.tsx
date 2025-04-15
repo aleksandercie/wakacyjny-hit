@@ -4,22 +4,21 @@ import { Badge, DatePickerWithRange } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react';
 import { Separator } from '../ui/separator';
 import { DateRange } from 'react-day-picker';
 import { AdditionalFilters } from './additionalFilters';
 import { airportOptions } from '@/lib/airports';
 import { foodOptions } from '@/lib/food';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '../ui/dialog';
 
 export const Filters = ({
   priceRange,
@@ -122,8 +121,8 @@ export const Filters = ({
       />
       <Separator orientation="vertical" className="mr-3 hidden md:block" />
       <div className="hidden md:block">
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
+        <Dialog>
+          <DialogTrigger asChild>
             <Button variant="outline" className="rounded-full relative">
               <SlidersHorizontal size={16} />
               Filtry
@@ -131,20 +130,27 @@ export const Filters = ({
                 <Badge quantity={activeFiltersCount} />
               )}
             </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Filtry</AlertDialogTitle>
-            </AlertDialogHeader>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Filtry</DialogTitle>
+            </DialogHeader>
             {additionalFilters}
-            <AlertDialogFooter>
-              <AlertDialogCancel onClick={reset} className="pl-0">
-                Wyczyść
-              </AlertDialogCancel>
-              <AlertDialogAction>Zapisz</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+            <DialogFooter className="flex gap-4">
+              <DialogClose asChild>
+                <Button
+                  onClick={reset}
+                  className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
+                >
+                  Wyczyść
+                </Button>
+              </DialogClose>
+              <DialogClose asChild>
+                <Button>Zapisz</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="flex flex-col md:hidden gap-4 w-full">
         {additionalFilters}
