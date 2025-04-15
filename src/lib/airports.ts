@@ -9,7 +9,7 @@ export const airportOptions = [
   { label: 'Poznań-Ławica im. Henryka Wieniawskiego (POZ)', value: 'POZ' },
   { label: 'Rzeszów-Jasionka (RZE)', value: 'RZE' },
   { label: 'Szczecin-Goleniów im. NSZZ Solidarność (SZZ)', value: 'SZZ' },
-  { label: 'Warsaw Chopin (WAW)', value: 'WAW' },
+  { label: 'Warszawa Chopin (WAW)', value: 'WAW' },
   { label: 'Wrocław-Strachowice im. Mikołaja Kopernika (WRO)', value: 'WRO' },
   { label: 'Zielona Góra-Babimost (IEG)', value: 'IEG' }
 ];
