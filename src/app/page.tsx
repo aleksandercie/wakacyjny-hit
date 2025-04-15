@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
-      <main className="flex flex-col gap-8 md:gap-16 p-2 mb-12">
+      <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
         <Banner
           videoMobile="/video-mobile.mp4"
           video="/video.mp4"

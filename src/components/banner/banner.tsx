@@ -26,7 +26,7 @@ export const Banner = ({
             <Button>Sprawdź</Button>
           </Link>
         </div>
-        <div className="w-full h-[600px] md:h-auto rounded-md overflow-hidden">
+        <div className="w-full h-[560px] min-[720px]:h-auto min-[720px]:max-h-[560px] rounded-md overflow-hidden">
           <Video videoSrc={video} videoSrcMobile={videoMobile} />
         </div>
       </div>

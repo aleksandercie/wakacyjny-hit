@@ -3,7 +3,7 @@ import { Faq, HowItWorks, ImageBanner } from '@/components';
 export default function HowItWorksPage() {
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
-      <main className="flex flex-col gap-8 md:gap-16 p-2 mb-12">
+      <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
         <ImageBanner image="/banner.jpg" alt="Plaza" title="Poznaj nas!" />
         <div className="max-w-[1000px] mx-auto flex flex-col gap-4">
           <p className="text-base text-gray-500">
