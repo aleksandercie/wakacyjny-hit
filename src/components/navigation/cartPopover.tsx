@@ -24,6 +24,8 @@ export const CartPopover = () => {
     }, 200);
   };
 
+  const closeOrderSummary = () => setIsHovered(false);
+
   return (
     <div
       className="relative"
@@ -52,6 +54,7 @@ export const CartPopover = () => {
             isSubmitting={false}
             removeAllItemsCart={removeAllItemsCart}
             variant="navigation"
+            closeOrderSummary={closeOrderSummary}
           />
         </div>
       )}

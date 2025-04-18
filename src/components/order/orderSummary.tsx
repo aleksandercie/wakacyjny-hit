@@ -57,7 +57,8 @@ export const OrderSummary = ({
   removeAllItemsCart,
   variant,
   isValidCustomer,
-  clientSecret
+  clientSecret,
+  closeOrderSummary
 }: {
   cart: CartItem[];
   isSubmitting: boolean;
@@ -65,6 +66,7 @@ export const OrderSummary = ({
   variant: OrderSummaryVariant;
   isValidCustomer?: boolean;
   clientSecret?: string | null;
+  closeOrderSummary?: () => void;
 }) => {
   const isCartVariant = variant === 'cart';
   const isValidOrder = !hasValidationError(cart);
@@ -74,7 +76,7 @@ export const OrderSummary = ({
 
   return (
     <div
-      className={`flex flex-col rounded-md md:mx-8 lg:mx-0 mt-4 lg:mt-0 lg:max-h-fit bg-white ${
+      className={`flex flex-col rounded-md md:mx-8 lg:mx-0 lg:mt-0 lg:max-h-fit bg-white ${
         isCartVariant ? 'p-4 ' : 'w-[320px] p-4 pr-1 border shadow-lg'
       }`}
     >
@@ -144,7 +146,7 @@ export const OrderSummary = ({
           </Button>
         </div>
       ) : (
-        <Button className="mt-4 mr-3">
+        <Button className="mt-4 mr-3" onClick={closeOrderSummary}>
           <Link href="/koszyk" className="relative">
             Koszyk
           </Link>
