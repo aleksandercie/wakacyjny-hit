@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { Label } from '@radix-ui/react-label';
-// import { Select } from '@/components/select';
 import { useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
 import { useCart } from '@/context/CartContext';
@@ -131,15 +130,27 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       options: quantityOptions,
       placeholder: 'Wybierz ilość osób',
       selected: selectedQuantity,
-      setSelected: setSelectedQuantity
+      setSelected: (value: string) => {
+        setSelectedQuantity(value);
+        setSelectedRooms('');
+      },
+      disabled: false
     },
     {
       label: 'Ilość pokoi',
       name: 'rooms',
-      options: roomsOptions,
+      options: roomsOptions.filter((room) => {
+        const selectQuantity = quantityOptions.find(
+          (quantity) => quantity.value === selectedQuantity
+        );
+        const roomValue = Number(room.value);
+
+        return selectQuantity ? roomValue <= selectQuantity.maxPersons : true;
+      }),
       placeholder: 'Wybierz ilość pokoi',
       selected: selectedRooms,
-      setSelected: setSelectedRooms
+      setSelected: setSelectedRooms,
+      disabled: selectedQuantity === ''
     }
   ];
 
@@ -167,7 +178,15 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       className="flex flex-col gap-4 min-w-[280px]"
     >
       {inputs.map(
-        ({ label, name, options, placeholder, selected, setSelected }) => (
+        ({
+          label,
+          name,
+          options,
+          placeholder,
+          selected,
+          setSelected,
+          disabled
+        }) => (
           <div key={name} className="flex flex-col gap-1">
             <Label htmlFor={name} className="text-gray-500 text-base">
               {label}
@@ -176,6 +195,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
               <Select
                 onValueChange={(value) => setSelected(value)}
                 value={selected}
+                disabled={disabled}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={placeholder} />
