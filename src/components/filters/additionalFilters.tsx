@@ -29,14 +29,17 @@ export const AdditionalFilters = ({
   return (
     <>
       <span className="text-base font-semibold">Przedział cenowy</span>
-      <Slider
-        value={priceRange}
-        onValueChange={setPriceRange}
-        min={0}
-        max={10000}
-        step={100}
-        className="w-full"
-      />
+      <div className="flex w-full px-2 md:px-0">
+        <Slider
+          value={priceRange}
+          onValueChange={setPriceRange}
+          min={0}
+          max={10000}
+          step={100}
+          className="w-full"
+        />
+      </div>
+
       <div className="flex items-center gap-2 justify-between">
         <PriceInput
           id="min-price"

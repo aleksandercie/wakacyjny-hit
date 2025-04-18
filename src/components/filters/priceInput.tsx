@@ -20,7 +20,9 @@ export const PriceInput = ({
     <div className="flex flex-col gap-1">
       <Label
         htmlFor={id}
-        className="opacity-40 text-xs text-center w-full block"
+        className={`opacity-40 text-xs w-full block ${
+          id === 'max-price' ? 'text-right' : 'text-left'
+        }`}
       >
         {label}
       </Label>
