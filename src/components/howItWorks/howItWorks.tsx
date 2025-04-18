@@ -32,6 +32,8 @@ export const HowItWorks = () => {
             alt="Turystka robiąca zdjęcie"
             width={640}
             height={960}
+            placeholder="blur"
+            blurDataURL="data:..."
             className="w-full h-full object-cover object-bottom rounded-md"
           />
         </div>

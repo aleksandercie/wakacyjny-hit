@@ -26,6 +26,8 @@ export const ImageBanner = ({
             width={1920}
             height={1329}
             alt={alt}
+            placeholder="blur"
+            blurDataURL="data:..."
             className="w-full h-full object-cover rounded-md object-middle"
           />
         </div>

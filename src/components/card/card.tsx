@@ -29,6 +29,8 @@ export const Card = ({
             width={600}
             height={600}
             className="rounded-md object-cover w-full"
+            placeholder="blur"
+            blurDataURL="data:..."
           />
         </div>
         <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">

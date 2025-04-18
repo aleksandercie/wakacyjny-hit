@@ -243,6 +243,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         alt={title}
         width={1080}
         height={720}
+        placeholder="blur"
+        blurDataURL="data:..."
         className="rounded-md max-h-[500px]"
       />
       <div className="flex gap-8">

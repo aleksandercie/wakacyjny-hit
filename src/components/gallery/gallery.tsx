@@ -67,6 +67,8 @@ export const Gallery = () => {
               alt={location}
               width={680}
               height={320}
+              placeholder="blur"
+              blurDataURL="data:..."
               className="rounded-md object-cover w-full h-full"
             />
             <div
