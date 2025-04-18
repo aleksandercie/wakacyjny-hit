@@ -18,7 +18,10 @@ export const Video = ({
         autoPlay
         muted
         loop
-        className="w-full h-auto rounded-md hidden min-[720px]:block"
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="w-full h-auto rounded-md hidden min-[720px]:block pointer-events-none"
       >
         <source src={videoSrc} type="video/mp4" />
         Twoja przeglądarka nie obsługuje tagu video.
@@ -30,7 +33,10 @@ export const Video = ({
         autoPlay
         muted
         loop
-        className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md min-[720px]:hidden"
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md min-[720px]:hidden pointer-events-none"
       >
         <source src={videoSrcMobile} type="video/mp4" />
         Twoja przeglądarka nie obsługuje tagu video.
