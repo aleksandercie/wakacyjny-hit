@@ -25,7 +25,7 @@ export async function GET(req: Request) {
     .range(offset, offset + limit - 1);
 
   if (search) {
-    query = query.ilike('title', `%${search}%`);
+    query = query.or(`title.ilike.%${search}%,tags.cs.{${search}}`);
   }
 
   if (from) query = query.gte('startDate', from);
