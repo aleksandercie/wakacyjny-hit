@@ -23,7 +23,7 @@ export async function GET(req: Request) {
     .lte('price', maxPrice)
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1);
-
+  // search for title and tags
   if (search) {
     query = query.or(`title.ilike.%${search}%,tags.cs.{${search}}`);
   }
