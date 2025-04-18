@@ -121,7 +121,7 @@ export const Filters = ({
       />
       <Separator orientation="vertical" className="mr-3 hidden md:block" />
       <div className="hidden md:block">
-        <Dialog>
+        <Dialog modal={false}>
           <DialogTrigger asChild>
             <Button variant="outline" className="rounded-full relative">
               <SlidersHorizontal size={16} />

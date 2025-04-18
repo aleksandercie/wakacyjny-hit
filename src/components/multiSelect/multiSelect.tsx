@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { ScrollArea } from '../ui/scroll-area';
 import { Input } from '../ui/input';
+import { Check } from 'lucide-react';
 
 export const MultiSelect = ({
   options,
@@ -27,7 +28,7 @@ export const MultiSelect = ({
   );
 
   return (
-    <Popover modal>
+    <Popover modal={false}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -44,6 +45,9 @@ export const MultiSelect = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent
+        side="bottom"
+        align="start"
+        avoidCollisions={false}
         className="p-2 bg-white"
         style={{ minWidth: 'var(--radix-popover-trigger-width)' }}
       >
@@ -53,7 +57,7 @@ export const MultiSelect = ({
           placeholder="Szukaj..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="p-1 border rounded w-full mb-2 focus-visible:border-2"
+          className="p-1 border rounded w-full mb-2 focus-visible:border-2 hidden md:block"
         />
         <ScrollArea className="h-[160px] w-full rounded-md border">
           <div className="p-2">
@@ -98,13 +102,19 @@ export const MultiSelect = ({
                 />
                 <Label
                   htmlFor={option.value}
-                  className={`block w-full py-2 cursor-pointer ${
+                  className={`flex justify-between w-full py-2 cursor-pointer min-h-[32px] ${
                     selected.includes(option.value)
                       ? 'font-semibold text-primary'
                       : ''
                   }`}
                 >
-                  {option.label}
+                  <span className="inline-block">{option.label}</span>
+                  <Check
+                    size={16}
+                    className={`text-primary ${
+                      selected.includes(option.value) ? 'block' : 'hidden'
+                    }`}
+                  />
                 </Label>
               </div>
             ))}

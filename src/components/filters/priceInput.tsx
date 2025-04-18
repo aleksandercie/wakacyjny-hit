@@ -37,7 +37,7 @@ export const PriceInput = ({
           id={id}
           disabled
         />
-        <span className="text-sm absolute top-2 left-4 z-0">zł</span>
+        <span className="text-sm absolute top-2 left-4 z-0 opacity-40">zł</span>
       </div>
     </div>
   );
