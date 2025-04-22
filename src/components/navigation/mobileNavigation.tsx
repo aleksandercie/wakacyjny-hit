@@ -29,12 +29,29 @@ export const MobileNavigation = ({
 
   const closeMenu = () => setMenuOpen(false);
 
+  const cartButton = (displayName: boolean) => (
+    <Button variant="link">
+      <Link
+        href="/koszyk"
+        className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l relative"
+        onClick={closeMenu}
+      >
+        {displayName ? 'Koszyk' : ''}
+        <ShoppingCart size={20} />
+        <NavigationBadge className="-top-[6px] -right-[10px]" />
+      </Link>
+    </Button>
+  );
+
   return (
     <div className="w-full flex justify-between md:hidden">
       <Logo style="block" onClick={closeMenu} />
-      <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
-        {menuOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+      <div className="flex gap-2 items-center">
+        {menuOpen ? null : cartButton(false)}
+        <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
       {menuOpen && (
         <div className="absolute top-12 left-0 w-full bg-white p-8 md:hidden h-screen">
           <ul className="flex flex-col gap-4 items-center">
@@ -45,17 +62,7 @@ export const MobileNavigation = ({
             ))}
           </ul>
           <div className="flex flex-col gap-4 items-center mt-4">
-            <Button variant="link">
-              <Link
-                href="/koszyk"
-                className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l relative"
-                onClick={closeMenu}
-              >
-                Koszyk
-                <ShoppingCart size={20} />
-                <NavigationBadge className="-top-[6px] -right-[10px]" />
-              </Link>
-            </Button>
+            {cartButton(true)}
             {/* <Button onClick={closeMenu} variant="link">
               <User size={20} />
               Zaloguj się
