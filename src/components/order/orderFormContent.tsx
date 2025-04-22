@@ -161,6 +161,13 @@ export const OrderFormContent = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8 lg:px-8 lg:gap-8">
         <div className="flex flex-col gap-8 md:px-8 lg:px-0 lg:gap-12">
+          {cart.length > 0 && (
+            <OrderDetailsSection
+              cart={cart}
+              updateCartItem={updateCartItem}
+              removeItemCart={removeItemCart}
+            />
+          )}
           <CustomerInfoSection
             selectedCountry={selectedCountry}
             setSelectedCountry={setSelectedCountry}
@@ -171,13 +178,6 @@ export const OrderFormContent = ({
             watchVat={watchVat}
             watchAllFields={watchAllFields}
           />
-          {cart.length > 0 && (
-            <OrderDetailsSection
-              cart={cart}
-              updateCartItem={updateCartItem}
-              removeItemCart={removeItemCart}
-            />
-          )}
         </div>
         <OrderSummary
           cart={cart}
