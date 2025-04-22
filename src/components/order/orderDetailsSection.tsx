@@ -62,13 +62,17 @@ export const OrderDetailsSection = ({
               <Select
                 value={item.price}
                 onValueChange={(value) => {
-                  const maxPersons = quantityOptions.find(
+                  const selectedQuantity = quantityOptions.find(
                     (option) => option.value === value
-                  )?.maxPersons;
+                  );
+
                   updateCartItem({
                     ...item,
                     price: value as string,
-                    maxPersons
+                    rooms: '',
+                    roomsDetails: [],
+                    maxPersons: selectedQuantity?.maxPersons,
+                    minPersons: selectedQuantity?.minPersons
                   });
                 }}
               >
@@ -103,11 +107,18 @@ export const OrderDetailsSection = ({
                   <SelectValue placeholder="Wybierz ilość pokoi" />
                 </SelectTrigger>
                 <SelectContent>
-                  {roomsOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  {roomsOptions
+                    .filter((option) => {
+                      const roomValue = Number(option.value);
+                      return item.maxPersons
+                        ? roomValue <= item.maxPersons
+                        : true;
+                    })
+                    .map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             </div>
