@@ -1,9 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { dynamicBlurDataUrl } from '@/lib/blurImage';
 
-export const Card = async ({
+export const Card = ({
   id,
   title,
   price,
@@ -20,8 +19,6 @@ export const Card = async ({
   photo: string;
   description?: string;
 }) => {
-  const blurImage = await dynamicBlurDataUrl(photo, 600);
-
   return (
     <div className="relative w-full">
       <Link href={`/oferty/${id}`} className="w-full">
@@ -32,8 +29,6 @@ export const Card = async ({
             width={600}
             height={600}
             className="rounded-md object-cover w-full"
-            placeholder="blur"
-            blurDataURL={blurImage}
           />
         </div>
         <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">

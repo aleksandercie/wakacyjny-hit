@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '../ui/select';
-import { OfferDetailsImage } from './offerDetailsImage';
+import Image from 'next/image';
 
 export const renderPrice = (price: string, variant?: OrderSummaryVariant) => {
   const salePrice = quantityOptions.find(
@@ -238,7 +238,13 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
 
   return (
     <>
-      <OfferDetailsImage image={image} title={title} />
+      <Image
+        src={image}
+        alt={title}
+        width={1080}
+        height={720}
+        className="rounded-md max-h-[500px]"
+      />
       <div className="flex gap-8">
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">
           <div className="flex flex-col gap-8">
