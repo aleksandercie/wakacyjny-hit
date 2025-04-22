@@ -156,12 +156,20 @@ export const Filters = ({
         {additionalFilters}
       </div>
       <Separator orientation="vertical" className="mx-3 hidden md:block" />
-      <Button
-        className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto"
-        onClick={onSearch}
-      >
-        Szukaj
-      </Button>
+      <div className="flex flex-col gap-4">
+        <Button
+          onClick={reset}
+          className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none block md:hidden"
+        >
+          Wyczyść wszystko
+        </Button>
+        <Button
+          className="rounded-full mx-auto max-w-[260px] md:max-w-none w-full md:w-auto"
+          onClick={onSearch}
+        >
+          Szukaj
+        </Button>
+      </div>
     </div>
   );
 };

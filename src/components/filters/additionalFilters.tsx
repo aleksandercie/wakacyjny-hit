@@ -68,14 +68,12 @@ export const AdditionalFilters = ({
         />
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-base font-semibold">
-          Wybierz rodzaj wyżywienia
-        </span>
+        <span className="text-base font-semibold">Wyżywienie</span>
         <MultiSelect
           options={foodOptions}
           selected={selectedfoodOptions}
           setSelected={setSelectedfoodOptions}
-          placeholder="Wyżywienie"
+          placeholder="Wybierz rodzaj wyżywienia"
         />
       </div>
     </>
