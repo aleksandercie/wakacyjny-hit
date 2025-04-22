@@ -7,6 +7,7 @@ import { Filters } from '../filters';
 import { Card, CardSkeleton } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
 import { ArrowUp } from 'lucide-react';
+import { formatDate } from '@/lib/formatDate';
 
 const LIMIT = 6;
 
@@ -130,18 +131,29 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
         setSearch={setSearch}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {trips.map((trip) => (
-          <Card
-            id={trip.id}
-            key={`${trip.id}-${trip.title}`}
-            title={trip.title}
-            price={trip.price}
-            duration={trip.duration}
-            date={`${trip.startDate} - ${trip.endDate}`}
-            photo={trip.image}
-            description={trip.shortDescription}
-          />
-        ))}
+        {trips.map(
+          ({
+            id,
+            title,
+            price,
+            duration,
+            startDate,
+            endDate,
+            image,
+            shortDescription
+          }) => (
+            <Card
+              id={id}
+              key={`${id}-${title}`}
+              title={title}
+              price={price}
+              duration={duration}
+              date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
+              photo={image}
+              description={shortDescription}
+            />
+          )
+        )}
         {loading &&
           Array.from({ length: LIMIT }).map((_, index) => (
             <CardSkeleton key={index} />

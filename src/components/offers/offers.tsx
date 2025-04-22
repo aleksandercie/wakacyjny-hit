@@ -4,6 +4,7 @@ import { Card } from '../card';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { Trip } from '@/types/trip';
+import { formatDate } from '@/lib/formatDate';
 
 export const Offers = ({ trips }: { trips: Trip[] }) => {
   return (
@@ -31,7 +32,7 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
               title={title}
               price={price}
               duration={duration}
-              date={`${startDate} - ${endDate}`}
+              date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
               photo={image}
               description={shortDescription}
             />

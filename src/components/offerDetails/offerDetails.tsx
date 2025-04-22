@@ -28,6 +28,7 @@ import {
   SelectValue
 } from '../ui/select';
 import Image from 'next/image';
+import { formatDate } from '@/lib/formatDate';
 
 export const renderPrice = (price: string, variant?: OrderSummaryVariant) => {
   const salePrice = quantityOptions.find(
@@ -63,7 +64,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     flight,
     accomodation,
     longDescription,
-    secondaryDescription
+    secondaryDescription,
+    created_at
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
@@ -158,7 +160,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     {
       name: 'Termin wyjazdu',
       icon: <CalendarDays size={28} className="text-gray-500" />,
-      value: `${startDate} - ${endDate}`
+      value: `${formatDate(startDate)} - ${formatDate(endDate)}`
     },
     {
       name: 'Długość pobytu',
@@ -249,7 +251,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">
           <div className="flex flex-col gap-8">
             <p className="text-gray-500">
-              Data publikacji oferty: <span>02/02/2025</span>
+              Data publikacji oferty: <span>{formatDate(created_at)}</span>
             </p>
             <div className="flex flex-col gap-6">
               {about.map(({ name, icon, value }) => (

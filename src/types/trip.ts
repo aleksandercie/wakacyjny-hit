@@ -4,7 +4,7 @@ export type Trip = {
   shortDescription: string;
   longDescription: string;
   secondaryDescription: string;
-  createdAt: string;
+  created_at: string;
   price: number;
   flight: string[];
   accomodation: string[];

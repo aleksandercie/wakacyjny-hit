@@ -1,9 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { format, subYears } from 'date-fns';
+import { subYears } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import { pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -20,6 +19,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { useEffect, useState } from 'react';
+import { formatDate } from '@/lib/formatDate';
 
 export const DateOfBirthPicker = ({
   value,
@@ -60,11 +60,7 @@ export const DateOfBirthPicker = ({
             )}
           >
             <CalendarIcon className="sm:mr-2 h-4 w-4" />
-            {date ? (
-              format(date, 'dd MMMM yyyy', { locale: pl })
-            ) : (
-              <span>Wybierz datę urodzenia</span>
-            )}
+            {date ? formatDate(date) : <span>Wybierz datę urodzenia</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent
