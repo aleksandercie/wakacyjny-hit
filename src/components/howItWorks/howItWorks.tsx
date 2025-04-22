@@ -1,8 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { FileText, MailCheck, ShoppingCart } from 'lucide-react';
+import { dynamicBlurDataUrl } from '@/lib/blurImage';
 
-export const HowItWorks = () => {
+export const HowItWorks = async () => {
   const points = [
     {
       title:
@@ -22,18 +23,20 @@ export const HowItWorks = () => {
       icon: <MailCheck />
     }
   ];
+  const imageUrl = '/guide.jpg';
+  const blurImage = await dynamicBlurDataUrl(imageUrl, 640);
 
   return (
     <div className="flex justify-center">
       <div className="flex flex-col md:flex-row gap-8 max-w-[1000px]">
         <div className="w-full md:w-1/2 h-full max-h-[400px] md:max-h-[580px] md:flex md:items-center overflow-hidden rounded-md">
           <Image
-            src="/guide.jpg"
+            src={imageUrl}
             alt="Turystka robiąca zdjęcie"
             width={640}
             height={960}
             placeholder="blur"
-            blurDataURL="data:..."
+            blurDataURL={blurImage}
             className="w-full h-full object-cover object-bottom rounded-md"
           />
         </div>

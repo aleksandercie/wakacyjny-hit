@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import { dynamicBlurDataUrl } from '@/lib/blurImage';
 
-export const ImageBanner = ({
+export const ImageBanner = async ({
   title,
   image,
   alt
@@ -10,6 +11,7 @@ export const ImageBanner = ({
   image: string;
   alt: string;
 }) => {
+  const blurImage = await dynamicBlurDataUrl(image, 1920);
   return (
     <div className="w-full m-auto">
       <div className="relative">
@@ -27,7 +29,7 @@ export const ImageBanner = ({
             height={1329}
             alt={alt}
             placeholder="blur"
-            blurDataURL="data:..."
+            blurDataURL={blurImage}
             className="w-full h-full object-cover rounded-md object-middle"
           />
         </div>

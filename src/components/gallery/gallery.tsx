@@ -1,6 +1,45 @@
 import Image from 'next/image';
 import React from 'react';
 import { Header } from '../header';
+import { dynamicBlurDataUrl } from '@/lib/blurImage';
+
+type PhotoType = {
+  location: string;
+  country: string;
+  photo: string;
+  width: string;
+  position: string;
+};
+
+const Photos = ({ photos }: { photos: PhotoType[] }) =>
+  photos.map(async ({ location, country, photo, width, position }) => {
+    const blurImage = await dynamicBlurDataUrl(photo, 600);
+
+    return (
+      <div
+        key={`${location}-${country}`}
+        className={`${width} text-white relative md:max-h-[320px]`}
+      >
+        <Image
+          src={photo}
+          alt={location}
+          width={680}
+          height={320}
+          placeholder="blur"
+          blurDataURL={blurImage}
+          className="rounded-md object-cover w-full h-full"
+        />
+        <div
+          className={`absolute text-white ${
+            position === 'left' ? 'top-4 left-4' : 'bottom-4 right-4'
+          }`}
+        >
+          <p className="text-lg">{location}</p>
+          <p className="font-bold text-base opacity-80">{country}</p>
+        </div>
+      </div>
+    );
+  });
 
 export const Gallery = () => {
   const photos = [
@@ -57,30 +96,7 @@ export const Gallery = () => {
           zapierają dech w piersiach."
       />
       <div className="flex flex-col md:flex-row md:flex-wrap gap-4 justify-center">
-        {photos.map(({ location, country, photo, width, position }) => (
-          <div
-            key={`${location}-${country}`}
-            className={`${width} text-white relative md:max-h-[320px]`}
-          >
-            <Image
-              src={photo}
-              alt={location}
-              width={680}
-              height={320}
-              placeholder="blur"
-              blurDataURL="data:..."
-              className="rounded-md object-cover w-full h-full"
-            />
-            <div
-              className={`absolute text-white ${
-                position === 'left' ? 'top-4 left-4' : 'bottom-4 right-4'
-              }`}
-            >
-              <p className="text-lg">{location}</p>
-              <p className="font-bold text-base opacity-80">{country}</p>
-            </div>
-          </div>
-        ))}
+        <Photos photos={photos} />
       </div>
     </div>
   );
