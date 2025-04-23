@@ -7,12 +7,14 @@ import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { Logo } from '../logo';
 import { NavigationBadge } from './navigationBadge';
+import { ROUTES } from '@/lib/routes';
 
 export const MobileNavigation = ({
   links
 }: {
   links: { name: string; link: string }[];
 }) => {
+  const { CART } = ROUTES;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export const MobileNavigation = ({
   const cartButton = (displayName: boolean) => (
     <Button variant="link">
       <Link
-        href="/koszyk"
+        href={CART}
         className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l relative"
         onClick={closeMenu}
       >

@@ -1,7 +1,10 @@
 import { Contact, ContactForm, ImageBanner } from '@/components';
+import { ROUTES } from '@/lib/routes';
 import Link from 'next/link';
 
 export default function ContactPage() {
+  const { FAQ } = ROUTES;
+
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
@@ -16,7 +19,7 @@ export default function ContactPage() {
             <p className="text-base">
               Sprawdź naszą sekcję{' '}
               <Link
-                href="/faq"
+                href={FAQ}
                 className="font-semibold text-primary hover:font-bold"
               >
                 FAQ

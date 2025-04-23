@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { ROUTES } from '@/lib/routes';
 
 export default function SuccessPage() {
   const router = useRouter();
   const [orderId, setOrderId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
+  const { OFFERS } = ROUTES;
 
   useEffect(() => {
     const successFlag = localStorage.getItem('orderSuccess');
@@ -40,7 +42,7 @@ export default function SuccessPage() {
         Potwierdzenie zostało wysłane na adres:{' '}
         <span className="font-medium">{email}</span>
       </p>
-      <Link href="/oferty">
+      <Link href={OFFERS}>
         <Button className="mt-4">Przeglądaj kolejne oferty</Button>
       </Link>
     </main>

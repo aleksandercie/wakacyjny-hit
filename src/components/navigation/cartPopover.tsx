@@ -7,8 +7,10 @@ import { Button } from '@/components/ui/button';
 import { NavigationBadge } from './navigationBadge';
 import { useCart } from '@/context/CartContext';
 import { OrderSummary } from '../order/orderSummary';
+import { ROUTES } from '@/lib/routes';
 
 export const CartPopover = () => {
+  const { CART } = ROUTES;
   const { cart, removeAllItemsCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -34,7 +36,7 @@ export const CartPopover = () => {
     >
       <Button variant="link" className="relative">
         <Link
-          href="/koszyk"
+          href={CART}
           className="relative flex items-center gap-2 font-bold"
         >
           <ShoppingCart size={20} />

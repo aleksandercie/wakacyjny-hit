@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ROUTES } from '@/lib/routes';
 
 export const Card = ({
   id,
@@ -19,9 +20,11 @@ export const Card = ({
   photo: string;
   description?: string;
 }) => {
+  const { OFFERS } = ROUTES;
+
   return (
     <div className="relative w-full">
-      <Link href={`/oferty/${id}`} className="w-full">
+      <Link href={`/${OFFERS}/${id}`} className="w-full">
         <div className="overflow-hidden rounded-md">
           <Image
             src={photo}

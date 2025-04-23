@@ -3,13 +3,15 @@ import { NavigationLink } from './navigationLink';
 import { MobileNavigation } from './mobileNavigation';
 import { Logo } from '../logo';
 import { CartPopover } from './cartPopover';
+import { ROUTES } from '@/lib/routes';
 
 export const Navigation = () => {
+  const { OFFERS, ABOUT_US, FAQ, CONTACT } = ROUTES;
   const links = [
-    { name: 'Oferty', link: '/oferty' },
-    { name: 'O nas', link: '/o-nas' },
-    { name: 'FAQ', link: '/faq' },
-    { name: 'Kontakt', link: '/kontakt' }
+    { name: 'Oferty', link: OFFERS },
+    { name: 'O nas', link: ABOUT_US },
+    { name: 'FAQ', link: FAQ },
+    { name: 'Kontakt', link: CONTACT }
   ];
 
   return (

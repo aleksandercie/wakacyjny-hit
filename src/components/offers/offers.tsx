@@ -5,8 +5,11 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { Trip } from '@/types/trip';
 import { formatDate } from '@/lib/formatDate';
+import { ROUTES } from '@/lib/routes';
 
 export const Offers = ({ trips }: { trips: Trip[] }) => {
+  const { OFFERS } = ROUTES;
+
   return (
     <div className={`w-full max-w-[1000px] mx-auto`}>
       <Header
@@ -40,7 +43,7 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
         )}
       </div>
       <div className="flex justify-center my-8">
-        <Link href="/oferty">
+        <Link href={OFFERS}>
           <Button>Zobacz więcej</Button>
         </Link>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Video } from '../video';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { ROUTES } from '@/lib/routes';
 
 export const Banner = ({
   video,
@@ -14,6 +15,8 @@ export const Banner = ({
   title: string;
   description: string;
 }) => {
+  const { OFFERS } = ROUTES;
+
   return (
     <div className="w-full m-auto">
       <div className="relative">
@@ -22,7 +25,7 @@ export const Banner = ({
             {title}
           </h1>
           <p className="text-s xs:text-m sm:text-l md:text-xl">{description}</p>
-          <Link href="/oferty">
+          <Link href={OFFERS}>
             <Button>Sprawdź</Button>
           </Link>
         </div>

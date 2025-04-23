@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { CircleCheck } from 'lucide-react';
+import { ROUTES } from '@/lib/routes';
 
 const formSchema = z.object({
   email: z
@@ -45,6 +46,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export const ContactForm = () => {
+  const { TERMS } = ROUTES;
   const {
     register,
     handleSubmit,
@@ -115,7 +117,7 @@ export const ContactForm = () => {
           <Label htmlFor="terms" className="text-gray-500 text-base">
             Akceptuję{' '}
             <Link
-              href=""
+              href={TERMS}
               className="text-primary font-semibold text-base hover:font-bold"
             >
               regulamin

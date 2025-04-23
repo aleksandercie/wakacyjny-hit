@@ -7,6 +7,7 @@ import { renderPrice } from '../offerDetails';
 import Link from 'next/link';
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useState } from 'react';
+import { ROUTES } from '@/lib/routes';
 
 export const calculateTotalPrice = (cart: CartItem[]) => {
   return cart.reduce((sum, item) => {
@@ -68,6 +69,7 @@ export const OrderSummary = ({
   clientSecret?: string | null;
   closeOrderSummary?: () => void;
 }) => {
+  const { CART } = ROUTES;
   const isCartVariant = variant === 'cart';
   const isValidOrder = !hasValidationError(cart);
   const [isPaymentReady, setIsPaymentReady] = useState(false);
@@ -147,7 +149,7 @@ export const OrderSummary = ({
         </div>
       ) : (
         <Button className="mt-4 mr-3" onClick={closeOrderSummary}>
-          <Link href="/koszyk" className="relative">
+          <Link href={CART} className="relative">
             Koszyk
           </Link>
         </Button>
