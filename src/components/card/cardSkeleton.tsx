@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export const CardSkeleton = () => {
   return (
-    <div className="relative w-full min-w-[264px]">
+    <div className="relative w-full min-w-full">
       <div className="overflow-hidden rounded-md">
         <Skeleton className="h-[250px] w-full rounded-md" />
       </div>
