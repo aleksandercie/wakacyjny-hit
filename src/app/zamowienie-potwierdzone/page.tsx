@@ -17,14 +17,16 @@ export default function SuccessPage() {
     const storedOrderId = localStorage.getItem('orderId');
     const storedEmail = localStorage.getItem('orderEmail');
 
-    if (successFlag !== 'true' || !storedOrderId || !storedEmail) {
-      router.replace('/');
-    } else {
+    if (successFlag === 'true' && storedOrderId && storedEmail) {
       setOrderId(storedOrderId);
       setEmail(storedEmail);
-      localStorage.removeItem('orderSuccess');
-      localStorage.removeItem('orderId');
-      localStorage.removeItem('orderEmail');
+      setTimeout(() => {
+        localStorage.removeItem('orderSuccess');
+        localStorage.removeItem('orderId');
+        localStorage.removeItem('orderEmail');
+      }, 100);
+    } else {
+      router.replace('/');
     }
   }, [router]);
 
