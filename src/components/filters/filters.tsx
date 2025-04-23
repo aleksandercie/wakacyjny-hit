@@ -16,6 +16,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogPortal,
   DialogTitle,
   DialogTrigger
 } from '../ui/dialog';
@@ -131,25 +132,28 @@ export const Filters = ({
               )}
             </Button>
           </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Filtry</DialogTitle>
-            </DialogHeader>
-            {additionalFilters}
-            <DialogFooter className="flex gap-4">
-              <DialogClose asChild>
-                <Button
-                  onClick={reset}
-                  className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
-                >
-                  Wyczyść
-                </Button>
-              </DialogClose>
-              <DialogClose asChild>
-                <Button>Zapisz</Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
+          <DialogPortal>
+            <div className="fixed inset-0 bg-black/10 backdrop-blur-[2px] z-110 w-full h-screen" />
+            <DialogContent className="fixed z-120 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
+              <DialogHeader>
+                <DialogTitle>Filtry</DialogTitle>
+              </DialogHeader>
+              {additionalFilters}
+              <DialogFooter className="flex gap-4">
+                <DialogClose asChild>
+                  <Button
+                    onClick={reset}
+                    className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
+                  >
+                    Wyczyść
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button>Zapisz</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </DialogPortal>
         </Dialog>
       </div>
       <div className="flex flex-col md:hidden gap-4 w-full">
