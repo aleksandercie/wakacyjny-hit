@@ -24,7 +24,7 @@ export const Card = ({
 
   return (
     <div className="relative w-full">
-      <Link href={`/${OFFERS}/${id}`} className="w-full">
+      <Link href={`${OFFERS}/${id}`} className="w-full">
         <div className="overflow-hidden rounded-md">
           <Image
             src={photo}
