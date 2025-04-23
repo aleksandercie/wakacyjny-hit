@@ -29,6 +29,7 @@ import {
 } from '../ui/select';
 import Image from 'next/image';
 import { formatDate } from '@/lib/formatDate';
+import { useRouter } from 'next/navigation';
 
 export const renderPrice = (price: string, variant?: OrderSummaryVariant) => {
   const salePrice = quantityOptions.find(
@@ -70,6 +71,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
   const { addToCart, cart } = useCart();
+  const router = useRouter();
 
   const details = [
     {
@@ -95,11 +97,13 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     formState: { isSubmitting }
   } = useForm<FormData>();
 
-  const onSubmit = async () => {
+  const handleAddToCart = (): string | null => {
     const option = quantityOptions.find(
       (item) => item.value === selectedQuantity
     );
-    addToCart({
+    if (!option) return null;
+
+    const newItem = {
       id: `${id}-${cart.length + 1}`,
       orderId: id,
       name: title,
@@ -113,7 +117,9 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         children: undefined
       })),
       orderComments: undefined
-    });
+    };
+
+    addToCart(newItem);
 
     toast.success('Super!', {
       description: 'Twoja oferta została dodana do koszyka.',
@@ -122,7 +128,19 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       duration: 2000
     });
 
+    return newItem.id;
+  };
+
+  const onSubmit = async () => {
+    handleAddToCart();
     reset();
+  };
+
+  const handleOrderNow = () => {
+    const result = handleAddToCart();
+    if (result) {
+      router.push('/koszyk'); // adjust route if needed
+    }
   };
 
   const inputs = [
@@ -173,6 +191,12 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       value: `${price} zł`
     }
   ];
+
+  const isDisabledButton =
+    selectedQuantity === '' ||
+    selectedRooms === '' ||
+    cart.length === 5 ||
+    isSubmitting;
 
   const form = (
     <form
@@ -225,13 +249,13 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           W koszyku znajduje się maksymalna ilość ofert.
         </p>
       )}
+      <Button disabled={isDisabledButton} variant="secondary">
+        Dodaj do koszyka
+      </Button>
       <Button
-        disabled={
-          selectedQuantity === '' ||
-          selectedRooms === '' ||
-          cart.length === 5 ||
-          isSubmitting
-        }
+        disabled={isDisabledButton}
+        type="button"
+        onClick={handleOrderNow}
       >
         Zamów teraz
       </Button>
