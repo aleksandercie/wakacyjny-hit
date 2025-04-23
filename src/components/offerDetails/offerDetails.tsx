@@ -134,12 +134,16 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const onSubmit = async () => {
     handleAddToCart();
     reset();
+    setSelectedQuantity('');
+    setSelectedRooms('');
   };
 
   const handleOrderNow = () => {
     const result = handleAddToCart();
     if (result) {
-      router.push('/koszyk'); // adjust route if needed
+      setSelectedQuantity('');
+      setSelectedRooms('');
+      router.push('/koszyk');
     }
   };
 
