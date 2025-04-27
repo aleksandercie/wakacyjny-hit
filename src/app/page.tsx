@@ -1,5 +1,20 @@
 import { Banner, Gallery, HowItWorks, Offers } from '@/components';
 import { getTrips } from '@/lib/api/getTrips';
+import { createMetadata } from '@/lib/seo';
+
+export const generateMetadata = () =>
+  createMetadata({
+    title: 'Wakacyjny Hit – Najlepsze oferty wakacji',
+    description:
+      'Znajdź wymarzone wakacje w najlepszych cenach! Sprawdź nasze oferty podróży do najpiękniejszych miejsc świata.',
+    ogTitle: 'Wakacyjny Hit – Najlepsze oferty wakacji',
+    ogDescription:
+      'Wakacyjne oferty dla każdego! Relaks, przygoda i niezapomniane wspomnienia.',
+    ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
+    noIndex: true
+  });
 
 export default async function Home() {
   const trips = await getTrips();

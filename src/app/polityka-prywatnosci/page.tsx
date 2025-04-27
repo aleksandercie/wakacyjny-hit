@@ -1,4 +1,19 @@
 import { ImageBanner } from '@/components';
+import { createMetadata } from '@/lib/seo';
+
+export const generateMetadata = () =>
+  createMetadata({
+    title: 'Polityka prywatności – Wakacyjny Hit',
+    description:
+      'Zapoznaj się z polityką prywatności serwisu Wakacyjny Hit i dowiedz się, jak chronimy Twoje dane osobowe.',
+    ogTitle: 'Polityka prywatności – Wakacyjny Hit',
+    ogDescription:
+      'Dowiedz się, jak dbamy o Twoje dane i zapewniamy ich bezpieczeństwo w serwisie Wakacyjny Hit.',
+    ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/polityka-prywatnosci`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/polityka-prywatnosci`,
+    noIndex: false
+  });
 
 export default function PrivacyPolicyPage() {
   return (

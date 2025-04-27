@@ -1,33 +1,25 @@
-'use client';
-import { OrderForm } from '@/components/order';
-import { Button } from '@/components/ui/button';
-import { useCart } from '@/context/CartContext';
-import { ROUTES } from '@/lib/routes';
-import Link from 'next/link';
+import { Cart } from '@/components';
+import { createMetadata } from '@/lib/seo';
+
+export const generateMetadata = () =>
+  createMetadata({
+    title: 'Koszyk – Twoje wakacyjne rezerwacje | Wakacyjny Hit',
+    description:
+      'Sprawdź swoje wybrane oferty wakacyjne i sfinalizuj rezerwację szybko i wygodnie.',
+    ogTitle: 'Koszyk – Twoje wakacyjne rezerwacje | Wakacyjny Hit',
+    ogDescription:
+      'Twoje wakacyjne marzenia są na wyciągnięcie ręki! Zobacz, co masz w koszyku i zarezerwuj już dziś.',
+    ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/koszyk`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/koszyk`,
+    noIndex: true
+  });
 
 export default function CartPage() {
-  const { cart, isLoading } = useCart();
-  const { OFFERS } = ROUTES;
-
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-12 p-2 bg-gray-100 pb-12">
-        <div className="max-w-[1200px] mx-auto">
-          {isLoading ? (
-            <div className="flex w-full justify-center min-h-[40vh] items-center">
-              <p>Ładowanie koszyka...</p>
-            </div>
-          ) : cart.length === 0 ? (
-            <div className="flex w-full justify-center min-h-[40vh] items-center flex-col gap-4">
-              <p className="text-center">Twój koszyk jest pusty</p>
-              <Link href={OFFERS}>
-                <Button>Sprawdź oferty</Button>
-              </Link>
-            </div>
-          ) : (
-            <OrderForm />
-          )}
-        </div>
+        <Cart />
       </main>
     </div>
   );

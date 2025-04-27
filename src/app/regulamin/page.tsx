@@ -1,4 +1,19 @@
 import { ImageBanner } from '@/components';
+import { createMetadata } from '@/lib/seo';
+
+export const generateMetadata = () =>
+  createMetadata({
+    title: 'Regulamin – Wakacyjny Hit',
+    description:
+      'Zapoznaj się z regulaminem korzystania z serwisu Wakacyjny Hit. Dowiedz się więcej o zasadach i warunkach świadczenia usług.',
+    ogTitle: 'Regulamin – Wakacyjny Hit',
+    ogDescription:
+      'Sprawdź regulamin serwisu Wakacyjny Hit i poznaj zasady korzystania z naszych usług.',
+    ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/regulamin`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/regulamin`,
+    noIndex: false
+  });
 
 export default function TermsPage() {
   return (

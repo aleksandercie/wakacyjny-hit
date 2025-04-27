@@ -17,3 +17,6 @@ export * from './offerDetails';
 export * from './offersList';
 export * from './badge';
 export * from './dateOfBirthPicker';
+export * from './headComponent';
+export * from './success';
+export * from './cart';

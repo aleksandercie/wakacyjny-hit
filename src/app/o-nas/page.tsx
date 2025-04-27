@@ -1,4 +1,19 @@
 import { Faq, HowItWorks, ImageBanner } from '@/components';
+import { createMetadata } from '@/lib/seo';
+
+export const generateMetadata = () =>
+  createMetadata({
+    title: 'Jak to działa – Wakacyjny Hit',
+    description:
+      'Dowiedz się, jak działa Wakacyjny Hit. Oferujemy najlepsze wakacyjne oferty dla podróżników szukających przygód i relaksu.',
+    ogTitle: 'Jak to działa – Wakacyjny Hit',
+    ogDescription:
+      'Poznaj zasady działania Wakacyjnego Hitu i odkryj jak łatwo zaplanować idealne wakacje!',
+    ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/o-nas`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/o-nas`,
+    noIndex: false
+  });
 
 export default function HowItWorksPage() {
   return (

@@ -1,10 +1,38 @@
 import { OfferDetails } from '@/components';
 import { getTripById } from '@/lib/api/getTrip';
 import { notFound } from 'next/navigation';
+import { createMetadata } from '@/lib/seo';
 
 type OfferPageProps = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: OfferPageProps) {
+  const { id } = await params;
+  try {
+    const trip = await getTripById(id);
+
+    if (!trip) return {};
+
+    return createMetadata({
+      title: `${trip.title} – Wakacyjny Hit`,
+      description:
+        trip.shortDescription?.slice(0, 150) ||
+        'Najlepsze oferty podróży dostępne na Wakacyjny Hit!',
+      ogTitle: `${trip.title} – Wakacyjny Hit`,
+      ogDescription:
+        trip.shortDescription?.slice(0, 150) ||
+        'Odkryj niesamowite miejsca na świecie razem z nami!',
+      ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
+      ogImage: trip.image || `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+      canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
+      noIndex: false
+    });
+  } catch (error) {
+    console.error('Error generating metadata for offer:', error);
+    return {};
+  }
+}
 
 export default async function OfferPage({ params }: OfferPageProps) {
   const { id } = await params;
