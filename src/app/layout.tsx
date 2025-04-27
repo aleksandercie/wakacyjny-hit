@@ -24,10 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body className={`${nunitoSans.variable} antialiased relative bg-white`}>
+      <body className={`${nunitoSans.variable} antialiased relative bg-white `}>
         <CartProvider>
           <Navigation />
-          {children}
+          <div className="container mx-auto max-w-[1920px]">{children}</div>
           <Footer />
           <Toaster position="top-right" />
         </CartProvider>
