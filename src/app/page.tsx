@@ -23,8 +23,8 @@ export default async function Home() {
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
         <Banner
-          videoMobile="/video-mobile-v3.mp4"
-          video="/video-v2.mp4"
+          videoMobile="/mobile-banner.mp4"
+          video="/desktop-banner.mp4"
           title="Planujesz wymarzone wakacje?"
           description="Znajdź najlepsze oferty wyjazdów w najniższych cenach! Wiele destynacji na całym świecie – idealne miejsca na relaks, przygody i niezapomniane wspomnienia."
         />
