@@ -151,6 +151,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
               date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
               photo={image}
               description={shortDescription}
+              variant="large"
             />
           )
         )}

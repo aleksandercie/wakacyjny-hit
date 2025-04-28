@@ -10,7 +10,8 @@ export const Card = ({
   duration,
   date,
   photo,
-  description
+  description,
+  variant
 }: {
   id: string | number;
   title: string;
@@ -19,8 +20,10 @@ export const Card = ({
   date: string;
   photo: string;
   description?: string;
+  variant: 'small' | 'large';
 }) => {
   const { OFFERS } = ROUTES;
+  const isLarge = variant === 'large';
 
   return (
     <div className="relative w-full">
@@ -29,8 +32,8 @@ export const Card = ({
           <Image
             src={photo}
             alt={title}
-            width={600}
-            height={600}
+            width={isLarge ? 600 : 492}
+            height={isLarge ? 400 : 328}
             className="rounded-md object-cover w-full"
           />
         </div>

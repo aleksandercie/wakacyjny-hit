@@ -38,6 +38,7 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
               date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
               photo={image}
               description={shortDescription}
+              variant="small"
             />
           )
         )}
