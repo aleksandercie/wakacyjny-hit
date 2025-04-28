@@ -22,8 +22,9 @@ const formSchema = z.object({
   phone: z
     .string()
     .nonempty({ message: 'Numer telefonu jest wymagany' })
-    .regex(/^(\+48)?\d{9}$/, {
-      message: 'Podaj poprawny numer telefonu (9 cyfr lub +48)'
+    .regex(/^\+\d{6,15}$/, {
+      message:
+        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789)'
     }),
 
   title: z
@@ -89,7 +90,15 @@ export const ContactForm = () => {
           <Label htmlFor="phone" className="text-gray-500 text-base">
             Numer telefonu
           </Label>
-          <Input id="phone" type="text" {...register('phone')} />
+          <Input
+            id="phone"
+            type="tel"
+            {...register('phone')}
+            onInput={(e) => {
+              const input = e.currentTarget;
+              input.value = input.value.replace(/[^\d+]/g, '').slice(0, 16);
+            }}
+          />
           {errors.phone && (
             <p className="text-red-600 text-base">{errors.phone.message}</p>
           )}

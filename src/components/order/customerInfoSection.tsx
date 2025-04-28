@@ -28,10 +28,13 @@ export const orderSchemaCustomer = z
     lastName: z.string().min(1, 'Nazwisko jest wymagane'),
     country: z.string().min(1, 'Wybierz kraj'),
     address: z.string().min(1, 'Ulica jest wymagana'),
-    postalCode: z.string().regex(/^\d{2}-\d{3}$/, 'Niepoprawny kod pocztowy'),
+    postalCode: z.string().min(3, 'Niepoprawny kod pocztowy'),
     phone: z
       .string()
-      .regex(/^\+48\d{9}$/, 'Numer telefonu musi zawierać +48 i 9 cyfr'),
+      .regex(
+        /^\+\d{6,15}$/,
+        'Numer telefonu musi być w formacie międzynarodowym, np. +48123456789'
+      ),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
     taxId: z.string().optional()
@@ -179,15 +182,13 @@ export const CustomerInfoSection = ({
             <Input
               id="postalCode"
               type="text"
-              maxLength={6}
+              maxLength={12}
               {...register('postalCode', { onBlur: () => {} })}
               onInput={(e) => {
                 const input = e.currentTarget;
-                let raw = input.value.replace(/[^0-9]/g, '').slice(0, 5);
-                if (raw.length > 2) {
-                  raw = raw.slice(0, 2) + '-' + raw.slice(2);
-                }
-                input.value = raw;
+                input.value = input.value
+                  .replace(/[^a-zA-Z0-9 -]/g, '')
+                  .slice(0, 12);
               }}
               className="mt-2"
             />
@@ -213,17 +214,11 @@ export const CustomerInfoSection = ({
           <Input
             id="phone"
             type="tel"
-            maxLength={12}
+            maxLength={16}
             {...register('phone', { onBlur: () => {} })}
             onInput={(e) => {
               const input = e.currentTarget;
-              let value = input.value;
-              if (!value.startsWith('+48')) {
-                value = '+48' + value.replace(/[^0-9]/g, '');
-              } else {
-                value = '+48' + value.slice(3).replace(/[^0-9]/g, '');
-              }
-              input.value = value.slice(0, 12);
+              input.value = input.value.replace(/[^\d+]/g, '').slice(0, 16);
             }}
           />
           {errors.phone && (

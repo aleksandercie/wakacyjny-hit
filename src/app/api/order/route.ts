@@ -9,10 +9,17 @@ const orderSchema = z
     lastName: z.string().min(1),
     country: z.string().min(1),
     address: z.string().min(1),
-    postalCode: z.string().regex(/^\d{2}-\d{3}$/, ''),
-    phone: z
+    postalCode: z
       .string()
-      .regex(/^\+48\d{9}$/, 'Numer telefonu musi zawierać +48 i 9 cyfr'),
+      .min(3, { message: 'Kod pocztowy jest za krótki' })
+      .max(12, { message: 'Kod pocztowy jest za długi' })
+      .regex(/^[A-Za-z0-9 \-]+$/, {
+        message: 'Niepoprawny format kodu pocztowego'
+      }),
+    phone: z.string().regex(/^\+\d{6,15}$/, {
+      message:
+        'Numer telefonu musi być w formacie międzynarodowym, np. +48123456789'
+    }),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
     taxId: z.string().optional(),
