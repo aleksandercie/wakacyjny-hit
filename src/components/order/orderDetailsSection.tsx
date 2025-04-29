@@ -43,11 +43,19 @@ export const OrderDetailsSection = ({
     touchedRooms[item.id]?.size === item.roomsDetails.length;
 
   return (
-    <div className="flex flex-col gap-8 p-4 rounded-md bg-white">
-      <h3 className="text-2xl font-bold pt-4 lg:pt-0 max-w-[390px]">
-        Dodatkowe informacje dotyczące zamówienia{' '}
-      </h3>
-      <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4 p-4 rounded-md bg-white">
+      <div className="flex flex-col gap-2">
+        <h3 className="text-2xl font-bold pt-4 lg:pt-0 max-w-[390px]">
+          Informacje dotyczące zamówienia{' '}
+        </h3>
+        <p className="text-xs text-muted-foreground max-w-prose">
+          Uzupełnij dane dotyczące uczestników i pokoi. Pamiętaj, że każdy pokój
+          musi mieć co najmniej jedną osobę, a jeśli wybierzesz dzieci, musisz
+          podać ich daty urodzenia. Minimalna i maksymalna liczba osób zależy od
+          wybranej oferty.
+        </p>
+      </div>
+      <div className="flex flex-col gap-4">
         {cart.map((item) => (
           <div key={item.id} className="flex flex-col gap-4 pt-4">
             <div className="flex justify-between items-center gap-4">
@@ -304,8 +312,9 @@ export const OrderDetailsSection = ({
                   return (
                     <div
                       key={`validation-${item.id}`}
-                      className="mt-4 text-sm w-full"
+                      className="text-sm w-full"
                     >
+                      <p className="opacity-0 h-[16px] text-xs w-full" />
                       {totalPeople < min && (
                         <p className="text-red-600">
                           Minimalna liczba uczestników dla tej oferty to {min}.

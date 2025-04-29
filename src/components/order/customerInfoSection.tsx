@@ -117,7 +117,7 @@ export const CustomerInfoSection = ({
             maxLength={254}
           />
           {errors.email && (
-            <p className="text-red-600">{errors.email.message}</p>
+            <p className="text-red-600 text-sm">{errors.email.message}</p>
           )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -130,7 +130,7 @@ export const CustomerInfoSection = ({
               maxLength={50}
             />
             {errors.firstName && (
-              <p className="text-red-600">{errors.firstName.message}</p>
+              <p className="text-red-600 text-sm">{errors.firstName.message}</p>
             )}
           </div>
           <div>
@@ -142,7 +142,7 @@ export const CustomerInfoSection = ({
               maxLength={50}
             />
             {errors.lastName && (
-              <p className="text-red-600">{errors.lastName.message}</p>
+              <p className="text-red-600 text-sm">{errors.lastName.message}</p>
             )}
           </div>
         </div>
@@ -174,7 +174,7 @@ export const CustomerInfoSection = ({
               )}
             />
             {errors.country && (
-              <p className="text-red-600">{errors.country.message}</p>
+              <p className="text-red-600 text-sm">{errors.country.message}</p>
             )}
           </div>
           <div>
@@ -193,7 +193,9 @@ export const CustomerInfoSection = ({
               className="mt-2"
             />
             {errors.postalCode && (
-              <p className="text-red-600">{errors.postalCode.message}</p>
+              <p className="text-red-600 text-sm">
+                {errors.postalCode.message}
+              </p>
             )}
           </div>
         </div>
@@ -206,7 +208,7 @@ export const CustomerInfoSection = ({
             maxLength={100}
           />
           {errors.address && (
-            <p className="text-red-600">{errors.address.message}</p>
+            <p className="text-red-600 text-sm">{errors.address.message}</p>
           )}
         </div>
         <div>
@@ -222,7 +224,7 @@ export const CustomerInfoSection = ({
             }}
           />
           {errors.phone && (
-            <p className="text-red-600">{errors.phone.message}</p>
+            <p className="text-red-600 text-sm">{errors.phone.message}</p>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -250,7 +252,9 @@ export const CustomerInfoSection = ({
                 maxLength={100}
               />
               {errors.companyName && (
-                <p className="text-red-600">{errors.companyName.message}</p>
+                <p className="text-red-600 text-sm">
+                  {errors.companyName.message}
+                </p>
               )}
             </div>
             <div>
@@ -266,7 +270,7 @@ export const CustomerInfoSection = ({
                 }}
               />
               {errors.taxId && (
-                <p className="text-red-600">{errors.taxId.message}</p>
+                <p className="text-red-600 text-sm">{errors.taxId.message}</p>
               )}
             </div>
           </div>
