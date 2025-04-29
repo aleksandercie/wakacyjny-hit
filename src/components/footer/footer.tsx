@@ -44,7 +44,7 @@ export const Footer = () => {
               </ul>
             </div>
           ))}
-          <Contact title="Kontakt" />
+          <Contact title="Kontakt" footer />
         </div>
         <div className="flex flex-col max-w-[520px] gap-4 md:mx-auto">
           <h4 className="text-xl font-bold">Newsletter</h4>

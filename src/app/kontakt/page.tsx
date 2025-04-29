@@ -28,8 +28,8 @@ export default function ContactPage() {
           alt="Plaza"
           title="Skontaktuj się z nami!"
         />
-        <div className="max-w-[1000px] flex flex-col md:flex-row gap-8 mx-auto w-full items-center px-4">
-          <div className="w-full md:w-1/2 flex flex-col gap-8">
+        <div className="max-w-[1000px] flex flex-col md:flex-row gap-8 mx-auto w-full items-start px-4">
+          <div className="w-full md:w-1/2 flex flex-col gap-8 md:py-8">
             <Contact title="Skontaktuj się z nami" />
             <p className="text-base">
               Sprawdź naszą sekcję{' '}

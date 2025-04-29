@@ -13,7 +13,7 @@ export const generateMetadata = () =>
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
     ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
-    noIndex: true
+    noIndex: false
   });
 
 export default async function Home() {
