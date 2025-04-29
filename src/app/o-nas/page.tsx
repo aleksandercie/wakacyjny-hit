@@ -1,5 +1,13 @@
-import { Faq, HowItWorks, ImageBanner } from '@/components';
+import { ImageBanner } from '@/components';
 import { createMetadata } from '@/lib/seo';
+import dynamic from 'next/dynamic';
+
+const DynamicFaq = dynamic(() =>
+  import('../../components/faq').then((mod) => mod.Faq)
+);
+const DynamicHowItWorks = dynamic(() =>
+  import('../../components//howItWorks').then((mod) => mod.HowItWorks)
+);
 
 export const generateMetadata = () =>
   createMetadata({
@@ -45,9 +53,8 @@ export default function HowItWorksPage() {
             który zostaje w pamięci na zawsze.
           </p>
         </div>
-
-        <HowItWorks />
-        <Faq />
+        <DynamicHowItWorks />
+        <DynamicFaq />
       </main>
     </div>
   );

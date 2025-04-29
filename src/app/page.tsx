@@ -1,6 +1,14 @@
-import { Banner, Gallery, HowItWorks, Offers } from '@/components';
+import { Banner, Offers } from '@/components';
 import { getTrips } from '@/lib/api/getTrips';
 import { createMetadata } from '@/lib/seo';
+import dynamic from 'next/dynamic';
+
+const DynamicGallery = dynamic(() =>
+  import('../components/gallery').then((mod) => mod.Gallery)
+);
+const DynamicHowItWorks = dynamic(() =>
+  import('../components/howItWorks').then((mod) => mod.HowItWorks)
+);
 
 export const generateMetadata = () =>
   createMetadata({
@@ -29,8 +37,8 @@ export default async function Home() {
           description="Znajdź najlepsze oferty wyjazdów w najniższych cenach! Wiele destynacji na całym świecie – idealne miejsca na relaks, przygody i niezapomniane wspomnienia."
         />
         <Offers trips={trips} />
-        <Gallery />
-        <HowItWorks />
+        <DynamicGallery />
+        <DynamicHowItWorks />
       </main>
     </div>
   );
