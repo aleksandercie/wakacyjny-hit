@@ -32,12 +32,12 @@ export const HowItWorks = async () => {
         <div className="w-full md:w-1/2 h-full max-h-[400px] md:max-h-[580px] md:flex md:items-center overflow-hidden rounded-md">
           <Image
             src={imageUrl}
-            alt="Turystka robiąca zdjęcie"
-            width={640}
-            height={960}
+            alt="Drogowskazy"
+            width={484}
+            height={580}
             placeholder="blur"
             blurDataURL={blurImage}
-            className="w-full h-full object-cover object-bottom rounded-md"
+            className="w-full h-full object-cover object-top md:object-bottom rounded-md"
           />
         </div>
         <div className="flex items-center w-full md:w-1/2">

@@ -23,7 +23,7 @@ const Photos = ({ photos }: { photos: PhotoType[] }) =>
         <Image
           src={photo}
           alt={location}
-          width={680}
+          width={530}
           height={320}
           placeholder="blur"
           blurDataURL={blurImage}

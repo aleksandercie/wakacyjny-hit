@@ -26,7 +26,7 @@ export const ImageBanner = async ({
           <Image
             src={image}
             width={1920}
-            height={1329}
+            height={400}
             alt={alt}
             placeholder="blur"
             blurDataURL={blurImage}
