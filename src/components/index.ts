@@ -20,3 +20,4 @@ export * from './dateOfBirthPicker';
 export * from './headComponent';
 export * from './success';
 export * from './cart';
+export * from './newsletterConfirmation';
