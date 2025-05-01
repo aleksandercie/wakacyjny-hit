@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-export const NewsletterConfirm = () => {
+export const Unsubscribe = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
     'loading'
   );
@@ -13,23 +13,22 @@ export const NewsletterConfirm = () => {
 
   useEffect(() => {
     const token = params.get('token');
-
     if (!token) {
       setStatus('error');
       return;
     }
 
-    const confirmSubscription = async () => {
-      const res = await fetch('/api/newsletter/confirm', {
+    const unsubscribe = async () => {
+      const res = await fetch('/api/newsletter/unsubscribe', {
         method: 'POST',
-        body: JSON.stringify({ token }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
       });
 
       setStatus(res.ok ? 'success' : 'error');
     };
 
-    confirmSubscription();
+    unsubscribe();
   }, [params]);
 
   const buttonHomepage = (
@@ -41,13 +40,15 @@ export const NewsletterConfirm = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       {status === 'loading' && (
-        <p className="text-gray-500">Potwierdzanie subskrypcji...</p>
+        <p className="text-gray-500">Przetwarzanie rezygnacji...</p>
       )}
       {status === 'success' && (
         <>
-          <h1 className="text-2xl font-bold text-green-500">Dziękujemy!</h1>
+          <h1 className="text-2xl font-bold text-green-500">
+            Zrezygnowano z subskrypcji
+          </h1>
           <p className="text-gray-500">
-            Twoja subskrypcja została potwierdzona.
+            Twój adres email został usunięty z naszej listy.
           </p>
           {buttonHomepage}
         </>
