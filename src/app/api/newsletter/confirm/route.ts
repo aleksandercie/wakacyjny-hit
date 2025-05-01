@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { supabase } from '@/lib/supabaseClient';
+import sgMail from '@sendgrid/mail';
+import { ROUTES } from '@/lib/routes';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+
+const { UNSUBSCRIBE } = ROUTES;
 
 const schema = z.object({
   token: z.string().min(10)
@@ -30,6 +36,22 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+
+    const subscriber = data[0];
+    const unsubscribeUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${UNSUBSCRIBE}?token=${token}`;
+
+    await sgMail.send({
+      to: subscriber.email,
+      from: process.env.SENDGRID_FROM_EMAIL!,
+      subject: 'Witaj w newsletterze WakacyjnyHit.pl!',
+      html: `
+        <h2>Dziękujemy za potwierdzenie subskrypcji!</h2>
+        <p>Od teraz będziesz otrzymywać nasze najlepsze oferty wakacyjne, inspiracje i ekskluzywne promocje.</p>
+        <p>Miłego dnia! ☀️</p>
+        <p><strong>Zespół WakacyjnyHit.pl</strong></p>
+        <p><a href=${unsubscribeUrl}>wypisz się</a></p>
+      `
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

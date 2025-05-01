@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { randomUUID } from 'crypto';
 import { supabase } from '@/lib/supabaseClient';
+import sgMail from '@sendgrid/mail';
+import { ROUTES } from '@/lib/routes';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+
+const { SUBSCRIBE, UNSUBSCRIBE } = ROUTES;
 
 const schema = z.object({
   email: z.string().email()
@@ -43,10 +49,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
-    const confirmUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/newsletter-confirm?token=${token}`;
+    const confirmUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${SUBSCRIBE}?token=${token}`;
+    const unsubscribeUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${UNSUBSCRIBE}?token=${token}`;
 
-    // Replace this with real email-sending logic
-    console.log(`Send confirmation email to ${email}: ${confirmUrl}`);
+    await sgMail.send({
+      to: email,
+      from: process.env.SENDGRID_FROM_EMAIL!,
+      subject: 'Potwierdź subskrypcję newslettera',
+      html: `
+        <p>Cześć!</p>
+        <p>Dziękujemy za zapis do newslettera WakacyjnyHit.pl. Kliknij poniższy link, aby potwierdzić subskrypcję:</p>
+        <p><a href="${confirmUrl}">Potwierdzam</a></p>
+        <p>Jeśli nie zapisywałeś się, zignoruj tę wiadomość.</p>
+        <p><a href=${unsubscribeUrl}>wypisz się</a></p>
+      `
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

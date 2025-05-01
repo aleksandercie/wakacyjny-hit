@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { supabase } from '@/lib/supabaseClient';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const schema = z.object({
   token: z.string().min(10)
@@ -19,7 +22,7 @@ export async function POST(req: Request) {
 
     const { data: existing, error: findError } = await supabase
       .from('newsletter_subscribers')
-      .select('id')
+      .select('id, email')
       .eq('token', token)
       .eq('is_confirmed', true)
       .single();
@@ -42,6 +45,19 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
+
+    await sgMail.send({
+      to: existing.email,
+      from: process.env.SENDGRID_FROM_EMAIL!,
+      subject: 'Zostałeś wypisany z newslettera WakacyjnyHit.pl',
+      html: `
+        <p>Cześć,</p>
+        <p>Zgodnie z Twoją prośbą, usunęliśmy Twój adres e-mail z naszej listy subskrybentów.</p>
+        <p>Jeśli to była pomyłka, możesz zawsze zapisać się ponownie na <a href="${process.env.NEXT_PUBLIC_SITE_URL}">naszej stronie</a>.</p>
+        <p>Dziękujemy, że byłeś z nami!</p>
+        <p><strong>Zespół WakacyjnyHit.pl</strong></p>
+      `
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

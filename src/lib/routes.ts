@@ -6,5 +6,7 @@ export const ROUTES = {
   PRIVACY_POLICY: '/polityka-prywatnosci',
   ABOUT_US: '/o-nas',
   TERMS: '/regulamin',
-  CONTACT: '/kontakt'
+  CONTACT: '/kontakt',
+  SUBSCRIBE: '/potwierdzenie-newsletter',
+  UNSUBSCRIBE: '/rezygnacja-z-newslettera'
 };
