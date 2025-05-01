@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
@@ -52,25 +52,47 @@ export const ContactForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting },
+    control
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    toast.success('Sukces!', {
-      description: 'Dziękujemy! Twoja wiadomość została wysłana.',
-      icon: <CircleCheck className="text-green-500" size={16} />,
-      dismissible: true,
-      duration: 2000
-    });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
 
-    // toast('Błąd!', {
-    //   description: 'Coś poszło nie tak. Spróbuj ponownie.'
-    // });
-
-    reset();
+      if (res.ok) {
+        toast.success('Sukces!', {
+          description:
+            'Dziękujemy! Twoja wiadomość została wysłana. Skontaktujemy się z Tobą wkrótce.',
+          icon: <CircleCheck className="text-green-500" size={16} />,
+          dismissible: true,
+          duration: 2000
+        });
+        reset({
+          email: '',
+          phone: '',
+          title: '',
+          message: '',
+          terms: false
+        });
+      } else {
+        toast('Błąd!', {
+          description:
+            'Nie udało się wysłać wiadomości. Spróbuj ponownie później.'
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast('Błąd!', {
+        description: 'Coś poszło nie tak. Spróbuj ponownie.'
+      });
+    }
   };
 
   return (
@@ -121,21 +143,32 @@ export const ContactForm = () => {
             <p className="text-red-600 text-base">{errors.message.message}</p>
           )}
         </div>
-        <div className="flex gap-2 items-center">
-          <Checkbox id="terms" {...register('terms')} />
-          <Label htmlFor="terms" className="text-gray-500 text-base">
-            Akceptuję{' '}
-            <Link
-              href={TERMS}
-              className="text-primary font-semibold text-base hover:font-bold"
-            >
-              regulamin
-            </Link>
-          </Label>
-        </div>
+        <Controller
+          control={control}
+          name="terms"
+          render={({ field }) => (
+            <div className="flex gap-2 items-center">
+              <Checkbox
+                id="terms"
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
+              <Label htmlFor="terms" className="text-gray-500 text-base">
+                Akceptuję{' '}
+                <Link
+                  href={TERMS}
+                  className="text-primary font-semibold text-base hover:font-bold"
+                >
+                  regulamin
+                </Link>
+              </Label>
+            </div>
+          )}
+        />
         {errors.terms && (
           <p className="text-red-600 text-base">{errors.terms.message}</p>
         )}
+
         <Button type="submit" disabled={isSubmitting} className="mt-4">
           {isSubmitting ? 'Wysyłanie...' : 'Wyślij'}
         </Button>
