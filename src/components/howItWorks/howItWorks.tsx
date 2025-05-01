@@ -37,7 +37,7 @@ export const HowItWorks = async () => {
             height={580}
             placeholder="blur"
             blurDataURL={blurImage}
-            className="w-full h-full object-cover object-top md:object-bottom rounded-md"
+            className="w-full h-full object-cover object-center md:object-bottom rounded-md"
           />
         </div>
         <div className="flex items-center w-full md:w-1/2">
