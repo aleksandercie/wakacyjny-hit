@@ -69,7 +69,7 @@ export const NewsletterForm = () => {
             required
           />
           <Button type="submit" variant="tertiary">
-            Zapisz się
+            Zapisz mnie
           </Button>
         </form>
       )}

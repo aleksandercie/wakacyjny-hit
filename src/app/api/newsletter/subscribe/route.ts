@@ -19,7 +19,6 @@ export async function POST(req: Request) {
     const { email } = parsed.data;
     const token = randomUUID();
 
-    // Check if email exists
     const { data: existing, error: fetchError } = await supabase
       .from('newsletter_subscribers')
       .select('is_confirmed')
@@ -27,17 +26,14 @@ export async function POST(req: Request) {
       .single();
 
     if (fetchError && fetchError.code !== 'PGRST116') {
-      // PGRST116 = No rows found — acceptable
       console.error('Error checking existing email:', fetchError);
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
     if (existing?.is_confirmed) {
-      // Email already confirmed — silently succeed
       return NextResponse.json({ success: true });
     }
 
-    // Insert new or update unconfirmed
     const { error: upsertError } = await supabase
       .from('newsletter_subscribers')
       .upsert({ email, token, is_confirmed: false });
