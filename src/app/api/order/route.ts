@@ -1,6 +1,9 @@
 import { supabase } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const orderSchema = z
   .object({
@@ -72,19 +75,47 @@ export async function POST(req: Request) {
       status: parsed.data.status ?? 'new'
     };
 
-    // 👇 This is the important change
     const { data, error } = await supabase
       .from('orders')
       .insert([validData])
-      .select('id') // return the ID of the inserted row
-      .single(); // because we're inserting a single row
+      .select('id')
+      .single();
 
     if (error) {
       console.error('Supabase insert error:', error.message);
+
+      await sgMail.send({
+        to: parsed.data.email,
+        from: process.env.SENDGRID_FROM_EMAIL!,
+        subject: 'Błąd zamówienia – WakacyjnyHit.pl',
+        html: `
+                <p>Cześć ${parsed.data.firstName},</p>
+                <p>Wystąpił błąd podczas składania Twojego zamówienia.</p>
+                <p>Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.</p>
+                <p>Dziękujemy,<br/>Zespół WakacyjnyHit.pl</p>
+              `
+      });
+
+      await sgMail.send({
+        to: process.env.ORDER_NOTIFICATION_EMAIL!,
+        from: process.env.SENDGRID_FROM_EMAIL!,
+        subject: '❌ Błąd tworzenia zamówienia',
+        html: `
+                <p>Nie udało się zapisać zamówienia w Supabase.</p>
+                <p><strong>Klient:</strong> 
+                ${parsed.data.firstName} ${parsed.data.lastName}
+                </p>
+                <p><strong>Email:</strong> ${parsed.data.email}</p>
+                <p><strong>Telefon:</strong> ${parsed.data.phone}</p>
+                <pre>${JSON.stringify(parsed.data.orders, null, 2)}</pre>
+                <p><strong>Błąd Supabase:</strong> ${error.message}</p>
+              `
+      });
+
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ id: data.id }, { status: 200 }); // 👈 send the ID back
+    return NextResponse.json({ id: data.id }, { status: 200 });
   } catch (err) {
     console.error('Unexpected error:', err);
     return NextResponse.json(
