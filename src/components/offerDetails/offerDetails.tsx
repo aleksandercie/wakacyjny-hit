@@ -271,8 +271,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       <Image
         src={image}
         alt={title}
-        width={1080}
-        height={720}
+        width={984}
+        height={500}
         className="rounded-md max-h-[500px]"
       />
       <div className="flex gap-8">
