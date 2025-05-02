@@ -255,6 +255,11 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.5.tgz#56f00962ff0c4e0eb93d34a047d29fa995e3e342"
   integrity sha512-MpY/o8/8kj+EcnxwvrP4aTJSWw/aZ7JIGR4aBeZkZw5B7/Jn+tY9/VNwtcoGmdT7GfggGIU4kygOMSbYnOrAbg==
 
+"@marsidev/react-turnstile@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@marsidev/react-turnstile/-/react-turnstile-1.1.0.tgz#2209c431baf2a18a104600999389f6fce2dc2553"
+  integrity sha512-X7bP9ZYutDd+E+klPYF+/BJHqEyyVkN4KKmZcNRr84zs3DcMoftlMAuoKqNSnqg0HE7NQ1844+TLFSJoztCdSA==
+
 "@next/env@15.2.0":
   version "15.2.0"
   resolved "https://registry.npmjs.org/@next/env/-/env-15.2.0.tgz"
