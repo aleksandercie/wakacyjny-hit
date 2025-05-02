@@ -25,22 +25,22 @@ export async function POST(req: Request) {
     const { email } = parsed.data;
     const token = randomUUID();
 
-    const captchaRes = await fetch(process.env.TURNSTILE_VERIFY_URL!, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        secret: process.env.TURNSTILE_SECRET_KEY!,
-        response: token
-      })
-    });
+    // const captchaRes = await fetch(process.env.TURNSTILE_VERIFY_URL!, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //   body: new URLSearchParams({
+    //     secret: process.env.TURNSTILE_SECRET_KEY!,
+    //     response: token
+    //   })
+    // });
 
-    const captchaData = await captchaRes.json();
-    if (!captchaData.success) {
-      return NextResponse.json(
-        { error: 'Weryfikacja CAPTCHA nie powiodła się.' },
-        { status: 403 }
-      );
-    }
+    // const captchaData = await captchaRes.json();
+    // if (!captchaData.success) {
+    //   return NextResponse.json(
+    //     { error: 'Weryfikacja CAPTCHA nie powiodła się.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     const { data: existing, error: fetchError } = await supabase
       .from('newsletter_subscribers')

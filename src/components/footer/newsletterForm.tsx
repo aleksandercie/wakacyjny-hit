@@ -5,20 +5,20 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { CircleCheck } from 'lucide-react';
 import { toast } from 'sonner';
-import { Turnstile } from '@marsidev/react-turnstile';
+// import { Turnstile } from '@marsidev/react-turnstile';
 
 export const NewsletterForm = () => {
   const [email, setEmail] = useState('');
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  // const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!captchaToken) {
-      toast.error('Ups! Coś poszło nie tak z weryfikacją.');
-      return;
-    }
+    // if (!captchaToken) {
+    //   toast.error('Ups! Coś poszło nie tak z weryfikacją.');
+    //   return;
+    // }
 
     const res = await fetch('/api/newsletter/subscribe', {
       method: 'POST',
@@ -75,11 +75,11 @@ export const NewsletterForm = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <Turnstile
+          {/* <Turnstile
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
             onSuccess={(token) => setCaptchaToken(token)}
             className="rounded"
-          />
+          /> */}
           <Button type="submit" variant="tertiary">
             Zapisz mnie
           </Button>
