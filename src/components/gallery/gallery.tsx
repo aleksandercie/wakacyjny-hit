@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 import { Header } from '../header';
-import { dynamicBlurDataUrl } from '@/lib/blurImage';
-
 type PhotoType = {
   location: string;
   country: string;
@@ -13,8 +11,6 @@ type PhotoType = {
 
 const Photos = ({ photos }: { photos: PhotoType[] }) =>
   photos.map(async ({ location, country, photo, width, position }) => {
-    const blurImage = await dynamicBlurDataUrl(photo, 600);
-
     return (
       <div
         key={`${location}-${country}`}
@@ -25,8 +21,6 @@ const Photos = ({ photos }: { photos: PhotoType[] }) =>
           alt={location}
           width={530}
           height={320}
-          placeholder="blur"
-          blurDataURL={blurImage}
           className="rounded-md object-cover w-full h-full"
         />
         <div

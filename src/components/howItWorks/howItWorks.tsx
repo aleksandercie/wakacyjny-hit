@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { FileText, MailCheck, ShoppingCart } from 'lucide-react';
-import { dynamicBlurDataUrl } from '@/lib/blurImage';
 
 export const HowItWorks = async () => {
   const points = [
@@ -24,7 +23,6 @@ export const HowItWorks = async () => {
     }
   ];
   const imageUrl = '/guide.jpg';
-  const blurImage = await dynamicBlurDataUrl(imageUrl, 640);
 
   return (
     <div className="flex justify-center">
@@ -35,8 +33,6 @@ export const HowItWorks = async () => {
             alt="Drogowskazy"
             width={484}
             height={580}
-            placeholder="blur"
-            blurDataURL={blurImage}
             className="w-full h-full object-cover object-center md:object-bottom rounded-md"
           />
         </div>
