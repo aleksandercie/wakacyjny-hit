@@ -2,9 +2,11 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { supabase } from '@/lib/supabaseClient';
 import sgMail from '@sendgrid/mail';
+import sgClient from '@sendgrid/client';
 import { ROUTES } from '@/lib/routes';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+sgClient.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const { UNSUBSCRIBE } = ROUTES;
 
@@ -38,6 +40,24 @@ export async function POST(req: Request) {
     }
 
     const subscriber = data[0];
+
+    try {
+      await sgClient.request({
+        method: 'PUT',
+        url: '/v3/marketing/contacts',
+        body: {
+          contacts: [
+            {
+              email: subscriber.email
+              // możesz tu dodać np. first_name, last_name, itp.
+            }
+          ]
+        }
+      });
+    } catch (sendgridError) {
+      console.error('Błąd przy dodawaniu do SendGrid contacts:', sendgridError);
+    }
+
     const unsubscribeUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${UNSUBSCRIBE}?token=${token}`;
 
     await sgMail.send({

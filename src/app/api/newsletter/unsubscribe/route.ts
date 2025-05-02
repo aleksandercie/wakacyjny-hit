@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { supabase } from '@/lib/supabaseClient';
 import sgMail from '@sendgrid/mail';
+import sgClient from '@sendgrid/client';
 
+sgClient.setApiKey(process.env.SENDGRID_API_KEY!);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const schema = z.object({
@@ -58,6 +60,32 @@ export async function POST(req: Request) {
         <p><strong>Zespół WakacyjnyHit.pl</strong></p>
       `
     });
+
+    try {
+      const [searchRes] = await sgClient.request({
+        method: 'POST',
+        url: '/v3/marketing/contacts/search/emails',
+        body: { emails: [existing.email] }
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const contactData = (searchRes.body as any)?.result?.[existing.email]
+        ?.contact;
+
+      if (contactData?.id) {
+        await sgClient.request({
+          method: 'DELETE',
+          url: '/v3/marketing/contacts',
+          qs: {
+            ids: contactData.id
+          }
+        });
+      } else {
+        console.warn(`Nie znaleziono kontaktu w SendGrid: ${existing.email}`);
+      }
+    } catch (sendgridError) {
+      console.error('Błąd przy usuwaniu kontaktu z SendGrid:', sendgridError);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
