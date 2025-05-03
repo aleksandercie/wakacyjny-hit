@@ -2,24 +2,11 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 import sgMail from '@sendgrid/mail';
 import { ROUTES } from '@/lib/routes';
+import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const { SUBSCRIBE, UNSUBSCRIBE } = ROUTES;
-
-// const schema = z.object({
-//   email: z.string().email()
-// });
-
-const verifyRecaptcha = async (token: string) => {
-  const res = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`
-  });
-
-  return res.json();
-};
 
 export async function POST(req: Request) {
   try {

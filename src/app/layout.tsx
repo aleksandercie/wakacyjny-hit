@@ -1,8 +1,16 @@
+'use client';
+
 import { Nunito } from 'next/font/google';
 import './globals.css';
 import { Footer, Navigation } from '@/components';
 import { Toaster } from 'sonner';
 import { CartProvider } from '@/context/CartContext';
+import dynamic from 'next/dynamic';
+
+const ReCaptchaProvider = dynamic(
+  () => import('next-recaptcha-v3').then((mod) => mod.ReCaptchaProvider),
+  { ssr: false }
+);
 
 const nunitoSans = Nunito({
   variable: '--font-nunito-sans',
@@ -19,12 +27,16 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body className={`${nunitoSans.variable} antialiased relative bg-white `}>
-        <CartProvider>
-          <Navigation />
-          <div className="container mx-auto max-w-[1920px]">{children}</div>
-          <Footer />
-          <Toaster position="top-right" />
-        </CartProvider>
+        <ReCaptchaProvider
+          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+        >
+          <CartProvider>
+            <Navigation />
+            <div className="container mx-auto max-w-[1920px]">{children}</div>
+            <Footer />
+            <Toaster position="top-right" />
+          </CartProvider>
+        </ReCaptchaProvider>
       </body>
     </html>
   );

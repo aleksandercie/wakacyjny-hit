@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import { CircleCheck } from 'lucide-react';
 import { ROUTES } from '@/lib/routes';
+import { useReCaptcha } from 'next-recaptcha-v3';
 
 const formSchema = z.object({
   email: z
@@ -58,11 +59,19 @@ export const ContactForm = () => {
     resolver: zodResolver(formSchema)
   });
 
+  const { executeRecaptcha, loaded } = useReCaptcha();
+
   const onSubmit = async (data: FormData) => {
+    if (!loaded || !executeRecaptcha) {
+      toast.error('reCAPTCHA nie jest jeszcze gotowe. Spróbuj za chwilę.');
+      return;
+    }
+
+    const token = await executeRecaptcha('contact_form');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, token }),
         headers: { 'Content-Type': 'application/json' }
       });
 
