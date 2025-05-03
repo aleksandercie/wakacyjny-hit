@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import sgMail from '@sendgrid/mail';
+import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -27,6 +28,7 @@ const orderSchema = z
     companyName: z.string().optional(),
     taxId: z.string().optional(),
     orders: z.array(z.any()),
+    token: z.string(),
     status: z
       .enum(['new', 'pending', 'processing', 'paid', 'cancelled', 'failed'])
       .optional(),
@@ -69,9 +71,18 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    const { token, ...rest } = parsed.data;
+
+    const recaptchaRes = await verifyRecaptcha(token);
+    if (!recaptchaRes.success || recaptchaRes.score < 0.5) {
+      return NextResponse.json(
+        { error: 'Failed reCAPTCHA verification' },
+        { status: 400 }
+      );
+    }
 
     const validData = {
-      ...parsed.data,
+      ...rest,
       status: parsed.data.status ?? 'new'
     };
 

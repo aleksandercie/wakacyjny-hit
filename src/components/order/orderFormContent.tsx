@@ -15,6 +15,7 @@ import {
 } from './customerInfoSection';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useRouter } from 'next/navigation';
+import { useReCaptcha } from 'next-recaptcha-v3';
 
 export const OrderFormContent = ({
   clientSecret
@@ -27,6 +28,7 @@ export const OrderFormContent = ({
     useCart();
   const stripe = useStripe();
   const elements = useElements();
+  const { executeRecaptcha, loaded } = useReCaptcha();
 
   const {
     handleSubmit,
@@ -50,6 +52,13 @@ export const OrderFormContent = ({
   const onSubmit = async (data: OrderFormData) => {
     if (!stripe || !elements) return;
 
+    if (!loaded || !executeRecaptcha) {
+      toast.error('reCAPTCHA nie jest jeszcze gotowe. Spróbuj za chwilę.');
+      return;
+    }
+
+    const token = await executeRecaptcha('order_form');
+
     delete data.vatInvoice;
 
     const orderPayload = {
@@ -61,6 +70,7 @@ export const OrderFormContent = ({
         roomsDetails: order.roomsDetails
       })),
       status: 'new',
+      token,
       stripe_payment_intent_id: 'not_set'
     };
 
@@ -149,12 +159,10 @@ export const OrderFormContent = ({
     localStorage.setItem('orderSuccess', 'true');
     localStorage.setItem('orderId', orderId ?? '');
     localStorage.setItem('orderEmail', data.email);
-
+    router.push('/zamowienie-potwierdzone');
     reset();
     removeAllItemsCart();
     setSelectedCountry('PL');
-
-    router.push('/zamowienie-potwierdzone');
   };
 
   return (
