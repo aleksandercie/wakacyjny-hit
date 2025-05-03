@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
-import { randomUUID } from 'crypto';
 import { supabase } from '@/lib/supabaseClient';
 import sgMail from '@sendgrid/mail';
 import { ROUTES } from '@/lib/routes';
@@ -9,38 +7,39 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const { SUBSCRIBE, UNSUBSCRIBE } = ROUTES;
 
-const schema = z.object({
-  email: z.string().email()
-});
+// const schema = z.object({
+//   email: z.string().email()
+// });
+
+const verifyRecaptcha = async (token: string) => {
+  const res = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`
+  });
+
+  return res.json();
+};
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const parsed = schema.safeParse(body);
+    const { email, token } = body;
 
-    if (!parsed.success) {
-      return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Missing reCAPTCHA token' },
+        { status: 400 }
+      );
     }
 
-    const { email } = parsed.data;
-    const token = randomUUID();
-
-    // const captchaRes = await fetch(process.env.TURNSTILE_VERIFY_URL!, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //   body: new URLSearchParams({
-    //     secret: process.env.TURNSTILE_SECRET_KEY!,
-    //     response: token
-    //   })
-    // });
-
-    // const captchaData = await captchaRes.json();
-    // if (!captchaData.success) {
-    //   return NextResponse.json(
-    //     { error: 'Weryfikacja CAPTCHA nie powiodła się.' },
-    //     { status: 403 }
-    //   );
-    // }
+    const recaptchaRes = await verifyRecaptcha(token);
+    if (!recaptchaRes.success || recaptchaRes.score < 0.5) {
+      return NextResponse.json(
+        { error: 'Failed reCAPTCHA verification' },
+        { status: 400 }
+      );
+    }
 
     const { data: existing, error: fetchError } = await supabase
       .from('newsletter_subscribers')
