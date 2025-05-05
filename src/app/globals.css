@@ -6,3 +6,10 @@
   --font-sans: var(--font-nunito-sans);
   --color-primary: #f14360;
 }
+
+
+.grecaptcha-badge {
+  transform: scale(0.6);
+  transform-origin: bottom right;
+  opacity: 0.75; 
+}

@@ -108,7 +108,7 @@ export async function POST(req: Request) {
       });
 
       await sgMail.send({
-        to: process.env.ORDER_NOTIFICATION_EMAIL!,
+        to: process.env.SENDGRID_FROM_EMAIL!,
         from: process.env.SENDGRID_FROM_EMAIL!,
         subject: '❌ Błąd tworzenia zamówienia',
         html: `

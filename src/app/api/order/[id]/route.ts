@@ -41,7 +41,7 @@ export async function PATCH(
       });
 
       await sgMail.send({
-        to: process.env.ORDER_NOTIFICATION_EMAIL!,
+        to: process.env.SENDGRID_FROM_EMAIL!,
         from: process.env.SENDGRID_FROM_EMAIL!,
         subject: `❌ Błąd aktualizacji zamówienia #${id}`,
         html: `
@@ -65,7 +65,7 @@ export async function PATCH(
     });
 
     await sgMail.send({
-      to: process.env.ORDER_NOTIFICATION_EMAIL!,
+      to: process.env.SENDGRID_FROM_EMAIL!,
       from: process.env.SENDGRID_FROM_EMAIL!,
       subject: `✅ Nowe opłacone zamówienie #${orderData.id}`,
       html: `
