@@ -21,10 +21,16 @@ export const Banner = ({
     <div className="w-full m-auto">
       <div className="relative">
         <div className="flex flex-col gap-3 sm:gap-6 absolute top-[64%] 2xs:top-[68%] min-[720px]:top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center max-w-[700px] z-1 w-full px-4">
-          <h1 className="text-xl 2xs:text-2xl sm:text-4xl lg:text-6xl font-bold w-full mx-auto">
+          <h1
+            className="text-xl 2xs:text-2xl sm:text-4xl lg:text-6xl font-bold w-full mx-auto"
+            style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
+          >
             {title}
           </h1>
-          <p className="text-sm xs:text-m sm:text-l lg:text-xl">
+          <p
+            className="text-sm xs:text-m sm:text-l lg:text-xl"
+            style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
+          >
             {description}
           </p>
           <Link href={OFFERS}>
