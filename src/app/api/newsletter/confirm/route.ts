@@ -63,14 +63,10 @@ export async function POST(req: Request) {
     await sgMail.send({
       to: subscriber.email,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: 'Witaj w newsletterze WakacyjnyHit.pl!',
-      html: `
-        <h2>Dziękujemy za potwierdzenie subskrypcji!</h2>
-        <p>Od teraz będziesz otrzymywać nasze najlepsze oferty wakacyjne, inspiracje i ekskluzywne promocje.</p>
-        <p>Miłego dnia! ☀️</p>
-        <p><strong>Zespół WakacyjnyHit.pl</strong></p>
-        <p><a href=${unsubscribeUrl}>wypisz się</a></p>
-      `
+      templateId: 'd-f794793e712d4417875cf4102e1398bb',
+      dynamicTemplateData: {
+        unsubscribe_url: unsubscribeUrl
+      }
     });
 
     return NextResponse.json({ success: true });
