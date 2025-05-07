@@ -28,8 +28,18 @@ const Photos = ({ photos }: { photos: PhotoType[] }) =>
             position === 'left' ? 'top-4 left-4' : 'bottom-4 right-4'
           }`}
         >
-          <p className="text-lg">{location}</p>
-          <p className="font-bold text-base opacity-80">{country}</p>
+          <p
+            className="text-lg"
+            style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
+          >
+            {location}
+          </p>
+          <p
+            className="font-bold text-base opacity-80"
+            style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
+          >
+            {country}
+          </p>
         </div>
       </div>
     );
