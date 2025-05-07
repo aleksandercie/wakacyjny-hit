@@ -14,7 +14,7 @@ export const ImageBanner = async ({
     <div className="w-full m-auto">
       <div className="relative">
         {title && (
-          <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-white text-center w-4/5 max-w-[800px] z-1">
+          <div className="absolute top-1/2  left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-4/5 max-w-[800px] z-1">
             <h1
               className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 mx-auto"
               style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
