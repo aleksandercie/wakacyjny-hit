@@ -78,16 +78,29 @@ export async function PATCH(
         <p><strong>Szczegóły pokoi:</strong></p>
         <ul>
           ${order.roomsDetails
-            .map(
-              (room, i) => `
-              <li>
-                Pokój ${i + 1}: ${room.adults} dorosłych ${
-                room.children
-                  ? `, Dzieci: ${JSON.stringify(room.children)}.`
-                  : '.'
-              } 
-              </li>`
-            )
+            .map((room, i) => {
+              const childrenList = Array.isArray(room.children)
+                ? room.children
+                    .map(
+                      (child, cIdx) =>
+                        `dziecko ${cIdx + 1}: ${new Date(child.dateOfBirth)
+                          .toLocaleDateString('en-GB', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: '2-digit'
+                          })
+                          .replace(/ /g, '-')}`
+                    )
+                    .join(', ')
+                : '';
+
+              return `
+                  <li>
+                    Pokój ${i + 1} -  dorosłych: ${room.adults}
+                    ${childrenList ? `, ${childrenList}` : ''}
+                  </li>
+                `;
+            })
             .join('')}
         </ul>
       </div>
