@@ -107,16 +107,18 @@ export async function POST(req: Request) {
       await sgMail.send({
         to: process.env.SENDGRID_FROM_EMAIL!,
         from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: '❌ Błąd tworzenia zamówienia',
+        subject: `❌ Błąd: Nie udało się zapisać zamówienia – ${parsed.data.email}`,
         html: `
                 <p>Nie udało się zapisać zamówienia w Supabase.</p>
-                <p><strong>Klient:</strong> 
-                ${parsed.data.firstName} ${parsed.data.lastName}
+                <p><strong>🧑 Klient:</strong> 
+                  ${parsed.data.firstName} ${parsed.data.lastName}
                 </p>
-                <p><strong>Email:</strong> ${parsed.data.email}</p>
-                <p><strong>Telefon:</strong> ${parsed.data.phone}</p>
+                <p><strong>📧 Email:</strong> ${parsed.data.email}</p>
+                <p><strong>📞 Telefon:</strong> ${parsed.data.phone}</p>
+                <p><strong>🛒 Produkty:</strong></p>
                 <pre>${JSON.stringify(parsed.data.orders, null, 2)}</pre>
-                <p><strong>Błąd Supabase:</strong> ${error.message}</p>
+                <p><strong>❗ Błąd Supabase:</strong> ${error.message}</p>
+                <p><strong>🕒 Data:</strong> ${new Date().toISOString()}</p>
               `
       });
 

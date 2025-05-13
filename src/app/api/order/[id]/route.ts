@@ -42,9 +42,12 @@ export async function PATCH(
         from: process.env.SENDGRID_FROM_EMAIL!,
         subject: `❌ Błąd aktualizacji zamówienia #${id}`,
         html: `
-          <p>Wystąpił błąd podczas aktualizacji zamówienia:</p>
+          <p>❗ Wystąpił błąd podczas aktualizacji zamówienia:</p>
           <p><strong>ID zamówienia:</strong> ${id}</p>
           <p><strong>Błąd:</strong> ${error?.message}</p>
+          <p><strong>🧑 Klient:</strong> ${orderData?.firstName} ${orderData?.lastName}</p>
+          <p><strong>📧 Email:</strong> ${orderData?.email}</p>
+          <p><strong>📞 Telefon:</strong> ${orderData?.phone}</p>
         `
       });
       return NextResponse.json({ error: error?.message }, { status: 500 });
@@ -60,18 +63,51 @@ export async function PATCH(
       }
     });
 
+    const ordersHtml = orderData.orders
+      .map(
+        (order: {
+          orderId: unknown;
+          price: unknown;
+          rooms: unknown;
+          roomsDetails: { adults: unknown; children?: unknown }[];
+        }) => `
+      <div style="margin-bottom: 20px;">
+        <p><strong>ID oferty:</strong> ${order?.orderId}</p>
+        <p><strong>Cena:</strong> ${order?.price} zł</p>
+        <p><strong>Liczba pokoi:</strong> ${order?.rooms}</p>
+        <p><strong>Szczegóły pokoi:</strong></p>
+        <ul>
+          ${order.roomsDetails
+            .map(
+              (room, i) => `
+              <li>
+                Pokój ${i + 1}: ${room.adults} dorosłych ${
+                room.children
+                  ? `, Dzieci: ${JSON.stringify(room.children)}.`
+                  : '.'
+              } 
+              </li>`
+            )
+            .join('')}
+        </ul>
+      </div>
+    `
+      )
+      .join('');
+
     await sgMail.send({
       to: process.env.SENDGRID_FROM_EMAIL!,
       from: process.env.SENDGRID_FROM_EMAIL!,
       subject: `✅ Nowe opłacone zamówienie #${orderData.id}`,
       html: `
               <p>id zamówienia: #${orderData.id}</p>
-              <p><strong>Klient:</strong> 
+              <p>🧑 <strong>Klient:</strong> 
                 ${orderData.firstName} ${orderData.lastName}
               </p>
-              <p><strong>Email:</strong> ${orderData.email}</p>
-              <p><strong>Telefon:</strong> ${orderData.phone}</p>
-              <pre>${JSON.stringify(orderData.orders, null, 2)}</pre>
+              <p><strong>📧  Email:</strong> ${orderData.email}</p>
+              <p><strong>📞 Telefon:</strong> ${orderData.phone}</p>
+              <p><strong>🛒 Zamówione oferty:</strong></p>
+              ${ordersHtml}
             `
     });
 
