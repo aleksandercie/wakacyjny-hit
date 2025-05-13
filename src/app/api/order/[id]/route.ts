@@ -31,13 +31,10 @@ export async function PATCH(
       await sgMail.send({
         to: orderData.email,
         from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: 'Błąd zamówienia – WakacyjnyHit.pl',
-        html: `
-                <p>Cześć ${orderData.firstName},</p>
-                <p>Wystąpił błąd podczas składania Twojego zamówienia.</p>
-                <p>Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.</p>
-                <p>Dziękujemy,<br/>Zespół WakacyjnyHit.pl</p>
-              `
+        templateId: 'd-ea11531847554e6c8e504621d6753c65',
+        dynamicTemplateData: {
+          firstName: orderData.firstName
+        }
       });
 
       await sgMail.send({
@@ -56,12 +53,11 @@ export async function PATCH(
     await sgMail.send({
       to: orderData.email,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: 'Zamówienie potwierdzone – WakacyjnyHit.pl',
-      html: `
-              <p>Dziękujemy za złożenie zamówienia!</p>
-              <p>Numer zamówienia: #${orderData.id}</p>
-              <p>Wkrótce otrzymasz szczegóły dotyczące Twojej rezerwacji.</p>
-            `
+      templateId: 'd-121fc47d1e9046bdb7e114871366005c',
+      dynamicTemplateData: {
+        firstName: orderData.firstName,
+        id: orderData.id
+      }
     });
 
     await sgMail.send({

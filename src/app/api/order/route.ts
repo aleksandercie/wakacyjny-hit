@@ -98,13 +98,10 @@ export async function POST(req: Request) {
       await sgMail.send({
         to: parsed.data.email,
         from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: 'Błąd zamówienia – WakacyjnyHit.pl',
-        html: `
-                <p>Cześć ${parsed.data.firstName},</p>
-                <p>Wystąpił błąd podczas składania Twojego zamówienia.</p>
-                <p>Spróbuj ponownie lub skontaktuj się z nami bezpośrednio.</p>
-                <p>Dziękujemy,<br/>Zespół WakacyjnyHit.pl</p>
-              `
+        templateId: 'd-ea11531847554e6c8e504621d6753c65',
+        dynamicTemplateData: {
+          firstName: parsed.data.firstName
+        }
       });
 
       await sgMail.send({
