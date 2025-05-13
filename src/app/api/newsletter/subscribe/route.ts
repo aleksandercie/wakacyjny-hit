@@ -6,7 +6,7 @@ import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-const { SUBSCRIBE, UNSUBSCRIBE } = ROUTES;
+const { SUBSCRIBE } = ROUTES;
 
 export async function POST(req: Request) {
   try {
@@ -53,15 +53,13 @@ export async function POST(req: Request) {
     }
 
     const confirmUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${SUBSCRIBE}?token=${token}`;
-    const unsubscribeUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${UNSUBSCRIBE}?token=${token}`;
 
     await sgMail.send({
       to: email,
       from: process.env.SENDGRID_FROM_EMAIL!,
       templateId: 'd-f593fffa0e9346159cc9bd9f6e610aeb',
       dynamicTemplateData: {
-        confirmation_url: confirmUrl,
-        unsubscribe_url: unsubscribeUrl
+        confirmation_url: confirmUrl
       }
     });
 

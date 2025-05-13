@@ -51,14 +51,7 @@ export async function POST(req: Request) {
     await sgMail.send({
       to: existing.email,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: 'Zostałeś wypisany z newslettera WakacyjnyHit.pl',
-      html: `
-        <p>Cześć,</p>
-        <p>Zgodnie z Twoją prośbą, usunęliśmy Twój adres e-mail z naszej listy subskrybentów.</p>
-        <p>Jeśli to była pomyłka, możesz zawsze zapisać się ponownie na <a href="${process.env.NEXT_PUBLIC_SITE_URL}">naszej stronie</a>.</p>
-        <p>Dziękujemy, że byłeś z nami!</p>
-        <p><strong>Zespół WakacyjnyHit.pl</strong></p>
-      `
+      templateId: 'd-b20ffa4a81cc42999aea67405f81cb00'
     });
 
     try {
