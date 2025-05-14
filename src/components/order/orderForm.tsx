@@ -26,8 +26,7 @@ export const OrderForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount,
-          currency: 'pln',
-          payment_method_types: ['card', 'p24', 'blik']
+          currency: 'pln'
         })
       }
     );
