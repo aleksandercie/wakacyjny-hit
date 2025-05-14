@@ -134,7 +134,7 @@ export const OrderSummary = ({
       {isCartVariant ? (
         <div className="flex flex-col gap-4 mt-6">
           {clientSecret && (
-            <div className="flex flex-col bg-white rounded-md border-t border-gray-300 py-4 gap-4">
+            <div className="flex flex-col bg-white border-t border-gray-300 py-4 gap-4">
               <h2 className="text-xl font-semibold">Płatność</h2>
               <PaymentElement
                 onChange={(event) => {
