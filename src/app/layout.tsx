@@ -2,7 +2,7 @@
 
 import { Nunito } from 'next/font/google';
 import './globals.css';
-import { Footer, Navigation } from '@/components';
+import { CookieConsent, Footer, Navigation } from '@/components';
 import { Toaster } from 'sonner';
 import { CartProvider } from '@/context/CartContext';
 import dynamic from 'next/dynamic';
@@ -37,6 +37,7 @@ export default function RootLayout({
             <Toaster position="top-right" />
           </CartProvider>
         </ReCaptchaProvider>
+        <CookieConsent />
       </body>
     </html>
   );

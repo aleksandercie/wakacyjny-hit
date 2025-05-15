@@ -22,3 +22,4 @@ export * from './success';
 export * from './cart';
 export * from './newsletter';
 export * from './unsubscribe';
+export * from './cookies';
