@@ -12,7 +12,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Chcesz dowiedzieć się więcej? Napisz do nas i otrzymaj odpowiedzi na wszystkie pytania dotyczące wakacji!',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/kontakt`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/kontakt`,
     noIndex: false
   });

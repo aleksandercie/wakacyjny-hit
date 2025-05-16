@@ -18,7 +18,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Poznaj zasady działania Wakacyjnego Hitu i odkryj jak łatwo zaplanować idealne wakacje!',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/o-nas`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/o-nas`,
     noIndex: false
   });

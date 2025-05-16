@@ -10,7 +10,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Twoje wakacyjne marzenia są na wyciągnięcie ręki! Zobacz, co masz w koszyku i zarezerwuj już dziś.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/koszyk`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/koszyk`,
     noIndex: true
   });

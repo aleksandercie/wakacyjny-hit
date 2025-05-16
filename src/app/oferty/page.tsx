@@ -11,7 +11,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Zarezerwuj wymarzone wakacje dzięki najlepszym ofertom przygotowanym specjalnie dla Ciebie.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty`,
     noIndex: false
   });

@@ -19,7 +19,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Wakacyjne oferty dla każdego! Relaks, przygoda i niezapomniane wspomnienia.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
     noIndex: false
   });

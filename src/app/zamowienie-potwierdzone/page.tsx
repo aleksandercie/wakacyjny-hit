@@ -9,7 +9,7 @@ export const generateMetadata = () =>
     ogTitle: 'Dziękujemy za zamówienie – Wakacyjny Hit',
     ogDescription: 'Dziękujemy za zaufanie! Zaplanuj kolejne wakacje z nami.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/zamowienie-potwierdzone`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/zamowienie-potwierdzone`,
     noIndex: true
   });

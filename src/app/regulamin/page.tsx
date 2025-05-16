@@ -10,7 +10,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Sprawdź regulamin serwisu Wakacyjny Hit i poznaj zasady korzystania z naszych usług.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/regulamin`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/regulamin`,
     noIndex: false
   });

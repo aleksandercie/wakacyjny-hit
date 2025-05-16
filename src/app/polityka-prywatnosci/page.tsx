@@ -10,7 +10,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Dowiedz się, jak dbamy o Twoje dane i zapewniamy ich bezpieczeństwo w serwisie Wakacyjny Hit.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/polityka-prywatnosci`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/polityka-prywatnosci`,
     noIndex: false
   });

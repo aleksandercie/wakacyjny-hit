@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: OfferPageProps) {
         trip.shortDescription?.slice(0, 150) ||
         'Odkryj niesamowite miejsca na świecie razem z nami!',
       ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
-      ogImage: trip.image || `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+      ogImage: trip.image || `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
       canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
       noIndex: false
     });

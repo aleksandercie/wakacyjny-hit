@@ -10,7 +10,7 @@ export const generateMetadata = () =>
     ogDescription:
       'Masz pytania o wakacje, rezerwacje lub oferty? Sprawdź nasze FAQ!',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/faq`,
-    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+    ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/faq`,
     noIndex: false
   });
