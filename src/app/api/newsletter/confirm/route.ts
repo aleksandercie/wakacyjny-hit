@@ -55,7 +55,9 @@ export async function POST(req: Request) {
       });
     } catch {}
 
-    const unsubscribeUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${UNSUBSCRIBE}?token=${token}`;
+    const unsubscribeUrl = `${
+      process.env.NEXT_PUBLIC_SITE_URL
+    }${UNSUBSCRIBE}?token=${encodeURIComponent(token)}`;
 
     await sgMail.send({
       to: subscriber.email,

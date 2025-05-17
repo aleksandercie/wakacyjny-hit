@@ -50,7 +50,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
-    const confirmUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${SUBSCRIBE}?token=${token}`;
+    const confirmUrl = `${
+      process.env.NEXT_PUBLIC_SITE_URL
+    }${SUBSCRIBE}?token=${encodeURIComponent(token)}`;
 
     await sgMail.send({
       to: email,

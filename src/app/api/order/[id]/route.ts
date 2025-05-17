@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
 
 import sgMail from '@sendgrid/mail';
+import { safeHtml } from '@/lib/safeHtml';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -38,14 +39,18 @@ export async function PATCH(
       await sgMail.send({
         to: process.env.SENDGRID_FROM_EMAIL!,
         from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: `❌ Błąd aktualizacji zamówienia #${id}`,
+        subject: `❌ Błąd aktualizacji zamówienia #${safeHtml(id)}`,
         html: `
           <p>❗ Wystąpił błąd podczas aktualizacji zamówienia:</p>
-          <p><strong>ID zamówienia:</strong> ${id}</p>
-          <p><strong>Błąd:</strong> ${error?.message}</p>
-          <p><strong>🧑 Klient:</strong> ${orderData?.firstName} ${orderData?.lastName}</p>
-          <p><strong>📧 Email:</strong> ${orderData?.email}</p>
-          <p><strong>📞 Telefon:</strong> ${orderData?.phone}</p>
+          <p><strong>ID zamówienia:</strong> ${safeHtml(id)}</p>
+          <p><strong>Błąd:</strong> ${
+            error?.message && safeHtml(error?.message)
+          }</p>
+          <p><strong>🧑 Klient:</strong> ${safeHtml(
+            orderData?.firstName
+          )} ${safeHtml(orderData?.lastName)}</p>
+          <p><strong>📧 Email:</strong> ${safeHtml(orderData?.email)}</p>
+          <p><strong>📞 Telefon:</strong> ${safeHtml(orderData?.phone)}</p>
         `
       });
       return NextResponse.json({ error: error?.message }, { status: 500 });
@@ -109,16 +114,16 @@ export async function PATCH(
     await sgMail.send({
       to: process.env.SENDGRID_FROM_EMAIL!,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: `✅ Nowe opłacone zamówienie #${orderData.id}`,
+      subject: `✅ Nowe opłacone zamówienie #${safeHtml(orderData.id)}`,
       html: `
-              <p>id zamówienia: #${orderData.id}</p>
+              <p>id zamówienia: #${safeHtml(orderData.id)}</p>
               <p>🧑 <strong>Klient:</strong> 
-                ${orderData.firstName} ${orderData.lastName}
+                ${safeHtml(orderData.firstName)} ${safeHtml(orderData.lastName)}
               </p>
-              <p><strong>📧  Email:</strong> ${orderData.email}</p>
-              <p><strong>📞 Telefon:</strong> ${orderData.phone}</p>
+              <p><strong>📧  Email:</strong> ${safeHtml(orderData.email)}</p>
+              <p><strong>📞 Telefon:</strong> ${safeHtml(orderData.phone)}</p>
               <p><strong>🛒 Zamówione oferty:</strong></p>
-              ${ordersHtml}
+              ${safeHtml(ordersHtml)}
             `
     });
 

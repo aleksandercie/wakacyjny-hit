@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 import sgMail from '@sendgrid/mail';
+import { safeHtml } from '@/lib/safeHtml';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -54,14 +55,18 @@ export async function POST(req: Request) {
       await sgMail.send({
         to: process.env.SENDGRID_FROM_EMAIL!,
         from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: `❌ Błąd aktualizacji zamówienia #${orderId}`,
+        subject: `❌ Błąd aktualizacji zamówienia #${safeHtml(orderId)}`,
         html: `
             <p>❗ Wystąpił błąd podczas aktualizacji zamówienia:</p>
-            <p><strong>ID zamówienia:</strong> ${orderId}</p>
-            <p><strong>Błąd:</strong> ${error?.message}</p>
-            <p><strong>🧑 Klient:</strong> ${orderData?.firstName} ${orderData?.lastName}</p>
-            <p><strong>📧 Email:</strong> ${orderData?.email}</p>
-            <p><strong>📞 Telefon:</strong> ${orderData?.phone}</p>
+            <p><strong>ID zamówienia:</strong> ${safeHtml(orderId)}</p>
+            <p><strong>Błąd:</strong> ${
+              error?.message && safeHtml(error?.message)
+            }</p>
+            <p><strong>🧑 Klient:</strong> ${safeHtml(
+              orderData?.firstName
+            )} ${safeHtml(orderData?.lastName)}</p>
+            <p><strong>📧 Email:</strong> ${safeHtml(orderData?.email)}</p>
+            <p><strong>📞 Telefon:</strong> ${safeHtml(orderData?.phone)}</p>
           `
       });
       return NextResponse.json({ received: true });
@@ -128,16 +133,22 @@ export async function POST(req: Request) {
       await sgMail.send({
         to: process.env.SENDGRID_FROM_EMAIL!,
         from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: `✅ Nowe opłacone zamówienie #${orderData.id}`,
+        subject: `✅ Nowe opłacone zamówienie #${safeHtml(orderData.id)}`,
         html: `
-                    <p>id zamówienia: #${orderData.id}</p>
+                    <p>id zamówienia: #${safeHtml(orderData.id)}</p>
                     <p>🧑 <strong>Klient:</strong> 
-                      ${orderData.firstName} ${orderData.lastName}
+                      ${safeHtml(orderData.firstName)} ${safeHtml(
+          orderData.lastName
+        )}
                     </p>
-                    <p><strong>📧  Email:</strong> ${orderData.email}</p>
-                    <p><strong>📞 Telefon:</strong> ${orderData.phone}</p>
+                    <p><strong>📧  Email:</strong> ${safeHtml(
+                      orderData.email
+                    )}</p>
+                    <p><strong>📞 Telefon:</strong> ${safeHtml(
+                      orderData.phone
+                    )}</p>
                     <p><strong>🛒 Zamówione oferty:</strong></p>
-                    ${ordersHtml}
+                    ${safeHtml(ordersHtml)}
                   `
       });
     }

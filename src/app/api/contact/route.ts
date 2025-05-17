@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import sgMail from '@sendgrid/mail';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
+import { safeHtml } from '@/lib/safeHtml';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -35,12 +36,12 @@ export async function POST(req: Request) {
     await sgMail.send({
       to: process.env.SENDGRID_FROM_EMAIL!,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      subject: `Nowa wiadomość z formularza kontaktowego: ${title}`,
+      subject: `Nowa wiadomość z formularza kontaktowego: ${safeHtml(title)}`,
       html: `
-        <p><strong>Od:</strong> ${email}</p>
-        <p><strong>Telefon:</strong> ${phone}</p>
-        <p><strong>Temat:</strong> ${title}</p>
-        <p><strong>Wiadomość:</strong><br/>${message.replace(
+        <p><strong>Od:</strong> ${safeHtml(email)}</p>
+        <p><strong>Telefon:</strong> ${safeHtml(phone)}</p>
+        <p><strong>Temat:</strong> ${safeHtml(title)}</p>
+        <p><strong>Wiadomość:</strong><br/>${safeHtml(message).replace(
           /\n/g,
           '<br/>'
         )}</p>
