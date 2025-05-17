@@ -1,33 +1,82 @@
-import { supabase } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import sgMail from '@sendgrid/mail';
+import { supabase } from '@/lib/supabaseClient';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+type OrderRoomDetail = { adults: number; children: { dateOfBirth: string }[] };
+type OrderItem = {
+  orderId: string;
+  price: number;
+  rooms: number;
+  roomsDetails: OrderRoomDetail[];
+};
+
+type OrderPayload = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  country: string;
+  address: string;
+  postalCode: string;
+  phone: string;
+  vatInvoice?: boolean;
+  companyName?: string;
+  taxId?: string;
+  orders: OrderItem[];
+  token: string;
+  status?: string;
+  stripe_payment_intent_id?: string;
+};
+
+const orderItemSchema = z.object({
+  orderId: z.number(),
+  price: z.number().min(0),
+  rooms: z.number().int().min(1),
+  roomsDetails: z.array(
+    z.object({
+      adults: z.string(),
+      children: z
+        .array(
+          z.object({
+            dateOfBirth: z.string().refine((d) => !isNaN(Date.parse(d)), {
+              message: 'Nieprawidłowa data urodzenia dziecka'
+            })
+          })
+        )
+        .optional()
+    })
+  )
+});
+
+type OrderSchemaInput = Required<
+  Omit<OrderPayload, 'status' | 'stripe_payment_intent_id'>
+> & {
+  status?: OrderPayload['status'];
+  stripe_payment_intent_id?: string;
+};
 
 const orderSchema = z
   .object({
-    email: z.string().email(),
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    country: z.string().min(1),
-    address: z.string().min(1),
+    email: z.string().email('Niepoprawny adres e-mail'),
+    firstName: z.string().min(1, 'Imię jest wymagane'),
+    lastName: z.string().min(1, 'Nazwisko jest wymagane'),
+    country: z.string().min(1, 'Wybierz kraj'),
+    address: z.string().min(1, 'Ulica jest wymagana'),
     postalCode: z
       .string()
-      .min(3, { message: 'Kod pocztowy jest za krótki' })
-      .max(12, { message: 'Kod pocztowy jest za długi' })
-      .regex(/^[A-Za-z0-9 \-]+$/, {
-        message: 'Niepoprawny format kodu pocztowego'
-      }),
-    phone: z.string().regex(/^\+\d{6,15}$/, {
-      message:
-        'Numer telefonu musi być w formacie międzynarodowym, np. +48123456789'
-    }),
+      .min(3, 'Kod pocztowy jest za krótki')
+      .max(12, 'Kod pocztowy jest za długi')
+      .regex(/^[A-Za-z0-9 \-]+$/, 'Niepoprawny format kodu pocztowego'),
+    phone: z
+      .string()
+      .regex(
+        /^[+]\d{6,15}$/,
+        'Numer telefonu musi być w formacie +48123456789'
+      ),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
     taxId: z.string().optional(),
-    orders: z.array(z.any()),
+    orders: z.array(orderItemSchema).min(1, 'Brak produktów w zamówieniu'),
     token: z.string(),
     status: z
       .enum(['new', 'pending', 'processing', 'paid', 'cancelled', 'failed'])
@@ -43,7 +92,6 @@ const orderSchema = z
           path: ['companyName']
         });
       }
-
       if (!data.taxId) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -53,7 +101,7 @@ const orderSchema = z
       } else if (!/^\d{10}$/.test(data.taxId)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'Numer NIP musi zawierać dokładnie 10 cyfr',
+          message: 'NIP musi zawierać dokładnie 10 cyfr',
           path: ['taxId']
         });
       }
@@ -63,73 +111,44 @@ const orderSchema = z
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-
-    const parsed = orderSchema.safeParse(body);
+    const parsed = orderSchema.safeParse(body as OrderSchemaInput);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Invalid order data', details: parsed.error.flatten() },
+        { error: 'Błędne dane zamówienia', details: parsed.error.flatten() },
         { status: 400 }
       );
     }
-    const { token, ...rest } = parsed.data;
+    const { token, orders, ...customerData } = parsed.data;
 
     const recaptchaRes = await verifyRecaptcha(token);
     if (!recaptchaRes.success || recaptchaRes.score < 0.5) {
       return NextResponse.json(
-        { error: 'Failed reCAPTCHA verification' },
+        { error: 'Nieudana weryfikacja reCAPTCHA' },
         { status: 400 }
       );
     }
 
-    const validData = {
-      ...rest,
-      status: parsed.data.status ?? 'new'
-    };
-
     const { data, error } = await supabase
       .from('orders')
-      .insert([validData])
-      .select('id')
+      .insert([{ ...customerData, orders, status: 'new' }])
+      .select('id, email, firstName, lastName')
       .single();
 
-    if (error) {
-      console.error('Supabase insert error:', error.message);
-
-      await sgMail.send({
-        to: parsed.data.email,
-        from: process.env.SENDGRID_FROM_EMAIL!,
-        templateId: 'd-ea11531847554e6c8e504621d6753c65',
-        dynamicTemplateData: {
-          firstName: parsed.data.firstName
-        }
-      });
-
-      await sgMail.send({
-        to: process.env.SENDGRID_FROM_EMAIL!,
-        from: process.env.SENDGRID_FROM_EMAIL!,
-        subject: `❌ Błąd: Nie udało się zapisać zamówienia – ${parsed.data.email}`,
-        html: `
-                <p>Nie udało się zapisać zamówienia w Supabase.</p>
-                <p><strong>🧑 Klient:</strong> 
-                  ${parsed.data.firstName} ${parsed.data.lastName}
-                </p>
-                <p><strong>📧 Email:</strong> ${parsed.data.email}</p>
-                <p><strong>📞 Telefon:</strong> ${parsed.data.phone}</p>
-                <p><strong>🛒 Produkty:</strong></p>
-                <pre>${JSON.stringify(parsed.data.orders, null, 2)}</pre>
-                <p><strong>❗ Błąd Supabase:</strong> ${error.message}</p>
-                <p><strong>🕒 Data:</strong> ${new Date().toISOString()}</p>
-              `
-      });
-
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error || !data) {
+      console.error('Supabase insert error:', error?.message);
+      return NextResponse.json(
+        { error: 'Błąd zapisu zamówienia' },
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({ id: data.id }, { status: 200 });
+    const orderId = data.id;
+
+    return NextResponse.json({ id: orderId }, { status: 200 });
   } catch (err) {
     console.error('Unexpected error:', err);
     return NextResponse.json(
-      { error: 'Something went wrong' },
+      { error: 'Wystąpił błąd serwera' },
       { status: 500 }
     );
   }
