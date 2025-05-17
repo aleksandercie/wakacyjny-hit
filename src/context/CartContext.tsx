@@ -14,6 +14,7 @@ export type CartItem = {
   price: string;
   salePrice?: string;
   rooms: string;
+  qunatityId: number;
   maxPersons?: number;
   minPersons?: number;
   roomsDetails: { adults?: string; children?: { dateOfBirth: string }[] }[];

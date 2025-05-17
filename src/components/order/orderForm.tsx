@@ -13,11 +13,10 @@ export const OrderForm = () => {
   const { cart } = useCart();
 
   const fetchClientSecret = async () => {
-    const amount =
-      cart.reduce(
-        (acc, item) => acc + Number(item.salePrice || item.price),
-        0
-      ) * 100;
+    const orderItems = cart.map((item) => ({
+      orderId: item.orderId,
+      quantityId: item.qunatityId
+    }));
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_URL}/api/create-payment-intent`,
@@ -25,7 +24,7 @@ export const OrderForm = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount,
+          orderItems,
           currency: 'pln'
         })
       }

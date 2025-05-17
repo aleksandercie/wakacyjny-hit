@@ -17,7 +17,7 @@ import { useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
 import { useCart } from '@/context/CartContext';
 import { Trip } from '@/types/trip';
-import { quantityOptions } from '@/lib/quantityOptions';
+import { QuantityOption } from '@/lib/quantityOptions';
 import { roomsOptions } from '@/lib/roomsOptions';
 import { OrderSummaryVariant } from '../order/orderSummary';
 import {
@@ -30,8 +30,17 @@ import {
 import Image from 'next/image';
 import { formatDate } from '@/lib/formatDate';
 import { useRouter } from 'next/navigation';
+import { useQuantityOptions } from '@/hooks';
 
-export const renderPrice = (price: string, variant?: OrderSummaryVariant) => {
+export const renderPrice = ({
+  price,
+  quantityOptions,
+  variant
+}: {
+  price: string;
+  quantityOptions: QuantityOption[];
+  variant?: OrderSummaryVariant;
+}) => {
   const salePrice = quantityOptions.find(
     (item) => item.value === price
   )?.salePrice;
@@ -70,6 +79,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
+  const { quantityOptions } = useQuantityOptions();
+
   const { addToCart, cart } = useCart();
   const router = useRouter();
 
@@ -110,6 +121,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       price: selectedQuantity,
       salePrice: option?.salePrice,
       rooms: selectedRooms,
+      qunatityId: option?.id,
       maxPersons: option?.maxPersons,
       minPersons: option?.minPersons,
       roomsDetails: Array.from({ length: Number(selectedRooms) }).map(() => ({
@@ -245,7 +257,12 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       {selectedQuantity !== '' && (
         <div className="flex gap-2 flex-col">
           <p>Cena pakietu podróży:</p>
-          <div className="flex flex-col">{renderPrice(selectedQuantity)}</div>
+          <div className="flex flex-col">
+            {renderPrice({
+              price: selectedQuantity,
+              quantityOptions
+            })}
+          </div>
         </div>
       )}
       {cart.length === 5 && (

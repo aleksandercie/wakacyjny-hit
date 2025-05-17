@@ -49,7 +49,6 @@ export async function POST(req: Request) {
           contacts: [
             {
               email: subscriber.email
-              // możesz tu dodać np. first_name, last_name, itp.
             }
           ]
         }

@@ -2,14 +2,21 @@
 
 import { Button } from '@/components/ui/button';
 import { CartItem } from '@/context/CartContext';
-import { quantityOptions } from '@/lib/quantityOptions';
 import { renderPrice } from '../offerDetails';
 import Link from 'next/link';
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { ROUTES } from '@/lib/routes';
+import { useQuantityOptions } from '@/hooks';
+import { QuantityOption } from '@/lib/quantityOptions';
 
-export const calculateTotalPrice = (cart: CartItem[]) => {
+export const calculateTotalPrice = ({
+  cart,
+  quantityOptions
+}: {
+  cart: CartItem[];
+  quantityOptions: QuantityOption[];
+}) => {
   return cart.reduce((sum, item) => {
     const priceOption = quantityOptions.find((q) => q.value === item.price);
     const salePrice = parseFloat(priceOption?.salePrice || item.price);
@@ -70,6 +77,7 @@ export const OrderSummary = ({
   closeOrderSummary?: () => void;
 }) => {
   const { CART } = ROUTES;
+  const { quantityOptions } = useQuantityOptions();
   const isCartVariant = variant === 'cart';
   const isValidOrder = !hasValidationError(cart);
   const [isPaymentReady, setIsPaymentReady] = useState(false);
@@ -113,7 +121,12 @@ export const OrderSummary = ({
           }`}
         >
           {cart.map((item) => (
-            <OrderItemSummary key={item.id} item={item} variant={variant} />
+            <OrderItemSummary
+              key={item.id}
+              item={item}
+              variant={variant}
+              quantityOptions={quantityOptions}
+            />
           ))}
         </div>
         <div
@@ -127,7 +140,7 @@ export const OrderSummary = ({
           <span
             className={`font-bold ${isCartVariant ? 'text-xl' : 'text-l pr-3'}`}
           >
-            {calculateTotalPrice(cart)} zł
+            {calculateTotalPrice({ cart, quantityOptions })} zł
           </span>
         </div>
       </div>
@@ -160,10 +173,12 @@ export const OrderSummary = ({
 
 export const OrderItemSummary = ({
   item,
-  variant
+  variant,
+  quantityOptions
 }: {
   item: CartItem;
   variant: OrderSummaryVariant;
+  quantityOptions: QuantityOption[];
 }) => {
   const isCartVariant = variant === 'cart';
   return (
@@ -177,7 +192,7 @@ export const OrderItemSummary = ({
           {item.name}
         </span>
         <div className="flex flex-col justify-end w-full sm:w-[124px] items-end">
-          {renderPrice(item.price, variant)}
+          {renderPrice({ price: item.price, quantityOptions, variant })}
         </div>
       </div>
 
