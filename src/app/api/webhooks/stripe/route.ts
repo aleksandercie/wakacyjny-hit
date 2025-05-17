@@ -17,8 +17,7 @@ export async function POST(req: Request) {
 
   try {
     event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-  } catch (err) {
-    console.error('Webhook signature error', err);
+  } catch {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
@@ -43,8 +42,6 @@ export async function POST(req: Request) {
       .single();
 
     if (error || !orderData) {
-      console.error('Supabase update error:', error?.message);
-
       await sgMail.send({
         to: orderData.email,
         from: process.env.SENDGRID_FROM_EMAIL!,

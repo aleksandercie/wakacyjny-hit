@@ -10,8 +10,7 @@ export async function PATCH(req: Request) {
   try {
     await stripe.paymentIntents.update(paymentIntentId, { metadata });
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Stripe update metadata error', err);
+  } catch {
     return NextResponse.json(
       { error: 'Metadata update failed' },
       { status: 500 }

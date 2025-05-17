@@ -35,8 +35,7 @@ export async function POST(req: Request) {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id
     });
-  } catch (err) {
-    console.error('Stripe error:', err);
+  } catch {
     return NextResponse.json(
       { error: 'Błąd tworzenia płatności' },
       { status: 500 }

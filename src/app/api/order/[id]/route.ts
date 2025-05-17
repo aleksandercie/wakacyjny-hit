@@ -26,8 +26,6 @@ export async function PATCH(
       .single();
 
     if (error || !orderData) {
-      console.error('Supabase update error:', error?.message);
-
       await sgMail.send({
         to: orderData.email,
         from: process.env.SENDGRID_FROM_EMAIL!,
@@ -125,8 +123,7 @@ export async function PATCH(
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
-  } catch (err) {
-    console.error('Unexpected error in PATCH:', err);
+  } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
       { status: 500 }

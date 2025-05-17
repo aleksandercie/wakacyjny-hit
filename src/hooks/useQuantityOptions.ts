@@ -18,8 +18,7 @@ export function useQuantityOptions() {
       try {
         const res = await getQuantityOptions();
         setQuantityOptions(res);
-      } catch (err: unknown) {
-        console.error('useQuantityOptions error:', err);
+      } catch {
         const message =
           'Nie udało się załadować opcji ilości. Spróbuj ponownie.';
         setError(message);

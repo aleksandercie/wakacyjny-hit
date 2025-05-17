@@ -48,8 +48,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Contact form error:', err);
+  } catch {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

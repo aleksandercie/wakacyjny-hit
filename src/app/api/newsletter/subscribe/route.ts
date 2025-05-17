@@ -35,7 +35,6 @@ export async function POST(req: Request) {
       .single();
 
     if (fetchError && fetchError.code !== 'PGRST116') {
-      console.error('Error checking existing email:', fetchError);
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
@@ -48,7 +47,6 @@ export async function POST(req: Request) {
       .upsert({ email, token, is_confirmed: false });
 
     if (upsertError) {
-      console.error('Upsert error:', upsertError);
       return NextResponse.json({ error: 'Database error' }, { status: 500 });
     }
 
@@ -64,8 +62,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Unexpected error in POST:', err);
+  } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
       { status: 500 }

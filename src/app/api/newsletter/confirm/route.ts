@@ -53,9 +53,7 @@ export async function POST(req: Request) {
           ]
         }
       });
-    } catch (sendgridError) {
-      console.error('Błąd przy dodawaniu do SendGrid contacts:', sendgridError);
-    }
+    } catch {}
 
     const unsubscribeUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${UNSUBSCRIBE}?token=${token}`;
 
@@ -69,8 +67,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Newsletter confirm error:', err);
+  } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
       { status: 500 }

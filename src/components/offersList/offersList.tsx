@@ -58,9 +58,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           setOffset((prev) => prev + LIMIT);
           if (response.length < LIMIT) setHasMore(false);
         }
-      } catch (err) {
-        console.error(err);
-      }
+      } catch {}
       setLoading(false);
     },
     [

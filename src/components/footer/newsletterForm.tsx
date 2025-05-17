@@ -46,8 +46,7 @@ export const NewsletterForm = () => {
           description: 'Wystąpił problem. Spróbuj ponownie.'
         });
       }
-    } catch (err) {
-      console.error('Error executing reCAPTCHA:', err);
+    } catch {
       toast.error('Nie udało się zweryfikować reCAPTCHA.');
     }
   };

@@ -28,8 +28,7 @@ export async function generateMetadata({ params }: OfferPageProps) {
       canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
       noIndex: false
     });
-  } catch (error) {
-    console.error('Error generating metadata for offer:', error);
+  } catch {
     return {};
   }
 }
@@ -48,8 +47,7 @@ export default async function OfferPage({ params }: OfferPageProps) {
         </main>
       </div>
     );
-  } catch (err) {
-    console.error('Error loading trip:', err);
+  } catch {
     return notFound();
   }
 }

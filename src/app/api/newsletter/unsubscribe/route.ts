@@ -76,13 +76,10 @@ export async function POST(req: Request) {
       } else {
         console.warn(`Nie znaleziono kontaktu w SendGrid: ${existing.email}`);
       }
-    } catch (sendgridError) {
-      console.error('Błąd przy usuwaniu kontaktu z SendGrid:', sendgridError);
-    }
+    } catch {}
 
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('Unsubscribe error:', err);
+  } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
       { status: 500 }

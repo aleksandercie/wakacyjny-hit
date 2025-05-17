@@ -96,8 +96,7 @@ export const ContactForm = () => {
             'Nie udało się wysłać wiadomości. Spróbuj ponownie później.'
         });
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
       toast('Błąd!', {
         description: 'Coś poszło nie tak. Spróbuj ponownie.'
       });

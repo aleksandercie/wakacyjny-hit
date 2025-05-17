@@ -98,11 +98,10 @@ export const OrderFormContent = ({
       }
 
       orderId = createData.id;
-    } catch (err) {
+    } catch {
       toast.error('Błąd', {
         description: 'Nie udało się utworzyć zamówienia. Spróbuj ponownie.'
       });
-      console.error(err);
       return;
     }
 
