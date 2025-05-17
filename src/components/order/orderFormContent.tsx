@@ -18,9 +18,11 @@ import { useRouter } from 'next/navigation';
 import { useReCaptcha } from 'next-recaptcha-v3';
 
 export const OrderFormContent = ({
-  clientSecret
+  clientSecret,
+  paymentIntentId
 }: {
   clientSecret: string | null;
+  paymentIntentId: string | null;
 }) => {
   const router = useRouter();
   const [selectedCountry, setSelectedCountry] = useState('PL');
@@ -104,8 +106,19 @@ export const OrderFormContent = ({
       return;
     }
 
+    if (paymentIntentId) {
+      await fetch('/api/payment-intent/update-metadata', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          paymentIntentId,
+          metadata: { orderId }
+        })
+      });
+    }
+
     // 2. Try payment
-    const { error: paymentError, paymentIntent } = await stripe.confirmPayment({
+    const { error: paymentError } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: window.location.href,
@@ -124,24 +137,6 @@ export const OrderFormContent = ({
       },
       redirect: 'if_required'
     });
-
-    const newStatus = paymentError ? paymentError.decline_code : 'paid';
-
-    // 3. Patch the order with the new status (and optionally Stripe paymentIntent id)
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/order/${orderId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          status: newStatus,
-          stripe_payment_intent_id: paymentError
-            ? paymentError?.payment_intent?.id || 'error_payment_id_not_set'
-            : paymentIntent?.id || 'success_payment_id_not_set'
-        })
-      });
-    } catch (err) {
-      console.error('Błąd przy aktualizacji statusu zamówienia:', err);
-    }
 
     if (paymentError) {
       toast.error('Błąd płatności', { description: paymentError.message });

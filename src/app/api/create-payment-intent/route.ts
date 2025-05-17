@@ -31,7 +31,10 @@ export async function POST(req: Request) {
       automatic_payment_methods: { enabled: true }
     });
 
-    return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+    return NextResponse.json({
+      clientSecret: paymentIntent.client_secret,
+      paymentIntentId: paymentIntent.id
+    });
   } catch (err) {
     console.error('Stripe error:', err);
     return NextResponse.json(

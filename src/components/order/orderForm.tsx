@@ -10,6 +10,7 @@ const stripePromise = loadStripe(
 
 export const OrderForm = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const { cart } = useCart();
 
   const fetchClientSecret = async () => {
@@ -32,6 +33,7 @@ export const OrderForm = () => {
 
     const data = await res.json();
     setClientSecret(data.clientSecret);
+    setPaymentIntentId(data.paymentIntentId);
   };
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export const OrderForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!clientSecret) {
+  if (!clientSecret || !paymentIntentId) {
     return (
       <div className="flex w-full justify-center min-h-[40vh] items-center">
         <p>Ładowanie koszyka...</p>
@@ -49,7 +51,10 @@ export const OrderForm = () => {
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <OrderFormContent clientSecret={clientSecret} />
+      <OrderFormContent
+        clientSecret={clientSecret}
+        paymentIntentId={paymentIntentId}
+      />
     </Elements>
   );
 };
