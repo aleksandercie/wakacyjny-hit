@@ -49,7 +49,10 @@ export const MultiSelect = ({
         align="start"
         avoidCollisions={false}
         className="p-2 bg-white"
-        style={{ minWidth: 'var(--radix-popover-trigger-width)' }}
+        style={{
+          minWidth: 'var(--radix-popover-trigger-width)',
+          zIndex: '135'
+        }}
       >
         <Input
           id="search"
