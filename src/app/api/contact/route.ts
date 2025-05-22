@@ -3,6 +3,7 @@ import { z } from 'zod';
 import sgMail from '@sendgrid/mail';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 import { safeHtml } from '@/lib/safeHtml';
+import { checkRateLimit } from '@/lib/checkRateLimit';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -16,6 +17,9 @@ const schema = z.object({
 
 export async function POST(req: Request) {
   try {
+    const rateLimitCheck = await checkRateLimit(req, 'contact-form');
+    if (rateLimitCheck !== true) return rateLimitCheck;
+
     const body = await req.json();
     const parsed = schema.safeParse(body);
 

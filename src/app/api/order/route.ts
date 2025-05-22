@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { supabase } from '@/lib/supabaseClient';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
+import { checkRateLimit } from '@/lib/checkRateLimit';
 
 type OrderRoomDetail = { adults: number; children: { dateOfBirth: string }[] };
 type OrderItem = {
@@ -110,6 +111,8 @@ const orderSchema = z
 
 export async function POST(req: Request) {
   try {
+    const rateLimitCheck = await checkRateLimit(req, 'order');
+    if (rateLimitCheck !== true) return rateLimitCheck;
     const body = await req.json();
     const parsed = orderSchema.safeParse(body as OrderSchemaInput);
     if (!parsed.success) {

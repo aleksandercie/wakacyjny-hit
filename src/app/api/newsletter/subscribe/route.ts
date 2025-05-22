@@ -4,6 +4,7 @@ import sgMail from '@sendgrid/mail';
 import { ROUTES } from '@/lib/routes';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 import { z } from 'zod';
+import { checkRateLimit } from '@/lib/checkRateLimit';
 
 const schema = z.object({
   email: z.string().email(),
@@ -16,6 +17,9 @@ const { SUBSCRIBE } = ROUTES;
 
 export async function POST(req: Request) {
   try {
+    const rateLimitCheck = await checkRateLimit(req, 'newsletter-subscribe');
+    if (rateLimitCheck !== true) return rateLimitCheck;
+
     const body = await req.json();
     const parsed = schema.safeParse(body);
     if (!parsed.success) {
