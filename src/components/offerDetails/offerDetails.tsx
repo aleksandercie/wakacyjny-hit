@@ -30,7 +30,7 @@ import {
 import Image from 'next/image';
 import { formatDate } from '@/lib/formatDate';
 import { useRouter } from 'next/navigation';
-import { useQuantityOptions } from '@/hooks';
+import { quantityOptions } from '@/lib/quantityOptions';
 
 export const renderPrice = ({
   price,
@@ -79,7 +79,6 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
-  const { quantityOptions } = useQuantityOptions();
 
   const { addToCart, cart } = useCart();
   const router = useRouter();

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { ROUTES } from '@/lib/routes';
-import { useQuantityOptions } from '@/hooks';
+import { quantityOptions } from '@/lib/quantityOptions';
 import { QuantityOption } from '@/lib/quantityOptions';
 
 export const calculateTotalPrice = ({
@@ -77,7 +77,6 @@ export const OrderSummary = ({
   closeOrderSummary?: () => void;
 }) => {
   const { CART } = ROUTES;
-  const { quantityOptions } = useQuantityOptions();
   const isCartVariant = variant === 'cart';
   const isValidOrder = !hasValidationError(cart);
   const [isPaymentReady, setIsPaymentReady] = useState(false);

@@ -15,7 +15,7 @@ import {
   SelectValue
 } from '../ui/select';
 import { DateOfBirthPicker } from '../dateOfBirthPicker';
-import { useQuantityOptions } from '@/hooks';
+import { quantityOptions } from '@/lib/quantityOptions';
 
 type TouchedRoomsMap = {
   [itemId: string]: Set<number>;
@@ -31,7 +31,6 @@ export const OrderDetailsSection = ({
   removeItemCart: (id: string) => void;
 }) => {
   const [touchedRooms, setTouchedRooms] = useState<TouchedRoomsMap>({});
-  const { quantityOptions } = useQuantityOptions();
 
   const handleRoomTouch = (itemId: string, roomIndex: number) => {
     setTouchedRooms((prev) => ({
