@@ -71,7 +71,7 @@ const orderSchema = z
       .string()
       .regex(
         /^[+]\d{6,15}$/,
-        'Numer telefonu musi być w formacie +48123456789'
+        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789)'
       ),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),

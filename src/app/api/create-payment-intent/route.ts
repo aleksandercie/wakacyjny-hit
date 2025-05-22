@@ -1,6 +1,14 @@
 import { getQuantityOptions } from '@/lib/api/getQuantityOptions';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { z } from 'zod';
+
+const schema = z.object({
+  orderItems: z.array(
+    z.object({ quantityId: z.number(), orderId: z.number() })
+  ),
+  currency: z.string().length(3)
+});
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil'
@@ -8,7 +16,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: Request) {
   try {
-    const { orderItems, currency } = await req.json();
+    const parsed = schema.safeParse(await req.json());
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+
+    const { orderItems, currency } = parsed.data;
     const options = await getQuantityOptions();
     let amount = 0;
     for (const { quantityId } of orderItems) {

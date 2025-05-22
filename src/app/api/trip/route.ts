@@ -1,8 +1,31 @@
 import { supabase } from '@/lib/supabaseClient';
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const schema = z
+  .string()
+  .url()
+  .refine(
+    (url) => {
+      return url.startsWith('http://') || url.startsWith('https://');
+    },
+    {
+      message: 'URL must start with http:// or https://'
+    }
+  );
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const url = request.url;
+
+  const urlValidation = schema.safeParse(url);
+  if (!urlValidation.success) {
+    return NextResponse.json(
+      { error: urlValidation.error.message },
+      { status: 400 }
+    );
+  }
+
+  const { searchParams } = new URL(url);
   const id = searchParams.get('id');
 
   if (!id) {

@@ -3,6 +3,12 @@ import { supabase } from '@/lib/supabaseClient';
 import sgMail from '@sendgrid/mail';
 import { ROUTES } from '@/lib/routes';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
+import { z } from 'zod';
+
+const schema = z.object({
+  email: z.string().email(),
+  token: z.string().min(10)
+});
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
@@ -11,7 +17,12 @@ const { SUBSCRIBE } = ROUTES;
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, token } = body;
+    const parsed = schema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    }
+
+    const { email, token } = parsed.data;
 
     if (!token) {
       return NextResponse.json(
