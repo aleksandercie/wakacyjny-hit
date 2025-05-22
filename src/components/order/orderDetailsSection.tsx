@@ -155,6 +155,7 @@ export const OrderDetailsSection = ({
                             e.preventDefault();
                           }
                         }}
+                        onWheel={(e) => (e.target as HTMLInputElement).blur()}
                         onPaste={(e) => e.preventDefault()}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -197,6 +198,7 @@ export const OrderDetailsSection = ({
                             e.preventDefault();
                           }
                         }}
+                        onWheel={(e) => (e.target as HTMLInputElement).blur()}
                         onPaste={(e) => e.preventDefault()}
                         onChange={(e) => {
                           const value = e.target.value;
