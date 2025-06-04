@@ -54,7 +54,13 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           setOffset(LIMIT);
           setHasMore(response.length === LIMIT);
         } else {
-          setTrips((prev) => [...prev, ...response]);
+          setTrips((prev) => {
+            const uniqueTrips = [
+              ...prev,
+              ...response.filter((trip) => !prev.some((t) => t.id === trip.id))
+            ];
+            return uniqueTrips;
+          });
           setOffset((prev) => prev + LIMIT);
           if (response.length < LIMIT) setHasMore(false);
         }
