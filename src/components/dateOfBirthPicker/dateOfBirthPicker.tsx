@@ -55,11 +55,11 @@ export const DateOfBirthPicker = ({
           <Button
             variant={'outline'}
             className={cn(
-              'w-[222px] sm:w-[242px] justify-start text-left font-normal',
+              'w-[222px] justify-start text-left font-normal',
               !date && 'text-muted-foreground'
             )}
           >
-            <CalendarIcon className="sm:mr-2 h-4 w-4" />
+            <CalendarIcon className="sm:mr h-4 w-4" />
             {date ? formatDate(date) : <span>Wybierz datę urodzenia</span>}
           </Button>
         </PopoverTrigger>
