@@ -168,9 +168,11 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
         </button>
       )}
       {!loading && trips.length === 0 && (
-        <p className="text-center text-gray-500 py-6">
-          Brak ofert spełniających wybrane kryteria.
-        </p>
+        <div className="min-h-[121px]">
+          <p className="text-center text-gray-500 py-6">
+            Brak ofert spełniających wybrane kryteria.
+          </p>
+        </div>
       )}
       {hasMore && !loading && <div ref={observerRef} className="h-10 mt-6" />}
     </>
