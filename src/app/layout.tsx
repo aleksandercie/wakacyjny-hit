@@ -6,6 +6,7 @@ import { CookieConsent, Footer, Navigation } from '@/components';
 import { Toaster } from 'sonner';
 import { CartProvider } from '@/context/CartContext';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
 const ReCaptchaProvider = dynamic(
   () => import('next-recaptcha-v3').then((mod) => mod.ReCaptchaProvider),
@@ -24,6 +25,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <html lang="pl">
       <body className={`${nunitoSans.variable} antialiased relative bg-white `}>
