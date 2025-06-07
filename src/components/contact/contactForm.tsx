@@ -56,7 +56,8 @@ export const ContactForm = () => {
     formState: { errors, isSubmitting },
     control
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    mode: 'onBlur'
   });
 
   const { executeRecaptcha, loaded } = useReCaptcha();
@@ -111,9 +112,13 @@ export const ContactForm = () => {
           <Label htmlFor="email" className="text-gray-500 text-base">
             Adres e-mail
           </Label>
-          <Input id="email" type="email" {...register('email')} />
+          <Input
+            id="email"
+            type="email"
+            {...register('email', { onBlur: () => {} })}
+          />
           {errors.email && (
-            <p className="text-red-600 text-base">{errors.email.message}</p>
+            <p className="text-red-600 text-sm">{errors.email.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
@@ -123,14 +128,14 @@ export const ContactForm = () => {
           <Input
             id="phone"
             type="tel"
-            {...register('phone')}
+            {...register('phone', { onBlur: () => {} })}
             onInput={(e) => {
               const input = e.currentTarget;
               input.value = input.value.replace(/[^\d+]/g, '').slice(0, 16);
             }}
           />
           {errors.phone && (
-            <p className="text-red-600 text-base">{errors.phone.message}</p>
+            <p className="text-red-600 text-sm">{errors.phone.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
@@ -139,7 +144,7 @@ export const ContactForm = () => {
           </Label>
           <Input id="title" type="text" {...register('title')} />
           {errors.title && (
-            <p className="text-red-600 text-base">{errors.title.message}</p>
+            <p className="text-red-600 text-sm">{errors.title.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
@@ -148,7 +153,7 @@ export const ContactForm = () => {
           </Label>
           <Textarea id="message" {...register('message')} />
           {errors.message && (
-            <p className="text-red-600 text-base">{errors.message.message}</p>
+            <p className="text-red-600 text-sm">{errors.message.message}</p>
           )}
         </div>
         <Controller
@@ -174,7 +179,7 @@ export const ContactForm = () => {
           )}
         />
         {errors.terms && (
-          <p className="text-red-600 text-base">{errors.terms.message}</p>
+          <p className="text-red-600 text-sm">{errors.terms.message}</p>
         )}
 
         <Button type="submit" disabled={isSubmitting} className="mt-4">

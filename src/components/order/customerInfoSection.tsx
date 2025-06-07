@@ -78,7 +78,7 @@ type CustomerInfoSectionProps = {
   watchAllFields: OrderFormData;
 };
 
-export const LOCAL_STORAGE_KEY = 'orderFormData';
+export const LOCAL_STORAGE_KEY = 'orderFormData-v2';
 
 export const CustomerInfoSection = ({
   selectedCountry,
@@ -285,7 +285,9 @@ export const CustomerInfoSection = ({
                 }}
               />
               {errors.taxId && (
-                <p className="text-red-600 text-sm">{errors.taxId.message}</p>
+                <p className="text-red-600 text-sm max-w-[220px]">
+                  {errors.taxId.message}
+                </p>
               )}
             </div>
           </div>
