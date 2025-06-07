@@ -23,9 +23,9 @@ const formSchema = z.object({
   phone: z
     .string()
     .nonempty({ message: 'Numer telefonu jest wymagany' })
-    .regex(/^\+\d{6,15}$/, {
+    .regex(/^(?:\+|00)\d{6,15}$/, {
       message:
-        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789)'
+        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789) lub 0048123456789'
     }),
 
   title: z

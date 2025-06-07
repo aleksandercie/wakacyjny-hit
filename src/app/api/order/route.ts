@@ -17,6 +17,7 @@ type OrderPayload = {
   firstName: string;
   lastName: string;
   country: string;
+  city: string;
   address: string;
   postalCode: string;
   phone: string;
@@ -62,7 +63,8 @@ const orderSchema = z
     firstName: z.string().min(1, 'Imię jest wymagane'),
     lastName: z.string().min(1, 'Nazwisko jest wymagane'),
     country: z.string().min(1, 'Wybierz kraj'),
-    address: z.string().min(1, 'Ulica jest wymagana'),
+    city: z.string().min(1, 'Miasto jest wymagane'),
+    address: z.string().min(1, 'Adres jest wymagany'),
     postalCode: z
       .string()
       .min(3, 'Kod pocztowy jest za krótki')
@@ -72,7 +74,7 @@ const orderSchema = z
       .string()
       .regex(
         /^[+]\d{6,15}$/,
-        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789)'
+        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789) lub 0048123456789'
       ),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),

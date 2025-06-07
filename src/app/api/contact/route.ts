@@ -9,7 +9,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const schema = z.object({
   email: z.string().email(),
-  phone: z.string().regex(/^\+?[0-9]{6,15}$/, 'Invalid phone number'),
+  phone: z.string().regex(/^(?:\+|00)\d{6,15}$/, 'Invalid phone number'),
   title: z.string().min(3),
   message: z.string().min(10),
   token: z.string()

@@ -27,13 +27,14 @@ export const orderSchemaCustomer = z
     firstName: z.string().min(1, 'Imię jest wymagane'),
     lastName: z.string().min(1, 'Nazwisko jest wymagane'),
     country: z.string().min(1, 'Wybierz kraj'),
-    address: z.string().min(1, 'Ulica jest wymagana'),
+    city: z.string().min(1, 'Miasto jest wymagane'),
+    address: z.string().min(1, 'Adres jest wymagany'),
     postalCode: z.string().min(3, 'Niepoprawny kod pocztowy'),
     phone: z
       .string()
       .regex(
-        /^\+\d{6,15}$/,
-        'Numer telefonu musi być w formacie międzynarodowym, np. +48123456789'
+        /^(?:\+|00)\d{6,15}$/,
+        'Numer telefonu musi być w formacie międzynarodowym, np. +48123456789 lub 0048123456789'
       ),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
@@ -200,6 +201,18 @@ export const CustomerInfoSection = ({
           </div>
         </div>
         <div>
+          <Label htmlFor="city">Miasto</Label>
+          <Input
+            id="city"
+            type="text"
+            {...register('city', { onBlur: () => {} })}
+            maxLength={100}
+          />
+          {errors.city && (
+            <p className="text-red-600 text-sm">{errors.city.message}</p>
+          )}
+        </div>
+        <div>
           <Label htmlFor="address">Adres</Label>
           <Input
             id="address"
@@ -224,7 +237,9 @@ export const CustomerInfoSection = ({
             }}
           />
           {errors.phone && (
-            <p className="text-red-600 text-sm">{errors.phone.message}</p>
+            <p className="text-red-600 text-sm max-w-[360px]">
+              {errors.phone.message}
+            </p>
           )}
         </div>
         <div className="flex items-center gap-2">
