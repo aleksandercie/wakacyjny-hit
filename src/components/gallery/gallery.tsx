@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { Header } from '../header';
+import { textShadow } from '@/lib/styles';
 type PhotoType = {
   location: string;
   country: string;
@@ -28,16 +29,10 @@ const Photos = ({ photos }: { photos: PhotoType[] }) =>
             position === 'left' ? 'top-4 left-4' : 'bottom-4 right-4'
           }`}
         >
-          <p
-            className="text-lg"
-            style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
-          >
+          <p className="text-lg" style={{ textShadow }}>
             {location}
           </p>
-          <p
-            className="font-bold text-base opacity-80"
-            style={{ textShadow: '2px 2px 4px rgba(55, 65, 81, 0.7)' }}
-          >
+          <p className="font-bold text-base opacity-80" style={{ textShadow }}>
             {country}
           </p>
         </div>
