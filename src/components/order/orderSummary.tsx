@@ -160,9 +160,12 @@ export const OrderSummary = ({
           </Button>
         </div>
       ) : (
-        <Button className="mt-4 mr-3" onClick={closeOrderSummary}>
-          <Link href={CART} className="relative">
-            Koszyk
+        <Button className="mt-4 mr-3 p-0" onClick={closeOrderSummary}>
+          <Link
+            href={CART}
+            className="relative w-full h-full flex justify-center items-center"
+          >
+            <span>Koszyk</span>
           </Link>
         </Button>
       )}
