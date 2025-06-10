@@ -143,7 +143,7 @@ export const ContactForm = () => {
               name="prefix"
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger className="w-[100px]">
+                  <SelectTrigger className="w-[102px]">
                     <SelectValue placeholder="" />
                   </SelectTrigger>
                   <SelectContent>

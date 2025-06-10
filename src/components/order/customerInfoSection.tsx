@@ -224,24 +224,6 @@ export const CustomerInfoSection = ({
             <p className="text-red-600 text-sm">{errors.address.message}</p>
           )}
         </div>
-        {/* <div>
-          <Label htmlFor="phone">Numer telefonu</Label>
-          <Input
-            id="phone"
-            type="tel"
-            maxLength={16}
-            {...register('phone', { onBlur: () => {} })}
-            onInput={(e) => {
-              const input = e.currentTarget;
-              input.value = input.value.replace(/[^\d+]/g, '').slice(0, 16);
-            }}
-          />
-          {errors.phone && (
-            <p className="text-red-600 text-sm max-w-[360px]">
-              {errors.phone.message}
-            </p>
-          )}
-        </div> */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="phone" className="text-gray-500 text-base">
             Numer telefonu
@@ -252,7 +234,7 @@ export const CustomerInfoSection = ({
               name="prefix"
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger className="w-[100px]">
+                  <SelectTrigger className="w-[102px]">
                     <SelectValue placeholder="" />
                   </SelectTrigger>
                   <SelectContent>
