@@ -13,6 +13,14 @@ import Link from 'next/link';
 import { CircleCheck } from 'lucide-react';
 import { ROUTES } from '@/lib/routes';
 import { useReCaptcha } from 'next-recaptcha-v3';
+import { countries } from '@/lib/countries';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 
 const formSchema = z.object({
   email: z
@@ -20,13 +28,12 @@ const formSchema = z.object({
     .nonempty({ message: 'Adres e-mail jest wymagany' })
     .email({ message: 'Niepoprawny adres e-mail' }),
 
-  phone: z
+  prefix: z.string().nonempty(),
+  number: z
     .string()
-    .nonempty({ message: 'Numer telefonu jest wymagany' })
-    .regex(/^(?:\+|00)\d{6,15}$/, {
-      message:
-        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789) lub 0048123456789'
-    }),
+    .min(6, { message: 'Numer telefonu musi mieć co najmniej 6 cyfr' })
+    .max(15, { message: 'Numer telefonu nie może mieć więcej niż 15 cyfr' })
+    .regex(/^\d+$/, { message: 'Użyj tylko cyfr bez spacji' }),
 
   title: z
     .string()
@@ -57,22 +64,26 @@ export const ContactForm = () => {
     control
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    mode: 'onBlur'
+    mode: 'onBlur',
+    defaultValues: {
+      prefix: '+48'
+    }
   });
 
   const { executeRecaptcha, loaded } = useReCaptcha();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async ({ prefix, number, ...rest }: FormData) => {
     if (!loaded || !executeRecaptcha) {
       toast.error('reCAPTCHA nie jest jeszcze gotowe. Spróbuj za chwilę.');
       return;
     }
 
     const token = await executeRecaptcha('contact_form');
+    const phone = `${prefix}${number}`;
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
-        body: JSON.stringify({ ...data, token }),
+        body: JSON.stringify({ ...rest, phone, token }),
         headers: { 'Content-Type': 'application/json' }
       });
 
@@ -86,7 +97,8 @@ export const ContactForm = () => {
         });
         reset({
           email: '',
-          phone: '',
+          prefix: '+48',
+          number: '',
           title: '',
           message: '',
           terms: false
@@ -121,21 +133,47 @@ export const ContactForm = () => {
             <p className="text-red-600 text-sm">{errors.email.message}</p>
           )}
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="phone" className="text-gray-500 text-base">
             Numer telefonu
           </Label>
-          <Input
-            id="phone"
-            type="tel"
-            {...register('phone', { onBlur: () => {} })}
-            onInput={(e) => {
-              const input = e.currentTarget;
-              input.value = input.value.replace(/[^\d+]/g, '').slice(0, 16);
-            }}
-          />
-          {errors.phone && (
-            <p className="text-red-600 text-sm">{errors.phone.message}</p>
+          <div className="flex gap-2">
+            <Controller
+              control={control}
+              name="prefix"
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger className="w-[100px]">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countries.map((c) => (
+                      <SelectItem key={c.value} value={c.dial_code}>
+                        {c.flag} {c.dial_code}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+
+            <Input
+              id="phone"
+              type="tel"
+              {...register('number')}
+              onInput={(e) => {
+                e.currentTarget.value = e.currentTarget.value
+                  .replace(/[^\d]/g, '')
+                  .slice(0, 15);
+              }}
+              placeholder=""
+              className="flex-1"
+            />
+          </div>
+          {(errors.prefix || errors.number) && (
+            <p className="text-red-600 text-sm">
+              {errors.prefix?.message || errors.number?.message}
+            </p>
           )}
         </div>
         <div className="flex flex-col gap-4">

@@ -30,12 +30,12 @@ export const orderSchemaCustomer = z
     city: z.string().min(1, 'Miasto jest wymagane'),
     address: z.string().min(1, 'Adres jest wymagany'),
     postalCode: z.string().min(3, 'Niepoprawny kod pocztowy'),
-    phone: z
+    prefix: z.string().nonempty(),
+    number: z
       .string()
-      .regex(
-        /^(?:\+|00)\d{6,15}$/,
-        'Numer telefonu musi być w formacie międzynarodowym, np. +48123456789 lub 0048123456789'
-      ),
+      .min(6, { message: 'Numer telefonu musi mieć co najmniej 6 cyfr' })
+      .max(15, { message: 'Numer telefonu nie może mieć więcej niż 15 cyfr' })
+      .regex(/^\d+$/, { message: 'Użyj tylko cyfr bez spacji' }),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
     taxId: z.string().optional()
@@ -224,7 +224,7 @@ export const CustomerInfoSection = ({
             <p className="text-red-600 text-sm">{errors.address.message}</p>
           )}
         </div>
-        <div>
+        {/* <div>
           <Label htmlFor="phone">Numer telefonu</Label>
           <Input
             id="phone"
@@ -239,6 +239,49 @@ export const CustomerInfoSection = ({
           {errors.phone && (
             <p className="text-red-600 text-sm max-w-[360px]">
               {errors.phone.message}
+            </p>
+          )}
+        </div> */}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="phone" className="text-gray-500 text-base">
+            Numer telefonu
+          </Label>
+          <div className="flex gap-2">
+            <Controller
+              control={control}
+              name="prefix"
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger className="w-[100px]">
+                    <SelectValue placeholder="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countries.map((c) => (
+                      <SelectItem key={c.value} value={c.dial_code}>
+                        {c.flag} {c.dial_code}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+
+            <Input
+              id="phone"
+              type="tel"
+              {...register('number')}
+              onInput={(e) => {
+                e.currentTarget.value = e.currentTarget.value
+                  .replace(/[^\d]/g, '')
+                  .slice(0, 15);
+              }}
+              placeholder=""
+              className="flex-1"
+            />
+          </div>
+          {(errors.prefix || errors.number) && (
+            <p className="text-red-600 text-sm">
+              {errors.prefix?.message || errors.number?.message}
             </p>
           )}
         </div>

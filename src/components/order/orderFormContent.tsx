@@ -43,7 +43,8 @@ export const OrderFormContent = ({
     resolver: zodResolver(orderSchemaCustomer),
     defaultValues: {
       vatInvoice: false,
-      country: 'PL'
+      country: 'PL',
+      prefix: '+48'
     },
     mode: 'onBlur'
   });
@@ -51,7 +52,13 @@ export const OrderFormContent = ({
   const watchAllFields = watch();
   const watchVat = useWatch({ control, name: 'vatInvoice' });
 
-  const onSubmit = async (data: OrderFormData) => {
+  const onSubmit = async ({
+    prefix,
+    number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    vatInvoice,
+    ...rest
+  }: OrderFormData) => {
     if (!stripe || !elements) return;
 
     if (!loaded || !executeRecaptcha) {
@@ -60,11 +67,11 @@ export const OrderFormContent = ({
     }
 
     const token = await executeRecaptcha('order_form');
-
-    delete data.vatInvoice;
+    const phone = `${prefix}${number}`;
 
     const orderPayload = {
-      ...data,
+      ...rest,
+      phone,
       orders: cart.map((order) => ({
         price: Number(order.salePrice || order.price),
         rooms: Number(order.rooms),
@@ -75,6 +82,8 @@ export const OrderFormContent = ({
       token,
       stripe_payment_intent_id: 'not_set'
     };
+
+    console.log('Order payload:', orderPayload);
 
     let orderId: string | null = null;
 
@@ -115,7 +124,8 @@ export const OrderFormContent = ({
         })
       });
     }
-
+    const { firstName, lastName, email, country, postalCode, address, city } =
+      rest;
     // 2. Try payment
     const { error: paymentError } = await stripe.confirmPayment({
       elements,
@@ -123,13 +133,14 @@ export const OrderFormContent = ({
         return_url: window.location.href,
         payment_method_data: {
           billing_details: {
-            name: data.firstName + ' ' + data.lastName,
-            email: data.email,
-            phone: data.phone,
+            name: firstName + ' ' + lastName,
+            email: email,
+            phone,
             address: {
-              country: data.country,
-              postal_code: data.postalCode,
-              line1: data.address
+              country: country,
+              postal_code: postalCode,
+              line1: address,
+              city
             }
           }
         }
@@ -152,7 +163,7 @@ export const OrderFormContent = ({
 
     localStorage.setItem('orderSuccess', 'true');
     localStorage.setItem('orderId', orderId ?? '');
-    localStorage.setItem('orderEmail', data.email);
+    localStorage.setItem('orderEmail', email);
     router.push('/zamowienie-potwierdzone');
     reset();
     removeAllItemsCart();
