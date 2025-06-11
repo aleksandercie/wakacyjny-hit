@@ -28,13 +28,17 @@ export const Card = ({
   return (
     <div className="relative w-full">
       <Link href={`${OFFERS}/${id}`} className="w-full">
-        <div className="overflow-hidden rounded-md">
+        <div
+          className={`overflow-hidden rounded-md ${
+            isLarge ? 'h-[400px]' : 'h-[328px]'
+          }`}
+        >
           <Image
             src={photo}
             alt={title}
             width={isLarge ? 600 : 492}
             height={isLarge ? 400 : 328}
-            className="rounded-md object-cover w-full"
+            className="rounded-md object-cover w-full h-full"
           />
         </div>
         <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">
