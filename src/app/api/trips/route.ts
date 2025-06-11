@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { Trip } from '@/types/trip';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -67,5 +68,11 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json(data);
+  const sanitizedData = data.map((trip: Trip) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { detailsUrl, ...rest } = trip;
+    return rest;
+  });
+
+  return NextResponse.json(sanitizedData);
 }

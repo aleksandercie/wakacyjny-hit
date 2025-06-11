@@ -16,4 +16,5 @@ export type Trip = {
   image: string;
   tags: string[];
   departures: string[];
+  detailsUrl: string;
 };
