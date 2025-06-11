@@ -60,7 +60,13 @@ export const OrderDetailsSection = ({
           <div key={item.id} className="flex flex-col gap-4 pt-4">
             <div className="flex justify-between items-center gap-4">
               <p className="text-xl block font-bold">{item.name}</p>
-              <Button variant="link" onClick={() => removeItemCart(item.id)}>
+              <Button
+                variant="link"
+                onClick={() => {
+                  removeItemCart(item.id);
+                  window.location.reload();
+                }}
+              >
                 <X />
                 usuń
               </Button>
@@ -69,19 +75,23 @@ export const OrderDetailsSection = ({
               <Label htmlFor={`quantity-${item.id}`}>Ilość osób</Label>
               <Select
                 value={item.price}
-                onValueChange={(value) => {
+                onValueChange={async (value) => {
                   const selectedQuantity = quantityOptions.find(
                     (option) => option.value === value
                   );
-
-                  updateCartItem({
-                    ...item,
-                    price: value as string,
-                    rooms: '',
-                    roomsDetails: [],
-                    maxPersons: selectedQuantity?.maxPersons,
-                    minPersons: selectedQuantity?.minPersons
-                  });
+                  if (selectedQuantity?.id) {
+                    await updateCartItem({
+                      ...item,
+                      price: value as string,
+                      rooms: '',
+                      roomsDetails: [],
+                      qunatityId: selectedQuantity?.id,
+                      salePrice: selectedQuantity?.salePrice,
+                      maxPersons: selectedQuantity?.maxPersons,
+                      minPersons: selectedQuantity?.minPersons
+                    });
+                    window.location.reload();
+                  }
                 }}
               >
                 <SelectTrigger>

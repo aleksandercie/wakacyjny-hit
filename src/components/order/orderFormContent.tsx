@@ -76,8 +76,6 @@ export const OrderFormContent = ({
       stripe_payment_intent_id: 'not_set'
     };
 
-    console.log('Order payload:', orderPayload);
-
     let orderId: string | null = null;
 
     // 1. Create order in Supabase
