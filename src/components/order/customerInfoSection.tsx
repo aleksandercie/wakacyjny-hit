@@ -68,8 +68,6 @@ export const orderSchemaCustomer = z
 export type OrderFormData = z.infer<typeof orderSchemaCustomer>;
 
 type CustomerInfoSectionProps = {
-  selectedCountry: string;
-  setSelectedCountry: (val: string) => void;
   reset: UseFormReset<OrderFormData>;
   control: Control<OrderFormData, unknown>;
   errors: FieldErrors<OrderFormData>;
@@ -81,8 +79,6 @@ type CustomerInfoSectionProps = {
 export const LOCAL_STORAGE_KEY = 'orderFormData-v2';
 
 export const CustomerInfoSection = ({
-  selectedCountry,
-  setSelectedCountry,
   reset,
   control,
   errors,
@@ -94,12 +90,29 @@ export const CustomerInfoSection = ({
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (savedData) {
       const parsed = JSON.parse(savedData);
-      reset(parsed);
-      if (parsed.country) {
-        setSelectedCountry(parsed.country);
-      }
+      setTimeout(() => {
+        reset(parsed);
+      }, 100);
+    } else {
+      setTimeout(() => {
+        reset({
+          email: '',
+          firstName: '',
+          lastName: '',
+          country: 'PL',
+          city: '',
+          address: '',
+          postalCode: '',
+          prefix: '+48',
+          number: '',
+          vatInvoice: false,
+          companyName: '',
+          taxId: ''
+        });
+      }, 100);
     }
-  }, [reset, setSelectedCountry]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(watchAllFields));
@@ -153,12 +166,11 @@ export const CustomerInfoSection = ({
             <Controller
               control={control}
               name="country"
-              render={({ field: { onChange } }) => (
+              render={({ field: { onChange, value } }) => (
                 <Select
-                  value={selectedCountry}
+                  value={value}
                   onValueChange={(val) => {
                     onChange(val);
-                    setSelectedCountry(val);
                   }}
                 >
                   <SelectTrigger>

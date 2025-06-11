@@ -4,7 +4,6 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { CircleCheck } from 'lucide-react';
-import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { OrderSummary } from './orderSummary';
 import { OrderDetailsSection } from './orderDetailsSection';
@@ -25,7 +24,6 @@ export const OrderFormContent = ({
   paymentIntentId: string | null;
 }) => {
   const router = useRouter();
-  const [selectedCountry, setSelectedCountry] = useState('PL');
   const { cart, updateCartItem, removeItemCart, removeAllItemsCart } =
     useCart();
   const stripe = useStripe();
@@ -41,11 +39,6 @@ export const OrderFormContent = ({
     register
   } = useForm<OrderFormData>({
     resolver: zodResolver(orderSchemaCustomer),
-    defaultValues: {
-      vatInvoice: false,
-      country: 'PL',
-      prefix: '+48'
-    },
     mode: 'onBlur'
   });
 
@@ -167,7 +160,6 @@ export const OrderFormContent = ({
     router.push('/zamowienie-potwierdzone');
     reset();
     removeAllItemsCart();
-    setSelectedCountry('PL');
   };
 
   return (
@@ -182,8 +174,6 @@ export const OrderFormContent = ({
             />
           )}
           <CustomerInfoSection
-            selectedCountry={selectedCountry}
-            setSelectedCountry={setSelectedCountry}
             reset={reset}
             control={control}
             errors={errors}
