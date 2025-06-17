@@ -28,11 +28,7 @@ export const Card = ({
   return (
     <div className="relative w-full">
       <Link href={`${OFFERS}/${id}`} className="w-full">
-        <div
-          className={`overflow-hidden rounded-md ${
-            isLarge ? 'h-[400px]' : 'h-[328px]'
-          }`}
-        >
+        <div className={`overflow-hidden rounded-md aspect-[3/2]`}>
           <Image
             src={photo}
             alt={title}
