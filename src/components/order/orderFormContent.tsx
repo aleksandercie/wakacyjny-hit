@@ -155,6 +155,7 @@ export const OrderFormContent = ({
     localStorage.setItem('orderSuccess', 'true');
     localStorage.setItem('orderId', orderId ?? '');
     localStorage.setItem('orderEmail', email);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     router.push('/zamowienie-potwierdzone');
     reset();
     removeAllItemsCart();
