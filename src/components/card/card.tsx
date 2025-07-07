@@ -11,7 +11,8 @@ export const Card = ({
   date,
   photo,
   description,
-  variant
+  variant,
+  expired
 }: {
   id: string | number;
   title: string;
@@ -21,6 +22,7 @@ export const Card = ({
   photo: string;
   description?: string;
   variant: 'small' | 'large';
+  expired?: boolean;
 }) => {
   const { OFFERS } = ROUTES;
   const isLarge = variant === 'large';
@@ -34,12 +36,19 @@ export const Card = ({
             alt={title}
             width={isLarge ? 600 : 492}
             height={isLarge ? 400 : 328}
-            className="rounded-md object-cover w-full h-full"
+            className={`rounded-md object-cover w-full h-full ${
+              expired ? 'opacity-40' : ''
+            }`}
           />
         </div>
         <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">
           {duration}
         </p>
+        {expired && (
+          <span className="absolute top-3 right-3 bg-red-600/70 text-white text-sm px-2 py-1 rounded-full">
+            Zakończona
+          </span>
+        )}
         <div className="flex flex-col bg-white w-full p-2 bottom-2 text-base gap-1">
           <p className="text-base">{title}</p>
           <p className="text-gray-500 text-sm">{date}</p>

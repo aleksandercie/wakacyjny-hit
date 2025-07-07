@@ -3,7 +3,7 @@
 import { Trip } from '@/types/trip';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { DateRange } from 'react-day-picker';
-import { Filters } from '../filters';
+import { Filters, Tab } from '../filters';
 import { Card, CardSkeleton } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
 import { ArrowUp } from 'lucide-react';
@@ -30,6 +30,9 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const [offset, setOffset] = useState(initialTrips.length);
   const [hasMore, setHasMore] = useState(initialTrips.length === LIMIT);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeTab, setActiveTab] = useState<Tab>('all');
+  const isComplitedTab = activeTab === 'completed';
+  const isActiveTab = activeTab === 'active';
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -133,32 +136,46 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
         onSearch={handleSearch}
         search={search}
         setSearch={setSearch}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full">
-        {trips.map(
-          ({
-            id,
-            title,
-            price,
-            duration,
-            startDate,
-            endDate,
-            image,
-            shortDescription
-          }) => (
-            <Card
-              id={id}
-              key={`${id}-${title}`}
-              title={title}
-              price={price}
-              duration={duration}
-              date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
-              photo={image}
-              description={shortDescription}
-              variant="large"
-            />
-          )
-        )}
+        {trips
+          .filter(({ expired }) => {
+            if (isComplitedTab) {
+              return expired;
+            } else if (isActiveTab) {
+              return !expired;
+            } else {
+              return true;
+            }
+          })
+          .map(
+            ({
+              id,
+              title,
+              price,
+              duration,
+              startDate,
+              endDate,
+              image,
+              shortDescription,
+              expired
+            }) => (
+              <Card
+                id={id}
+                key={`${id}-${title}`}
+                title={title}
+                price={price}
+                duration={duration}
+                date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
+                photo={image}
+                description={shortDescription}
+                variant="large"
+                expired={expired}
+              />
+            )
+          )}
         {loading &&
           Array.from({ length: LIMIT }).map((_, index) => (
             <CardSkeleton key={index} />

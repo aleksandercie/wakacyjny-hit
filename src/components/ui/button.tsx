@@ -17,7 +17,10 @@ const buttonVariants = cva(
         outline:
           'border bg-background shadow-xs cursor-pointer text-gray-500 hover:text-black',
         tertiary:
-          'bg-white text-black hover:bg-primary hover:text-white transition-colors duration-200 rounded-full cursor-pointer'
+          'bg-white text-black hover:bg-primary hover:text-white transition-colors duration-200 rounded-full cursor-pointer',
+        tab: 'text-gray-500 hover:text-black cursor-pointer rounded-full border hover:text-black',
+        active:
+          'bg-primary text-white border-primary hover:bg-primary hover:text-white cursor-pointer rounded-full'
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

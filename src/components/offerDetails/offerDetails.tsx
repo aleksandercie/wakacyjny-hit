@@ -75,7 +75,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     accomodation,
     longDescription,
     secondaryDescription,
-    created_at
+    created_at,
+    expired
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
@@ -169,7 +170,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         setSelectedQuantity(value);
         setSelectedRooms('');
       },
-      disabled: false
+      disabled: expired
     },
     {
       label: 'Ilość pokoi',
@@ -185,7 +186,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       placeholder: 'Wybierz ilość pokoi',
       selected: selectedRooms,
       setSelected: setSelectedRooms,
-      disabled: selectedQuantity === ''
+      disabled: selectedQuantity === '' || expired
     }
   ];
 
@@ -211,7 +212,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     selectedQuantity === '' ||
     selectedRooms === '' ||
     cart.length === 5 ||
-    isSubmitting;
+    isSubmitting ||
+    expired;
 
   const form = (
     <form
@@ -289,11 +291,16 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         alt={title}
         width={984}
         height={500}
-        className="rounded-md max-h-[500px]"
+        className={`rounded-md max-h-[500px] ${expired ? 'opacity-40' : ''}`}
       />
       <div className="flex gap-8">
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">
           <div className="flex flex-col gap-8">
+            {expired && (
+              <p className="text-red-600">
+                Oferta zakończona. Oferta nie jest już dostępna do rezerwacji.
+              </p>
+            )}
             <p className="text-gray-500">
               Data publikacji oferty: <span>{formatDate(created_at)}</span>
             </p>
