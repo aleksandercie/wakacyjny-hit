@@ -179,6 +179,7 @@ export const CustomerInfoSection = ({
                   <SelectContent>
                     {countries.map((country) => (
                       <SelectItem key={country.value} value={country.value}>
+                        <span className="mr-1">{country.flag}</span>{' '}
                         {country.label}
                       </SelectItem>
                     ))}
@@ -246,13 +247,14 @@ export const CustomerInfoSection = ({
               name="prefix"
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger className="w-[102px]">
+                  <SelectTrigger className="w-[112px]">
                     <SelectValue placeholder="" />
                   </SelectTrigger>
                   <SelectContent>
-                    {countries.map((c) => (
-                      <SelectItem key={c.value} value={c.dial_code}>
-                        {c.flag} {c.dial_code}
+                    {countries.map((country) => (
+                      <SelectItem key={country.value} value={country.dial_code}>
+                        <span className="mr-1">{country.flag}</span>{' '}
+                        {country.dial_code}
                       </SelectItem>
                     ))}
                   </SelectContent>
