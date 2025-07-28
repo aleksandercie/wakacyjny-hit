@@ -4,7 +4,7 @@ import { Badge, DatePickerWithRange } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { Separator } from '../ui/separator';
 import { DateRange } from 'react-day-picker';
 import { AdditionalFilters } from './additionalFilters';
@@ -60,21 +60,6 @@ export const Filters = ({
   activeTab: Tab;
   setActiveTab: Dispatch<SetStateAction<Tab>>;
 }) => {
-  const handlePriceChange =
-    (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value.replace(/[^0-9.]/g, '');
-      const price = Math.max(0, Math.min(10000, Number(value)));
-      setPriceRange(
-        index === 0 ? [price, priceRange[1]] : [priceRange[0], price]
-      );
-    };
-
-  useEffect(() => {
-    if (priceRange[0] > priceRange[1]) {
-      setPriceRange([priceRange[0], priceRange[0] + 100]);
-    }
-  }, [priceRange, setPriceRange]);
-
   const activeFiltersCount =
     (priceRange[0] !== defaultPriceRange[0] ||
     priceRange[1] !== defaultPriceRange[1]
@@ -88,7 +73,6 @@ export const Filters = ({
     <AdditionalFilters
       priceRange={priceRange}
       setPriceRange={setPriceRange}
-      handlePriceChange={handlePriceChange}
       selectedAirports={selectedAirports}
       setSelectedAirports={setSelectedAirports}
       selectedfoodOptions={selectedfoodOptions}

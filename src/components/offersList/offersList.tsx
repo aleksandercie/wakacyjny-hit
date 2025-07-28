@@ -8,6 +8,7 @@ import { Card, CardSkeleton } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
 import { ArrowUp } from 'lucide-react';
 import { formatDate } from '@/lib/formatDate';
+import { defaultPriceRange } from '../filters/additionalFilters';
 
 const LIMIT = 6;
 
@@ -16,7 +17,6 @@ const scrollToTop = () => {
 };
 
 export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
-  const defaultPriceRange = [0, 10000];
   const [priceRange, setPriceRange] = useState(defaultPriceRange);
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,

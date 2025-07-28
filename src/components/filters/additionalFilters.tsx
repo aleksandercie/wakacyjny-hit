@@ -1,12 +1,15 @@
 import { MultiSelect } from '@/components';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Slider } from '../ui/slider';
 import { PriceInput } from './priceInput';
+
+export const MIN_PRICE = 0;
+export const MAX_PRICE = 10000;
+export const defaultPriceRange = [MIN_PRICE, MAX_PRICE];
 
 export const AdditionalFilters = ({
   priceRange,
   setPriceRange,
-  handlePriceChange,
   selectedAirports,
   setSelectedAirports,
   selectedfoodOptions,
@@ -16,9 +19,6 @@ export const AdditionalFilters = ({
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
-  handlePriceChange: (
-    index: number
-  ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
   selectedAirports: string[];
   setSelectedAirports: Dispatch<SetStateAction<string[]>>;
   selectedfoodOptions: string[];
@@ -26,15 +26,48 @@ export const AdditionalFilters = ({
   airportOptions: { label: string; value: string }[];
   foodOptions: { label: string; value: string }[];
 }) => {
+  const [newPriceRange, setNewPriceRange] = useState(defaultPriceRange);
+  const setMaxPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9.]/g, '');
+    setNewPriceRange((prev) => [prev[0], Math.min(Number(value), MAX_PRICE)]);
+  };
+  const setMinPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9.]/g, '');
+    setNewPriceRange((prev) => [Math.max(Number(value), MIN_PRICE), prev[1]]);
+  };
+
+  const handleMaxBlur = () => {
+    if (newPriceRange[1] <= priceRange[0]) {
+      setNewPriceRange([priceRange[0], priceRange[1]]);
+      setPriceRange([priceRange[0], priceRange[1]]);
+    } else {
+      setPriceRange(newPriceRange);
+    }
+  };
+
+  const handleMinBlur = () => {
+    if (newPriceRange[0] >= priceRange[1]) {
+      setNewPriceRange([priceRange[0], priceRange[1]]);
+      setPriceRange([priceRange[0], priceRange[1]]);
+    } else {
+      setPriceRange(newPriceRange);
+    }
+  };
+
+  const handleSliderChange = (value: number[]) => {
+    setPriceRange(value);
+    setNewPriceRange(value);
+  };
+
   return (
     <>
       <span className="text-base font-semibold">Przedział cenowy</span>
       <div className="flex w-full px-2 md:px-0">
         <Slider
           value={priceRange}
-          onValueChange={setPriceRange}
-          min={0}
-          max={10000}
+          onValueChange={handleSliderChange}
+          min={MIN_PRICE}
+          max={MAX_PRICE}
           step={100}
           className="w-full"
         />
@@ -44,18 +77,20 @@ export const AdditionalFilters = ({
         <PriceInput
           id="min-price"
           label="Minimalnie"
-          value={priceRange[0]}
-          onChange={handlePriceChange(0)}
-          min={0}
-          max={priceRange[1]}
+          value={newPriceRange[0]}
+          onChange={setMinPrice}
+          onBlur={handleMinBlur}
+          min={MIN_PRICE}
+          max={MAX_PRICE}
         />
         <PriceInput
           id="max-price"
           label="Maksymalnie"
-          value={priceRange[1]}
-          onChange={handlePriceChange(1)}
-          min={priceRange[0]}
-          max={10000}
+          value={newPriceRange[1]}
+          onChange={setMaxPrice}
+          onBlur={handleMaxBlur}
+          min={MIN_PRICE}
+          max={MAX_PRICE}
         />
       </div>
       <div className="flex flex-col gap-2">

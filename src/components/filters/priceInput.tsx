@@ -7,7 +7,8 @@ export const PriceInput = ({
   value,
   onChange,
   min,
-  max
+  max,
+  onBlur
 }: {
   id: string;
   label: string;
@@ -15,6 +16,7 @@ export const PriceInput = ({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   min: number;
   max: number;
+  onBlur: () => void;
 }) => {
   return (
     <div className="flex flex-col gap-1">
@@ -33,9 +35,9 @@ export const PriceInput = ({
           min={min}
           max={max}
           onChange={onChange}
+          onBlur={onBlur}
           className="w-24 pl-8 z-1"
           id={id}
-          disabled
         />
         <span className="text-sm absolute top-2 left-4 z-0 opacity-60">zł</span>
       </div>
