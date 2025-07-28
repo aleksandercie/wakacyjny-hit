@@ -20,7 +20,7 @@ export const PriceInput = ({
     <div className="flex flex-col gap-1">
       <Label
         htmlFor={id}
-        className={`opacity-40 text-xs w-full block ${
+        className={`opacity-60 text-xs w-full block ${
           id === 'max-price' ? 'text-right' : 'text-left'
         }`}
       >
@@ -37,7 +37,7 @@ export const PriceInput = ({
           id={id}
           disabled
         />
-        <span className="text-sm absolute top-2 left-4 z-0 opacity-40">zł</span>
+        <span className="text-sm absolute top-2 left-4 z-0 opacity-60">zł</span>
       </div>
     </div>
   );
