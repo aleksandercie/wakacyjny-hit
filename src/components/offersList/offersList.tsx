@@ -83,6 +83,20 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
 
   const handleSearch = () => {
     fetchTrips(true); // Reset list and fetch from start
+    const isDesktop = window.innerWidth > 768;
+    if (!isDesktop) {
+      const element = document.getElementById('show-items');
+      if (element) {
+        const elementPosition =
+          element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - 100; // Stop 100px earlier
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
   };
 
   // Load initial trips
@@ -139,7 +153,10 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full"
+        id="show-items"
+      >
         {trips
           .filter(({ expired }) => {
             if (isComplitedTab) {
@@ -191,7 +208,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
         </button>
       )}
       {!loading && trips.length === 0 && (
-        <div className="min-h-[121px]">
+        <div className="min-h-[121px]" id="show-items">
           <p className="text-center text-gray-500 py-6">
             Brak ofert spełniających wybrane kryteria.
           </p>
