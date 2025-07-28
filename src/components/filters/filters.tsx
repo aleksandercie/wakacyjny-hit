@@ -89,6 +89,11 @@ export const Filters = ({
     setSelectedfoodOptions([]);
   };
 
+  const resetAll = () => {
+    reset();
+    setSearch('');
+  };
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>
     setSearch(e.target.value);
 
@@ -185,7 +190,7 @@ export const Filters = ({
         <Separator orientation="vertical" className="mx-3 hidden md:block" />
         <div className="flex flex-col gap-2">
           <Button
-            onClick={reset}
+            onClick={resetAll}
             className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none block md:hidden"
           >
             Wyczyść wszystko

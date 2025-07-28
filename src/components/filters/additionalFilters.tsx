@@ -27,6 +27,7 @@ export const AdditionalFilters = ({
   foodOptions: { label: string; value: string }[];
 }) => {
   const [newPriceRange, setNewPriceRange] = useState(defaultPriceRange);
+
   const setMaxPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9.]/g, '');
     setNewPriceRange((prev) => [prev[0], Math.min(Number(value), MAX_PRICE)]);
