@@ -81,8 +81,8 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
     ]
   );
 
-  const handleSearch = () => {
-    fetchTrips(true); // Reset list and fetch from start
+  const handleSearch = async () => {
+    await fetchTrips(true); // Reset list and fetch from start
     const isDesktop = window.innerWidth > 768;
     if (!isDesktop) {
       const element = document.getElementById('show-items');
@@ -135,6 +135,16 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [trips.length]);
 
+  const filtredTrips = trips.filter(({ expired }) => {
+    if (isComplitedTab) {
+      return expired;
+    } else if (isActiveTab) {
+      return !expired;
+    } else {
+      return true;
+    }
+  });
+
   return (
     <>
       <Filters
@@ -157,42 +167,32 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full"
         id="show-items"
       >
-        {trips
-          .filter(({ expired }) => {
-            if (isComplitedTab) {
-              return expired;
-            } else if (isActiveTab) {
-              return !expired;
-            } else {
-              return true;
-            }
-          })
-          .map(
-            ({
-              id,
-              title,
-              price,
-              duration,
-              startDate,
-              endDate,
-              image,
-              shortDescription,
-              expired
-            }) => (
-              <Card
-                id={id}
-                key={`${id}-${title}`}
-                title={title}
-                price={price}
-                duration={duration}
-                date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
-                photo={image}
-                description={shortDescription}
-                variant="large"
-                expired={expired}
-              />
-            )
-          )}
+        {filtredTrips.map(
+          ({
+            id,
+            title,
+            price,
+            duration,
+            startDate,
+            endDate,
+            image,
+            shortDescription,
+            expired
+          }) => (
+            <Card
+              id={id}
+              key={`${id}-${title}`}
+              title={title}
+              price={price}
+              duration={duration}
+              date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
+              photo={image}
+              description={shortDescription}
+              variant="large"
+              expired={expired}
+            />
+          )
+        )}
         {loading &&
           Array.from({ length: LIMIT }).map((_, index) => (
             <CardSkeleton key={index} />
@@ -207,7 +207,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           <ArrowUp className="w-5 h-5" />
         </button>
       )}
-      {!loading && trips.length === 0 && (
+      {!loading && filtredTrips.length === 0 && (
         <div className="min-h-[121px]" id="show-items">
           <p className="text-center text-gray-500 py-6">
             Brak ofert spełniających wybrane kryteria.
