@@ -104,7 +104,7 @@ export const Filters = ({
   ];
 
   return (
-    <div className="flex flex-col items-center gap-6 md:gap-8">
+    <div className="flex flex-col items-center gap-6 md:gap-8 w-full px-2 md:px-0">
       <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-3 md:border-b gap-4 md:gap-0 justify-between md:items-center">
         <div className=" flex items-center w-full md:w-[260px] relative">
           <Search className="absolute md:relative" size={16} />
@@ -165,7 +165,7 @@ export const Filters = ({
               </DialogPortal>
             </Dialog>
           </div>
-          <Accordion type="single" collapsible className="md:hidden">
+          <Accordion type="single" collapsible className="md:hidden w-full">
             <AccordionItem value="item-1" className="w-full">
               <AccordionTrigger className="text-base md:text-2xl w-full py-3">
                 <span className="relative">
@@ -179,7 +179,7 @@ export const Filters = ({
                 </span>{' '}
               </AccordionTrigger>
               <AccordionContent className="text-gray-500 text-sm md:text-base w-full">
-                <div className="flex flex-col md:hidden gap-4 w-full">
+                <div className="flex flex-col md:hidden gap-4 w-full max-w-full">
                   {additionalFilters}
                 </div>
               </AccordionContent>
