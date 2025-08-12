@@ -65,10 +65,6 @@ export const MobileNavigation = ({
           </ul>
           <div className="flex flex-col gap-4 items-center mt-4">
             {cartButton(true)}
-            {/* <Button onClick={closeMenu} variant="link">
-              <User size={20} />
-              Zaloguj się
-            </Button> */}
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 import { ROUTES } from '@/lib/routes';
 import Link from 'next/link';
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
   style?: string;
@@ -16,7 +17,13 @@ export const Logo: React.FC<LogoProps> = ({ style, onClick }) => {
       className={`font-bold text-black text-xl ${style}`}
       onClick={onClick}
     >
-      Wakacyjny<span className="text-primary">Hit</span>
+      <Image
+        src="/logo.png"
+        alt={''}
+        width={202}
+        height={70}
+        className="absolute top-[10px] left-[4px] sm:top-[2px] sm:left-[4px] md:left-[12px] w-[160px] h-[54px] sm:w-[202px] sm:h-[68px] z-1"
+      />
     </Link>
   );
 };
