@@ -13,3 +13,65 @@
   transform-origin: bottom right;
   opacity: 0.75; 
 }
+
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.policy-table th,
+.policy-table td {
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.625rem;
+  padding: 0.125rem;
+}
+
+@media (min-width: 320px) {
+  .policy-table th,
+  .policy-table td {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .policy-table th,
+  .policy-table td {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+.policy-table th {
+  font-weight: 700;
+}
+
+.policy-table th:nth-child(1),
+.policy-table td:nth-child(1),
+.policy-table th:nth-child(2),
+.policy-table td:nth-child(2) {
+  width: 50%;
+}
+
+.policy-table--3cols th,
+.policy-table--3cols td {
+  vertical-align: top;
+}
+
+.policy-table--3cols th:nth-child(1),
+.policy-table--3cols td:nth-child(1) {
+  width: 30%;
+}
+
+.policy-table--3cols th:nth-child(2),
+.policy-table--3cols td:nth-child(2) {
+  width: 35%;
+}
+
+.policy-table--3cols th:nth-child(3),
+.policy-table--3cols td:nth-child(3) {
+  width: 35%;
+}
