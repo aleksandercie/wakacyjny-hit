@@ -3,10 +3,10 @@ import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Polityka prywatności – Wakacyjny Hit',
+    title: 'Polityka prywatności - Wakacyjny Hit',
     description:
       'Zapoznaj się z polityką prywatności serwisu Wakacyjny Hit i dowiedz się, jak chronimy Twoje dane osobowe.',
-    ogTitle: 'Polityka prywatności – Wakacyjny Hit',
+    ogTitle: 'Polityka prywatności - Wakacyjny Hit',
     ogDescription:
       'Dowiedz się, jak dbamy o Twoje dane i zapewniamy ich bezpieczeństwo w serwisie Wakacyjny Hit.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/polityka-prywatnosci`,
@@ -47,11 +47,11 @@ export default function PrivacyPolicyPage() {
           </section>
           <section className="mb-4 text-sm md:text-base">
             <h3 className="font-bold mb-4">ADMINISTRATOR DANYCH OSOBOWYCH</h3>
-            <h3>test data</h3>
+            <h3>-----------------------------------------</h3>
             <p>
               Jeśli chcesz skontaktować się z nami w związku z przetwarzaniem
               przez nas Twoich danych osobowych, napisz do nas na adres e-mail:
-              test data
+              -----------------------------------------
             </p>
           </section>
           <section className="mb-4 text-sm md:text-base">
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
                 Twoich danych:
                 <ol className="list-disc pl-5">
                   <li>
-                    z przyczyn związanych z Twoją szczególną sytuacją – wobec
+                    z przyczyn związanych z Twoją szczególną sytuacją - wobec
                     przetwarzania dotyczących Ciebie danych osobowych, opartego
                     na art. 6 ust. 1 lit. f RODO (tj. na realizowanych przez nas
                     prawnie uzasadnionych interesach), w tym profilowania (art.
@@ -139,7 +139,7 @@ export default function PrivacyPolicyPage() {
                   <td colSpan={2}>
                     przez okres obowiązywania umowy <br /> <br />
                     ponadto, Twoje dane będą przetwarzane do upływu okresu, w
-                    którym możliwe jest dochodzenie roszczeń – przez Ciebie lub
+                    którym możliwe jest dochodzenie roszczeń - przez Ciebie lub
                     przez nas <br /> <br />
                     (więcej informacji na ten temat znajdziesz w ostatniej
                     tabeli tej sekcji)
@@ -193,7 +193,7 @@ export default function PrivacyPolicyPage() {
                 <tr>
                   <td colSpan={2}>
                     ponadto, Twoje dane będą przetwarzane do upływu okresu, w
-                    którym możliwe jest dochodzenie roszczeń – przez Ciebie lub
+                    którym możliwe jest dochodzenie roszczeń - przez Ciebie lub
                     przez nas <br /> <br />
                     (więcej informacji na ten temat znajdziesz w ostatniej
                     tabeli tej sekcji)
@@ -228,14 +228,14 @@ export default function PrivacyPolicyPage() {
                 <tr>
                   <td>
                     umowa lub działania podejmowane na Twoje żądanie,
-                    zmierzające do jej zawarcia (art. 6 ust. 1 lit. b RODO) – w
+                    zmierzające do jej zawarcia (art. 6 ust. 1 lit. b RODO) - w
                     przypadku gdy Twoje zapytanie lub zgłoszenie dotyczy umowy,
                     której jesteśmy lub możemy być stroną
                   </td>
                   <td>
                     nasz prawnie uzasadniony interes, polegający na
                     przetwarzaniu Twoich danych w celu prowadzenia z Tobą
-                    komunikacji (art. 6 ust. 1 lit. f RODO) – jeżeli Twoje
+                    komunikacji (art. 6 ust. 1 lit. f RODO) - jeżeli Twoje
                     zapytanie lub zgłoszenie nie ma związku z umową
                   </td>
                 </tr>
@@ -244,12 +244,12 @@ export default function PrivacyPolicyPage() {
                 </tr>
                 <tr>
                   <td>
-                    przez czas trwania wiążącej nas umowy lub – jeśli umowa nie
-                    zostanie zawarta - do upływu okresu dochodzenia roszczeń –
+                    przez czas trwania wiążącej nas umowy lub - jeśli umowa nie
+                    zostanie zawarta - do upływu okresu dochodzenia roszczeń -
                     zobacz ostatnią tabelę tej sekcji*
                   </td>
                   <td>
-                    do upływu okresu dochodzenia roszczeń – zobacz ostatnią
+                    do upływu okresu dochodzenia roszczeń - zobacz ostatnią
                     tabelę tej sekcji - lub do momentu, w którym uwzględnimy
                     Twój sprzeciw wobec przetwarzania*
                   </td>
@@ -257,7 +257,7 @@ export default function PrivacyPolicyPage() {
                 <tr>
                   <td colSpan={2}>
                     ponadto, Twoje dane będą przetwarzane do upływu okresu, w
-                    którym możliwe jest dochodzenie roszczeń – przez Ciebie lub
+                    którym możliwe jest dochodzenie roszczeń - przez Ciebie lub
                     przez nas <br /> <br />
                     (więcej informacji na ten temat znajdziesz w ostatniej
                     tabeli tej sekcji)
@@ -317,7 +317,7 @@ export default function PrivacyPolicyPage() {
                 <tr>
                   <td colSpan={2}>
                     ponadto, Twoje dane będą przetwarzane do upływu okresu, w
-                    którym możliwe jest dochodzenie roszczeń – przez Ciebie lub
+                    którym możliwe jest dochodzenie roszczeń - przez Ciebie lub
                     przez nas <br /> <br />
                     (więcej informacji na ten temat znajdziesz w ostatniej
                     tabeli tej sekcji)
@@ -486,7 +486,7 @@ export default function PrivacyPolicyPage() {
                 </tr>
                 <tr>
                   <td>
-                    do momentu wycofania przez Ciebie zgody – pamiętaj, w każdej
+                    do momentu wycofania przez Ciebie zgody - pamiętaj, w każdej
                     chwili możesz wycofać zgodę. Przetwarzanie danych do momentu
                     cofnięcia przez Ciebie zgody pozostaje zgodne z prawem.
                   </td>
@@ -498,7 +498,7 @@ export default function PrivacyPolicyPage() {
                 <tr>
                   <td colSpan={2}>
                     ponadto, Twoje dane będą przetwarzane do upływu okresu, w
-                    którym możliwe jest dochodzenie roszczeń – przez Ciebie lub
+                    którym możliwe jest dochodzenie roszczeń - przez Ciebie lub
                     przez nas <br /> <br />
                     (więcej informacji na ten temat znajdziesz w ostatniej
                     tabeli tej sekcji)
@@ -564,7 +564,7 @@ export default function PrivacyPolicyPage() {
                 <tr>
                   <td colSpan={2}>
                     ponadto, Twoje dane będą przetwarzane do upływu okresu, w
-                    którym możliwe jest dochodzenie roszczeń – przez Ciebie lub
+                    którym możliwe jest dochodzenie roszczeń - przez Ciebie lub
                     przez nas <br /> <br /> (więcej informacji na ten temat
                     znajdziesz w ostatniej tabeli tej sekcji)
                   </td>
@@ -633,7 +633,7 @@ export default function PrivacyPolicyPage() {
           <section className="mb-4 text-sm md:text-base">
             <h3 className="font-bold mb-4">PROFILOWANIE</h3>
             <p className="mb-4">
-              W ramach Serwisu dokonujemy profilowania – w odniesieniu do Ciebie
+              W ramach Serwisu dokonujemy profilowania - w odniesieniu do Ciebie
               będzie to miało miejsce, jeśli zezwolisz na takie działania.
               Profilowanie to polega na automatycznej ocenie, jakimi produktami
               lub usługami możesz być zainteresowany, wykorzystując do tego
@@ -653,9 +653,9 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">
               W ramach strony internetowej Serwisu prowadzimy działania
               analityczne, mające na celu zwiększenie jej intuicyjności i
-              przystępności – w odniesieniu do Ciebie będzie to miało miejsce,
+              przystępności - w odniesieniu do Ciebie będzie to miało miejsce,
               jeśli zezwolisz na takie działania. W ramach analizy będziemy brać
-              pod uwagę sposób, w jaki poruszasz się po Serwisie – a więc np.
+              pod uwagę sposób, w jaki poruszasz się po Serwisie - a więc np.
               to, ile czasu spędzasz na danej podstronie, czy w które miejsca w
               Serwisie klikasz. Dzięki temu podczas prac nad rozwojem Serwisu
               będziemy mogli zoptymalizować jego układ, wygląd oraz zamieszczane
@@ -745,7 +745,7 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">
               Korzystamy z usług podmiotów zewnętrznych, które wspierają nas w
               prowadzeniu działalności. Powierzamy im do przetwarzania Twoje
-              dane – podmioty te przetwarzają dane wyłącznie na nasze
+              dane - podmioty te przetwarzają dane wyłącznie na nasze
               udokumentowane polecenie.
             </p>
             <p className="mb-4">
@@ -767,7 +767,7 @@ export default function PrivacyPolicyPage() {
                       zezwalającymi na prowadzenie działań marketingowych
                     </td>
                     <td>podmiot zapewniający usługi marketingowe</td>
-                    <td>tak – Stany Zjednoczone Ameryki **</td>
+                    <td>tak - Stany Zjednoczone Ameryki **</td>
                   </tr>
                   <tr>
                     <td>
@@ -777,7 +777,7 @@ export default function PrivacyPolicyPage() {
                     <td>
                       podmiot umożliwiający działania analityczne na stronie
                     </td>
-                    <td>tak – Stany Zjednoczone Ameryki **</td>
+                    <td>tak - Stany Zjednoczone Ameryki **</td>
                   </tr>
                   <tr>
                     <td rowSpan={3}>
@@ -795,7 +795,7 @@ export default function PrivacyPolicyPage() {
                       dostawca standardowego oprogramowania biurowego (w tym
                       skrzynki poczty elektronicznej)
                     </td>
-                    <td>tak – Stany Zjednoczone Ameryki **</td>
+                    <td>tak - Stany Zjednoczone Ameryki **</td>
                   </tr>
                   <tr>
                     <td>
@@ -805,7 +805,7 @@ export default function PrivacyPolicyPage() {
                       dostawca standardowego oprogramowania biurowego (w tym
                       skrzynki poczty elektronicznej)
                     </td>
-                    <td>tak – Stany Zjednoczone Ameryki **</td>
+                    <td>tak - Stany Zjednoczone Ameryki **</td>
                   </tr>
                   <tr>
                     <td>
@@ -813,7 +813,7 @@ export default function PrivacyPolicyPage() {
                       związku z Serwisem przez portale społecznościowe
                     </td>
                     <td>portale społecznościowe</td>
-                    <td>tak – Stany Zjednoczone Ameryki **</td>
+                    <td>tak - Stany Zjednoczone Ameryki **</td>
                   </tr>
                   <tr>
                     <td>nawiązanie z nami kontaktu (np. zadanie pytania)</td>
@@ -821,17 +821,17 @@ export default function PrivacyPolicyPage() {
                       dostawca standardowego oprogramowania biurowego (w tym
                       skrzynki poczty elektronicznej)
                     </td>
-                    <td>tak – Stany Zjednoczone Ameryki **</td>
+                    <td>tak - Stany Zjednoczone Ameryki **</td>
                   </tr>
                   <tr>
                     <td>
-                      hotele lub inne obiekty turystyczne – jeśli zdecydujesz
+                      hotele lub inne obiekty turystyczne - jeśli zdecydujesz
                       się skorzystać z ich usług za pośrednictwem naszego
                       Serwisu
                     </td>
                     <td>hotele lub inne obiekty turystyczne</td>
                     <td>
-                      w zależności od oferty – zgodnie z siedzibą usługodawcy
+                      w zależności od oferty - zgodnie z siedzibą usługodawcy
                       świadczącego usługę hotelową oraz lokalizacją obiektu
                     </td>
                   </tr>

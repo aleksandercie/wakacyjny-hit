@@ -3,16 +3,16 @@ import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Koszyk – Twoje wakacyjne rezerwacje | Wakacyjny Hit',
+    title: 'Koszyk - Twoje wakacyjne rezerwacje | Wakacyjny Hit',
     description:
       'Sprawdź swoje wybrane oferty wakacyjne i sfinalizuj rezerwację szybko i wygodnie.',
-    ogTitle: 'Koszyk – Twoje wakacyjne rezerwacje | Wakacyjny Hit',
+    ogTitle: 'Koszyk - Twoje wakacyjne rezerwacje | Wakacyjny Hit',
     ogDescription:
       'Twoje wakacyjne marzenia są na wyciągnięcie ręki! Zobacz, co masz w koszyku i zarezerwuj już dziś.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/koszyk`,
     ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/koszyk`,
-    noIndex: true
+    noIndex: true,
   });
 
 export default function CartPage() {

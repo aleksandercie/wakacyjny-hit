@@ -3,10 +3,10 @@ import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Regulamin – Wakacyjny Hit',
+    title: 'Regulamin - Wakacyjny Hit',
     description:
       'Zapoznaj się z regulaminem korzystania z serwisu Wakacyjny Hit. Dowiedz się więcej o zasadach i warunkach świadczenia usług.',
-    ogTitle: 'Regulamin – Wakacyjny Hit',
+    ogTitle: 'Regulamin - Wakacyjny Hit',
     ogDescription:
       'Sprawdź regulamin serwisu Wakacyjny Hit i poznaj zasady korzystania z naszych usług.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/regulamin`,
@@ -108,16 +108,16 @@ export default function TermsPage() {
               <span className="font-bold mb-4">
                 Usługobiorca uprzywilejowany
               </span>{' '}
-              – Usługobiorca, który jest Konsumentem lub Przedsiębiorcą
+              - Usługobiorca, który jest Konsumentem lub Przedsiębiorcą
               uprzywilejowanym. <br />
               <span className="font-bold mb-4">Usługodawca</span> -
               ----------------------------------------- <br />
               <span className="font-bold mb-4">
                 Ustawa o prawach konsumenta
               </span>{' '}
-              – polska ustawa z dnia 30 maja 2014 r. o prawach konsumenta.{' '}
+              - polska ustawa z dnia 30 maja 2014 r. o prawach konsumenta.{' '}
               <br />
-              <span className="font-bold mb-4">Pełne informacje</span> – -
+              <span className="font-bold mb-4">Pełne informacje</span> -
               szczegółowe dane dotyczące Usług hotelowych oraz Usług lotniczych
               udostępniane w ramach Usługi rozszerzonej, na które składają się
               dane zawarte w Podstawowej informacji oraz Linki umożliwiające
@@ -138,9 +138,9 @@ export default function TermsPage() {
               § 2 KONTAKT Z USŁUGODAWCĄ
             </h3>
             <ol className="list-decimal pl-5">
-              <li>Adres pocztowy -----------------</li>
-              <li>Adres e-mail: -----------------</li>
-              <li>Telefon: -----------------</li>
+              <li>Adres pocztowy -----------------------------------------</li>
+              <li>Adres e-mail: -----------------------------------------</li>
+              <li>Telefon: -----------------------------------------</li>
               <li>
                 Koszt połączenia telefonicznego lub transmisji danych
                 wykonywanych przez Usługobiorcę wynika z podstawowej taryfy
@@ -148,7 +148,7 @@ export default function TermsPage() {
                 z którego usług korzysta Usługobiorca. Usługodawca zwraca uwagę,
                 że koszt połączenia międzynarodowego lub międzynarodowej
                 transmisji danych może być wyższy niż koszt połączenia lub
-                transmisji krajowej – w zależności od taryfy przyjętej przez
+                transmisji krajowej - w zależności od taryfy przyjętej przez
                 operatora telekomunikacyjnego lub dostawcę usług internetowych,
                 z usług którego korzysta Usługobiorca.
               </li>
@@ -276,7 +276,7 @@ export default function TermsPage() {
               <li>
                 Prawo do skorzystania z zakupionej Usługi rozszerzonej (tj. do
                 odblokowania jednej, wybranej Pełnej informacji) wygasa po 12
-                miesiącach od dnia zakupu lub w momencie jej wykorzystania – w
+                miesiącach od dnia zakupu lub w momencie jej wykorzystania - w
                 zależności od tego, które zdarzenie nastąpi wcześniej.
               </li>
               <li>
@@ -630,7 +630,7 @@ export default function TermsPage() {
               <li>
                 W przypadku odstąpienia od zawartej Umowy Usługodawca zwraca
                 Usługobiorcy uprzywilejowanemu wszystkie otrzymane od niego
-                płatności – z zastrzeżeniem ust. 9, niezwłocznie, a w każdym
+                płatności - z zastrzeżeniem ust. 9, niezwłocznie, a w każdym
                 przypadku nie później niż 14 dni od dnia, w którym Usługodawca
                 został poinformowany o decyzji Usługobiorcy uprzywilejowanego o
                 wykonaniu prawa odstąpienia od umowy.
@@ -694,12 +694,12 @@ export default function TermsPage() {
                 Administratorem danych osobowych przekazanych przez Usługobiorcę
                 w związku z zawarciem Umów w oparciu o Regulamin jest
                 Usługodawca. Szczegółowe informacje dotyczące przetwarzania
-                danych osobowych przez Usługodawcę – w tym o pozostałych celach
+                danych osobowych przez Usługodawcę - w tym o pozostałych celach
                 oraz podstawach przetwarzania danych, a także o odbiorcach
                 danych, znajdują się w dostępnej w Serwisie polityce prywatności
-                – ze względu na zasadę przejrzystości, zawartą w ogólnym
+                - ze względu na zasadę przejrzystości, zawartą w ogólnym
                 rozporządzeniu Parlamentu Europejskiego i Rady (UE) o ochronie
-                danych – „RODO”.
+                danych - „RODO”.
               </li>
               <li>
                 Celem przetwarzania danych Usługobiorcy jest świadczenie usług.
@@ -741,8 +741,8 @@ export default function TermsPage() {
                   </li>
                   <li>
                     zostanie przyjęty sprzeciw Usługobiorcy wobec przetwarzania
-                    jego danych osobowych – w przypadku gdy podstawą
-                    przetwarzania danych był uzasadniony interes Usługodawcy – w
+                    jego danych osobowych - w przypadku gdy podstawą
+                    przetwarzania danych był uzasadniony interes Usługodawcy - w
                     zależności od tego, co ma zastosowanie w danym przypadku.
                   </li>
                 </ol>
@@ -760,7 +760,7 @@ export default function TermsPage() {
                   <li>
                     wniesienia w dowolnym momencie sprzeciwu wobec przetwarzania
                     danych z przyczyn związanych ze szczególną sytuacją
-                    Usługobiorcy – wobec przetwarzania dotyczących go danych
+                    Usługobiorcy - wobec przetwarzania dotyczących go danych
                     osobowych, opartego na art. 6 ust. 1 lit. f RODO (tj. na
                     prawnie uzasadnionych interesach realizowanych przez
                     Usługodawcę).
@@ -872,7 +872,7 @@ export default function TermsPage() {
                 sytuacji, w której nie ma miejsca wybór prawa. Oznacza to w
                 szczególności, że jeśli właściwe dla danego Konsumenta przepisy
                 krajowe przewidują ochronę szerszą niż wynikająca z niniejszego
-                Regulaminu lub prawa polskiego – stosuje się tę ochronę szerszą.
+                Regulaminu lub prawa polskiego - stosuje się tę ochronę szerszą.
               </li>
               <li>
                 W przypadku ewentualnego sporu z Usługobiorcą niebędącym

@@ -15,18 +15,18 @@ export async function generateMetadata({ params }: OfferPageProps) {
     if (!trip) return {};
 
     return createMetadata({
-      title: `${trip.title} – Wakacyjny Hit`,
+      title: `${trip.title} - Wakacyjny Hit`,
       description:
         trip.shortDescription?.slice(0, 150) ||
         'Najlepsze oferty podróży dostępne na Wakacyjny Hit!',
-      ogTitle: `${trip.title} – Wakacyjny Hit`,
+      ogTitle: `${trip.title} - Wakacyjny Hit`,
       ogDescription:
         trip.shortDescription?.slice(0, 150) ||
         'Odkryj niesamowite miejsca na świecie razem z nami!',
       ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
       ogImage: trip.image || `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
       canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/oferty/${trip.id}`,
-      noIndex: false
+      noIndex: false,
     });
   } catch {
     return {};

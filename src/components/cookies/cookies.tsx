@@ -63,7 +63,7 @@ export const CookieConsent = () => {
       <div className="flex flex-col gap-4 items-end mx-auto max-w-[1000px]">
         <p className="text-sm">
           Ta strona wykorzystuje pliki cookies do poprawnego działania, analizy
-          ruchu oraz opcjonalnie – do celów marketingowych. Klikając
+          ruchu oraz opcjonalnie - do celów marketingowych. Klikając
           „Akceptuję”, wyrażasz zgodę na ich użycie. Możesz też odmówić,
           klikając „Odrzucam”. Więcej informacji znajdziesz w naszej{' '}
           <Link href={PRIVACY_POLICY} className="underline">

@@ -3,24 +3,24 @@ import { createMetadata } from '@/lib/seo';
 import dynamic from 'next/dynamic';
 
 const DynamicFaq = dynamic(() =>
-  import('../../components/faq').then((mod) => mod.Faq)
+  import('../../components/faq').then((mod) => mod.Faq),
 );
 const DynamicHowItWorks = dynamic(() =>
-  import('../../components//howItWorks').then((mod) => mod.HowItWorks)
+  import('../../components//howItWorks').then((mod) => mod.HowItWorks),
 );
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Jak to działa – Wakacyjny Hit',
+    title: 'Jak to działa - Wakacyjny Hit',
     description:
       'Dowiedz się, jak działa Wakacyjny Hit. Oferujemy najlepsze wakacyjne oferty dla podróżników szukających przygód i relaksu.',
-    ogTitle: 'Jak to działa – Wakacyjny Hit',
+    ogTitle: 'Jak to działa - Wakacyjny Hit',
     ogDescription:
       'Poznaj zasady działania Wakacyjnego Hitu i odkryj jak łatwo zaplanować idealne wakacje!',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/o-nas`,
     ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/o-nas`,
-    noIndex: false
+    noIndex: false,
   });
 
 export default function HowItWorksPage() {

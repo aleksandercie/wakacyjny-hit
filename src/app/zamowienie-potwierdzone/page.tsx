@@ -3,15 +3,15 @@ import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Dziękujemy za zamówienie – Wakacyjny Hit',
+    title: 'Dziękujemy za zamówienie - Wakacyjny Hit',
     description:
       'Twoje zamówienie zostało przyjęte! Sprawdź szczegóły i odkrywaj kolejne wakacyjne oferty.',
-    ogTitle: 'Dziękujemy za zamówienie – Wakacyjny Hit',
+    ogTitle: 'Dziękujemy za zamówienie - Wakacyjny Hit',
     ogDescription: 'Dziękujemy za zaufanie! Zaplanuj kolejne wakacje z nami.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/zamowienie-potwierdzone`,
     ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/zamowienie-potwierdzone`,
-    noIndex: true
+    noIndex: true,
   });
 
 export default function SuccessPage() {

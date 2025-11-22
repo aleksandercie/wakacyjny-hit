@@ -5,16 +5,16 @@ import Link from 'next/link';
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Kontakt – Skontaktuj się z nami | Wakacyjny Hit',
+    title: 'Kontakt - Skontaktuj się z nami | Wakacyjny Hit',
     description:
       'Masz pytania? Skontaktuj się z naszym zespołem, aby uzyskać pomoc dotyczącą ofert wakacyjnych i rezerwacji.',
-    ogTitle: 'Kontakt – Skontaktuj się z nami | Wakacyjny Hit',
+    ogTitle: 'Kontakt - Skontaktuj się z nami | Wakacyjny Hit',
     ogDescription:
       'Chcesz dowiedzieć się więcej? Napisz do nas i otrzymaj odpowiedzi na wszystkie pytania dotyczące wakacji!',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/kontakt`,
     ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/kontakt`,
-    noIndex: false
+    noIndex: false,
   });
 
 export default function ContactPage() {

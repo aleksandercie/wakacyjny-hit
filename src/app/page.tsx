@@ -4,24 +4,24 @@ import { createMetadata } from '@/lib/seo';
 import dynamic from 'next/dynamic';
 
 const DynamicGallery = dynamic(() =>
-  import('../components/gallery').then((mod) => mod.Gallery)
+  import('../components/gallery').then((mod) => mod.Gallery),
 );
 const DynamicHowItWorks = dynamic(() =>
-  import('../components/howItWorks').then((mod) => mod.HowItWorks)
+  import('../components/howItWorks').then((mod) => mod.HowItWorks),
 );
 
 export const generateMetadata = () =>
   createMetadata({
-    title: 'Wakacyjny Hit – Najlepsze oferty wakacji',
+    title: 'Wakacyjny Hit - Najlepsze oferty wakacji',
     description:
       'Znajdź wymarzone wakacje w najlepszych cenach! Sprawdź nasze oferty podróży do najpiękniejszych miejsc świata.',
-    ogTitle: 'Wakacyjny Hit – Najlepsze oferty wakacji',
+    ogTitle: 'Wakacyjny Hit - Najlepsze oferty wakacji',
     ogDescription:
       'Wakacyjne oferty dla każdego! Relaks, przygoda i niezapomniane wspomnienia.',
     ogUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
     ogImage: `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.png`,
     canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
-    noIndex: false
+    noIndex: false,
   });
 
 export default async function Home() {
@@ -34,7 +34,7 @@ export default async function Home() {
           videoMobile="/mobile-banner.mp4"
           video="/desktop-banner.mp4"
           title="Planujesz wymarzone wakacje?"
-          description="Znajdź najlepsze oferty wyjazdów w najniższych cenach! Wiele destynacji na całym świecie – idealne miejsca na relaks, przygody i niezapomniane wspomnienia."
+          description="Znajdź najlepsze oferty wyjazdów w najniższych cenach! Wiele destynacji na całym świecie - idealne miejsca na relaks, przygody i niezapomniane wspomnienia."
         />
         <Offers trips={trips} />
         <DynamicGallery />
