@@ -898,7 +898,7 @@ export default function TermsPage() {
               musi skorzystać:
             </p>
             <div className="flex flex-col">
-              <div>
+              <div className="w-[204px] 2xs:w-full">
                 <a
                   href="https://trfyanyvdyozqndwmiyr.supabase.co/storage/v1/object/public/files/formularz-odstapienia-od-umowy.pdf"
                   target="_blank"
@@ -909,7 +909,7 @@ export default function TermsPage() {
                   wzór formularza odstąpienia od umowy (pdf)
                 </a>
               </div>
-              <div>
+              <div className="w-[204px] 2xs:w-full">
                 <a
                   href="https://trfyanyvdyozqndwmiyr.supabase.co/storage/v1/object/public/files/formularz-odstapienia-od-umowy.docx"
                   target="_blank"
