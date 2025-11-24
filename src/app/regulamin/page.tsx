@@ -888,6 +888,40 @@ export default function TermsPage() {
               </li>
             </ol>
           </section>
+          <section>
+            <h3 className="font-bold mb-4" id="14">
+              Załącznik nr 1 do Regulaminu
+            </h3>
+            <p>
+              Poniżej znajduje się wzór formularza odstąpienia od umowy, z
+              którego Konsument lub Przedsiębiorca uprzywilejowany może, ale nie
+              musi skorzystać:
+            </p>
+            <div className="flex flex-col">
+              <div>
+                <a
+                  href="https://trfyanyvdyozqndwmiyr.supabase.co/storage/v1/object/public/files/formularz-odstapienia-od-umowy.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                  download="wzór formularza odstąpienia od umowy.pdf"
+                >
+                  wzór formularza odstąpienia od umowy (pdf)
+                </a>
+              </div>
+              <div>
+                <a
+                  href="https://trfyanyvdyozqndwmiyr.supabase.co/storage/v1/object/public/files/formularz-odstapienia-od-umowy.docx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                  download="wzór formularza odstąpienia od umowy.docx"
+                >
+                  wzór formularza odstąpienia od umowy (docx)
+                </a>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
