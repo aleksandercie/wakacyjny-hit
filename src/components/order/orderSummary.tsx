@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { ROUTES } from '@/lib/routes';
 import { quantityOptions } from '@/lib/quantityOptions';
 import { QuantityOption } from '@/lib/quantityOptions';
+import { StripePaymentElementOptions } from '@stripe/stripe-js';
 
 export const calculateTotalPrice = ({
   cart,
@@ -67,6 +68,7 @@ export const OrderSummary = ({
   isValidCustomer,
   clientSecret,
   closeOrderSummary,
+  userEmail,
 }: {
   cart: CartItem[];
   isSubmitting: boolean;
@@ -75,6 +77,7 @@ export const OrderSummary = ({
   isValidCustomer?: boolean;
   clientSecret?: string | null;
   closeOrderSummary?: () => void;
+  userEmail?: string;
 }) => {
   const { CART } = ROUTES;
   const isCartVariant = variant === 'cart';
@@ -82,6 +85,17 @@ export const OrderSummary = ({
   const [isPaymentReady, setIsPaymentReady] = useState(false);
   const isInvalid = !isValidOrder || !isValidCustomer;
   const isDisabled = isSubmitting || !isPaymentReady || isInvalid;
+
+  const paymentElementOptions: StripePaymentElementOptions | undefined =
+    userEmail
+      ? {
+          defaultValues: {
+            billingDetails: {
+              email: userEmail,
+            },
+          },
+        }
+      : undefined;
 
   return (
     <div
@@ -151,6 +165,7 @@ export const OrderSummary = ({
             <div className="flex flex-col bg-white border-t border-gray-300 py-4 gap-4">
               <h2 className="text-xl font-semibold">Płatność</h2>
               <PaymentElement
+                options={paymentElementOptions}
                 onChange={(event) => {
                   setIsPaymentReady(event.complete);
                 }}

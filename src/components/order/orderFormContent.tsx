@@ -10,7 +10,7 @@ import { OrderDetailsSection } from './orderDetailsSection';
 import {
   CustomerInfoSection,
   OrderFormData,
-  orderSchemaCustomer
+  orderSchemaCustomer,
 } from './customerInfoSection';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useRouter } from 'next/navigation';
@@ -18,7 +18,7 @@ import { useReCaptcha } from 'next-recaptcha-v3';
 
 export const OrderFormContent = ({
   clientSecret,
-  paymentIntentId
+  paymentIntentId,
 }: {
   clientSecret: string | null;
   paymentIntentId: string | null;
@@ -36,10 +36,10 @@ export const OrderFormContent = ({
     formState: { isSubmitting, errors, isValid },
     watch,
     control,
-    register
+    register,
   } = useForm<OrderFormData>({
     resolver: zodResolver(orderSchemaCustomer),
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
 
   const watchAllFields = watch();
@@ -69,11 +69,11 @@ export const OrderFormContent = ({
         price: Number(order.salePrice || order.price),
         rooms: Number(order.rooms),
         orderId: order.orderId,
-        roomsDetails: order.roomsDetails
+        roomsDetails: order.roomsDetails,
       })),
       status: 'new',
       token,
-      stripe_payment_intent_id: 'not_set'
+      stripe_payment_intent_id: 'not_set',
     };
 
     let orderId: string | null = null;
@@ -85,22 +85,22 @@ export const OrderFormContent = ({
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderPayload)
-        }
+          body: JSON.stringify(orderPayload),
+        },
       );
 
       const createData = await createRes.json();
 
       if (!createRes.ok || !createData.id) {
         throw new Error(
-          createData.error || 'Nie udało się utworzyć zamówienia'
+          createData.error || 'Nie udało się utworzyć zamówienia',
         );
       }
 
       orderId = createData.id;
     } catch {
       toast.error('Błąd', {
-        description: 'Nie udało się utworzyć zamówienia. Spróbuj ponownie.'
+        description: 'Nie udało się utworzyć zamówienia. Spróbuj ponownie.',
       });
       return;
     }
@@ -111,8 +111,8 @@ export const OrderFormContent = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           paymentIntentId,
-          metadata: { orderId }
-        })
+          metadata: { orderId },
+        }),
       });
     }
     const { firstName, lastName, email, country, postalCode, address, city } =
@@ -131,12 +131,12 @@ export const OrderFormContent = ({
               country: country,
               postal_code: postalCode,
               line1: address,
-              city
-            }
-          }
-        }
+              city,
+            },
+          },
+        },
       },
-      redirect: 'if_required'
+      redirect: 'if_required',
     });
 
     if (paymentError) {
@@ -149,7 +149,7 @@ export const OrderFormContent = ({
       description: 'Dziękujemy za złożenie zamówienia!',
       icon: <CircleCheck className="text-green-500" size={16} />,
       dismissible: true,
-      duration: 2000
+      duration: 2000,
     });
 
     localStorage.setItem('orderSuccess', 'true');
@@ -188,6 +188,7 @@ export const OrderFormContent = ({
           variant="cart"
           clientSecret={clientSecret}
           isValidCustomer={isValid}
+          userEmail={watchAllFields.email}
         />
       </div>
     </form>
