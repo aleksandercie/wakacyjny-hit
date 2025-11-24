@@ -5,7 +5,7 @@ import {
   UseFormReset,
   Control,
   FieldErrors,
-  UseFormRegister
+  UseFormRegister,
 } from 'react-hook-form';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
@@ -17,9 +17,12 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '../ui/select';
 import { countries } from '@/lib/countries';
+import { ROUTES } from '@/lib/routes';
+
+const { TERMS } = ROUTES;
 
 export const orderSchemaCustomer = z
   .object({
@@ -38,7 +41,10 @@ export const orderSchemaCustomer = z
       .regex(/^\d+$/, { message: 'Użyj tylko cyfr bez spacji' }),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
-    taxId: z.string().optional()
+    taxId: z.string().optional(),
+    acceptedPolicy: z.boolean().refine((v) => v === true, {
+      message: 'Akceptacja regulaminu jest wymagana',
+    }),
   })
   .superRefine((data, ctx) => {
     if (data.vatInvoice) {
@@ -46,20 +52,20 @@ export const orderSchemaCustomer = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Nazwa firmy jest wymagana',
-          path: ['companyName']
+          path: ['companyName'],
         });
       }
       if (!data.taxId) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Numer NIP jest wymagany',
-          path: ['taxId']
+          path: ['taxId'],
         });
       } else if (!/^\d{10}$/.test(data.taxId)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Numer NIP musi zawierać dokładnie 10 cyfr',
-          path: ['taxId']
+          path: ['taxId'],
         });
       }
     }
@@ -84,7 +90,7 @@ export const CustomerInfoSection = ({
   errors,
   register,
   watchVat,
-  watchAllFields
+  watchAllFields,
 }: CustomerInfoSectionProps) => {
   useEffect(() => {
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -107,7 +113,8 @@ export const CustomerInfoSection = ({
           number: '',
           vatInvoice: false,
           companyName: '',
-          taxId: ''
+          taxId: '',
+          acceptedPolicy: false,
         });
       }, 100);
     }
@@ -331,6 +338,43 @@ export const CustomerInfoSection = ({
             </div>
           </div>
         )}
+        <div>
+          <div className="flex items-center gap-2">
+            <Controller
+              control={control}
+              name="acceptedPolicy"
+              render={({ field: { value, onChange } }) => (
+                <Checkbox
+                  id="acceptedPolicy"
+                  checked={value}
+                  onCheckedChange={onChange}
+                />
+              )}
+            />
+            <Label htmlFor="acceptedPolicy" className="max-w-prose">
+              <div>
+                Żądam rozpoczęcia wykonywania usługi (przekazania pełnej
+                informacji o podroży) przed upływem terminu do odstąpienia od
+                umowy, o którym mowa w{' '}
+                <a
+                  href={TERMS}
+                  className="text-primary"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Regulaminie serwisu
+                </a>
+                , i przyjmuję do wiadomości, że z chwilą jej pełnego wykonania
+                stracę prawo odstąpienia od umowy.
+              </div>
+            </Label>
+          </div>
+          {errors.acceptedPolicy && (
+            <p className="text-red-600 text-sm">
+              {errors.acceptedPolicy.message}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
