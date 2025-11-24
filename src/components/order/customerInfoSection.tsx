@@ -97,7 +97,7 @@ export const CustomerInfoSection = ({
     if (savedData) {
       const parsed = JSON.parse(savedData);
       setTimeout(() => {
-        reset(parsed);
+        reset({ ...parsed, acceptedPolicy: false });
       }, 100);
     } else {
       setTimeout(() => {

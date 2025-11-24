@@ -28,6 +28,7 @@ type OrderPayload = {
   token: string;
   status?: string;
   stripe_payment_intent_id?: string;
+  acceptedPolicy: boolean;
 };
 
 const orderItemSchema = z.object({
@@ -41,13 +42,13 @@ const orderItemSchema = z.object({
         .array(
           z.object({
             dateOfBirth: z.string().refine((d) => !isNaN(Date.parse(d)), {
-              message: 'Nieprawidłowa data urodzenia dziecka'
-            })
-          })
+              message: 'Nieprawidłowa data urodzenia dziecka',
+            }),
+          }),
         )
-        .optional()
-    })
-  )
+        .optional(),
+    }),
+  ),
 });
 
 type OrderSchemaInput = Required<
@@ -74,7 +75,7 @@ const orderSchema = z
       .string()
       .regex(
         /^(?:\+|00)\d{6,15}$/,
-        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789) lub 0048123456789'
+        'Podaj poprawny numer telefonu w formacie międzynarodowym (np. +48123456789) lub 0048123456789',
       ),
     vatInvoice: z.boolean().optional(),
     companyName: z.string().optional(),
@@ -84,7 +85,10 @@ const orderSchema = z
     status: z
       .enum(['new', 'pending', 'processing', 'paid', 'cancelled', 'failed'])
       .optional(),
-    stripe_payment_intent_id: z.string().optional()
+    stripe_payment_intent_id: z.string().optional(),
+    acceptedPolicy: z.boolean().refine((val) => val === true, {
+      message: 'Akceptacja regulaminu jest wymagana',
+    }),
   })
   .superRefine((data, ctx) => {
     if (data.vatInvoice) {
@@ -92,20 +96,20 @@ const orderSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Nazwa firmy jest wymagana',
-          path: ['companyName']
+          path: ['companyName'],
         });
       }
       if (!data.taxId) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'Numer NIP jest wymagany',
-          path: ['taxId']
+          path: ['taxId'],
         });
       } else if (!/^\d{10}$/.test(data.taxId)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: 'NIP musi zawierać dokładnie 10 cyfr',
-          path: ['taxId']
+          path: ['taxId'],
         });
       }
     }
@@ -120,7 +124,7 @@ export async function POST(req: Request) {
     if (!parsed.success) {
       return NextResponse.json(
         { error: 'Błędne dane zamówienia', details: parsed.error.flatten() },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const { token, orders, ...customerData } = parsed.data;
@@ -129,7 +133,7 @@ export async function POST(req: Request) {
     if (!recaptchaRes.success || recaptchaRes.score < 0.5) {
       return NextResponse.json(
         { error: 'Nieudana weryfikacja reCAPTCHA' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -142,7 +146,7 @@ export async function POST(req: Request) {
     if (error || !data) {
       return NextResponse.json(
         { error: 'Błąd zapisu zamówienia' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -152,7 +156,7 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json(
       { error: 'Wystąpił błąd serwera' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
