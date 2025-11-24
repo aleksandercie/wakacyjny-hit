@@ -28,7 +28,7 @@ type OrderPayload = {
   token: string;
   status?: string;
   stripe_payment_intent_id?: string;
-  acceptedPolicy: boolean;
+  // acceptedPolicy: boolean;
 };
 
 const orderItemSchema = z.object({
@@ -86,9 +86,9 @@ const orderSchema = z
       .enum(['new', 'pending', 'processing', 'paid', 'cancelled', 'failed'])
       .optional(),
     stripe_payment_intent_id: z.string().optional(),
-    acceptedPolicy: z.boolean().refine((val) => val === true, {
-      message: 'Akceptacja regulaminu jest wymagana',
-    }),
+    // acceptedPolicy: z.boolean().refine((val) => val === true, {
+    //   message: 'Akceptacja regulaminu jest wymagana',
+    // }),
   })
   .superRefine((data, ctx) => {
     if (data.vatInvoice) {
