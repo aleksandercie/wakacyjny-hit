@@ -7,7 +7,7 @@ import {
   CircleCheck,
   Clock10,
   HandCoins,
-  PlaneTakeoff
+  PlaneTakeoff,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -25,7 +25,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '../ui/select';
 import Image from 'next/image';
 import { formatDate } from '@/lib/formatDate';
@@ -35,14 +35,14 @@ import { quantityOptions } from '@/lib/quantityOptions';
 export const renderPrice = ({
   price,
   quantityOptions,
-  variant
+  variant,
 }: {
   price: string;
   quantityOptions: QuantityOption[];
   variant?: OrderSummaryVariant;
 }) => {
   const salePrice = quantityOptions.find(
-    (item) => item.value === price
+    (item) => item.value === price,
   )?.salePrice;
   const isNavigationVariant = variant === 'navigation';
 
@@ -76,7 +76,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     longDescription,
     secondaryDescription,
     created_at,
-    expired
+    expired,
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
@@ -88,29 +88,29 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     {
       title: 'Nocleg',
       icon: <BedDouble size={28} className="text-gray-500" />,
-      details: accomodation
+      details: accomodation,
     },
     {
       title: 'Przelot',
       icon: <PlaneTakeoff size={28} className="text-gray-500" />,
-      details: flight
+      details: flight,
     },
     {
       title: 'Transfer',
       icon: <Bus size={28} className="text-gray-500" />,
-      details: transfer
-    }
+      details: transfer,
+    },
   ];
 
   const {
     handleSubmit,
     reset,
-    formState: { isSubmitting }
+    formState: { isSubmitting },
   } = useForm<FormData>();
 
   const handleAddToCart = (): string | null => {
     const option = quantityOptions.find(
-      (item) => item.value === selectedQuantity
+      (item) => item.value === selectedQuantity,
     );
     if (!option) return null;
 
@@ -126,9 +126,9 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       minPersons: option?.minPersons,
       roomsDetails: Array.from({ length: Number(selectedRooms) }).map(() => ({
         adults: undefined,
-        children: undefined
+        children: undefined,
       })),
-      orderComments: undefined
+      orderComments: undefined,
     };
 
     addToCart(newItem);
@@ -137,7 +137,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       description: 'Twoja oferta została dodana do koszyka.',
       icon: <CircleCheck className="text-green-500" size={16} />,
       dismissible: true,
-      duration: 2000
+      duration: 2000,
     });
 
     return newItem.id;
@@ -170,14 +170,14 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         setSelectedQuantity(value);
         setSelectedRooms('');
       },
-      disabled: expired
+      disabled: expired,
     },
     {
       label: 'Ilość pokoi',
       name: 'rooms',
       options: roomsOptions.filter((room) => {
         const selectQuantity = quantityOptions.find(
-          (quantity) => quantity.value === selectedQuantity
+          (quantity) => quantity.value === selectedQuantity,
         );
         const roomValue = Number(room.value);
 
@@ -186,26 +186,26 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       placeholder: 'Wybierz ilość pokoi',
       selected: selectedRooms,
       setSelected: setSelectedRooms,
-      disabled: selectedQuantity === '' || expired
-    }
+      disabled: selectedQuantity === '' || expired,
+    },
   ];
 
   const about = [
     {
       name: 'Termin wyjazdu',
       icon: <CalendarDays size={28} className="text-gray-500" />,
-      value: `${formatDate(startDate)} - ${formatDate(endDate)}`
+      value: `${formatDate(startDate)} - ${formatDate(endDate)}`,
     },
     {
       name: 'Długość pobytu',
       icon: <Clock10 size={28} className="text-gray-500" />,
-      value: duration
+      value: duration,
     },
     {
       name: 'Cena',
       icon: <HandCoins size={28} className="text-gray-500" />,
-      value: `${price} zł`
-    }
+      value: `${price} zł`,
+    },
   ];
 
   const isDisabledButton =
@@ -228,7 +228,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           placeholder,
           selected,
           setSelected,
-          disabled
+          disabled,
         }) => (
           <div key={name} className="flex flex-col gap-1">
             <Label htmlFor={name} className="text-gray-500 text-base">
@@ -253,7 +253,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
               </Select>
             </div>
           </div>
-        )
+        ),
       )}
       {selectedQuantity !== '' && (
         <div className="flex gap-2 flex-col">
@@ -261,7 +261,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           <div className="flex flex-col">
             {renderPrice({
               price: selectedQuantity,
-              quantityOptions
+              quantityOptions,
             })}
           </div>
         </div>
@@ -315,7 +315,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                 </div>
               ))}
             </div>
-            <div className="block md:hidden">{form}</div>
+            <div className=" block md:hidden">{form}</div>
             <Separator
               orientation="horizontal"
               className="h-[1px] bg-gray-300"
@@ -346,7 +346,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                         ))}
                       </ul>
                     </div>
-                  )
+                  ),
               )}
               {secondaryDescription && (
                 <p className="text-gray-500">{secondaryDescription}</p>
@@ -354,8 +354,10 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
             </div>
           </div>
         </div>
-        <div className="w-2/5 lg:w-3/10 hidden md:block">
-          <div className=" w-full p-4">{form}</div>
+        <div className="w-2/5 lg:w-3/10 hidden md:block relative">
+          <div className="w-full sticky top-20 self-start max-h-[360px]">
+            {form}
+          </div>
         </div>
       </div>
     </>

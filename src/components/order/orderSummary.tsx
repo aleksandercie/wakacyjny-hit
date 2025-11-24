@@ -12,7 +12,7 @@ import { QuantityOption } from '@/lib/quantityOptions';
 
 export const calculateTotalPrice = ({
   cart,
-  quantityOptions
+  quantityOptions,
 }: {
   cart: CartItem[];
   quantityOptions: QuantityOption[];
@@ -29,23 +29,23 @@ export const hasValidationError = (cart: CartItem[]): boolean => {
   return cart.some((item) => {
     const totalAdults = item.roomsDetails.reduce(
       (sum, room) => sum + parseInt(room.adults ?? '0'),
-      0
+      0,
     );
     const totalChildren = item.roomsDetails.reduce(
       (sum, room) => sum + (room.children?.length || 0),
-      0
+      0,
     );
     const totalPeople = totalAdults + totalChildren;
     const min = item.minPersons ?? 1;
     const max = item.maxPersons ?? Infinity;
     const emptyRooms = item.roomsDetails
       .map(
-        (room) => parseInt(room.adults ?? '0') + (room.children?.length || 0)
+        (room) => parseInt(room.adults ?? '0') + (room.children?.length || 0),
       )
       .filter((total) => total < 1);
 
     const missingBirthDates = item.roomsDetails.some((room) =>
-      (room.children || []).some((child) => !child.dateOfBirth)
+      (room.children || []).some((child) => !child.dateOfBirth),
     );
 
     return (
@@ -66,7 +66,7 @@ export const OrderSummary = ({
   variant,
   isValidCustomer,
   clientSecret,
-  closeOrderSummary
+  closeOrderSummary,
 }: {
   cart: CartItem[];
   isSubmitting: boolean;
@@ -86,7 +86,9 @@ export const OrderSummary = ({
   return (
     <div
       className={`flex flex-col rounded-md md:mx-8 lg:mx-0 lg:mt-0 lg:max-h-fit bg-white ${
-        isCartVariant ? 'p-4 ' : 'w-[320px] p-4 pr-1 border shadow-lg'
+        isCartVariant
+          ? 'lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-auto p-4 '
+          : 'w-[320px] p-4 pr-1 border shadow-lg'
       }`}
     >
       <div
@@ -176,7 +178,7 @@ export const OrderSummary = ({
 export const OrderItemSummary = ({
   item,
   variant,
-  quantityOptions
+  quantityOptions,
 }: {
   item: CartItem;
   variant: OrderSummaryVariant;
@@ -216,7 +218,7 @@ export const OrderItemSummary = ({
 
 export const RoomBreakdown = ({
   room,
-  index
+  index,
 }: {
   room: CartItem['roomsDetails'][number];
   index: number;
