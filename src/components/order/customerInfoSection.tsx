@@ -354,7 +354,7 @@ export const CustomerInfoSection = ({
             <Label htmlFor="acceptedPolicy" className="max-w-prose">
               <div>
                 Żądam rozpoczęcia wykonywania usługi (przekazania pełnej
-                informacji o podroży) przed upływem terminu do odstąpienia od
+                informacji o podróży) przed upływem terminu do odstąpienia od
                 umowy, o którym mowa w{' '}
                 <a
                   href={TERMS}
