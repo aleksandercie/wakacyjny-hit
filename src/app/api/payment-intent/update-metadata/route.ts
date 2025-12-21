@@ -2,13 +2,11 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { z } from 'zod';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil'
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const schema = z.object({
   paymentIntentId: z.string().min(10),
-  metadata: z.object({ orderId: z.number() })
+  metadata: z.object({ orderId: z.number() }),
 });
 
 export async function PATCH(req: Request) {
@@ -24,7 +22,7 @@ export async function PATCH(req: Request) {
   } catch {
     return NextResponse.json(
       { error: 'Metadata update failed' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

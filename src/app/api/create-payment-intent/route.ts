@@ -5,14 +5,12 @@ import { z } from 'zod';
 
 const schema = z.object({
   orderItems: z.array(
-    z.object({ quantityId: z.number(), orderId: z.number() })
+    z.object({ quantityId: z.number(), orderId: z.number() }),
   ),
-  currency: z.string().length(3)
+  currency: z.string().length(3),
 });
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil'
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
   try {
@@ -29,7 +27,7 @@ export async function POST(req: Request) {
       if (!opt) {
         return NextResponse.json(
           { error: `Nieznana opcja ilości: ${quantityId}` },
-          { status: 400 }
+          { status: 400 },
         );
       }
 
@@ -41,17 +39,17 @@ export async function POST(req: Request) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency,
-      automatic_payment_methods: { enabled: true }
+      automatic_payment_methods: { enabled: true },
     });
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
-      paymentIntentId: paymentIntent.id
+      paymentIntentId: paymentIntent.id,
     });
   } catch {
     return NextResponse.json(
       { error: 'Błąd tworzenia płatności' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

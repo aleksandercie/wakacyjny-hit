@@ -5,9 +5,7 @@ import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil'
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
@@ -35,7 +33,7 @@ export async function POST(req: Request) {
       .from('orders')
       .update({
         status,
-        stripe_payment_intent_id: paymentIntent.id
+        stripe_payment_intent_id: paymentIntent.id,
       })
       .eq('id', orderId)
       .select('*')
@@ -47,8 +45,8 @@ export async function POST(req: Request) {
         from: process.env.SENDGRID_FROM_EMAIL!,
         templateId: 'd-ea11531847554e6c8e504621d6753c65',
         dynamicTemplateData: {
-          firstName: orderData.firstName
-        }
+          firstName: orderData.firstName,
+        },
       });
 
       await sgMail.send({
@@ -62,7 +60,7 @@ export async function POST(req: Request) {
             <p><strong>🧑 Klient:</strong> ${orderData?.firstName} ${orderData?.lastName}</p>
             <p><strong>📧 Email:</strong> ${orderData?.email}</p>
             <p><strong>📞 Telefon:</strong> ${orderData?.phone}</p>
-          `
+          `,
       });
       return NextResponse.json({ received: true });
     }
@@ -74,8 +72,8 @@ export async function POST(req: Request) {
         templateId: 'd-121fc47d1e9046bdb7e114871366005c',
         dynamicTemplateData: {
           firstName: orderData.firstName,
-          id: orderData.id
-        }
+          id: orderData.id,
+        },
       });
 
       const ordersHtml = orderData.orders
@@ -99,14 +97,14 @@ export async function POST(req: Request) {
                           .map(
                             (child, cIdx) =>
                               `dziecko ${cIdx + 1}: ${new Date(
-                                child.dateOfBirth
+                                child.dateOfBirth,
                               )
                                 .toLocaleDateString('en-GB', {
                                   year: 'numeric',
                                   month: 'long',
-                                  day: '2-digit'
+                                  day: '2-digit',
                                 })
-                                .replace(/ /g, '-')}`
+                                .replace(/ /g, '-')}`,
                           )
                           .join(', ')
                       : '';
@@ -121,7 +119,7 @@ export async function POST(req: Request) {
                   .join('')}
               </ul>
             </div>
-          `
+          `,
         )
         .join('');
 
@@ -138,7 +136,7 @@ export async function POST(req: Request) {
                     <p><strong>📞 Telefon:</strong> ${orderData.phone}</p>
                     <p><strong>🛒 Zamówione oferty:</strong></p>
                     ${ordersHtml}
-                  `
+                  `,
       });
     }
   }
