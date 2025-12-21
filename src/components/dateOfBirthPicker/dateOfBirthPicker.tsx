@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { subYears } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -9,21 +8,14 @@ import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from '@/components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select';
 import { useEffect, useState } from 'react';
 import { formatDate } from '@/lib/formatDate';
 
 export const DateOfBirthPicker = ({
   value,
-  onChange
+  onChange,
 }: {
   value?: Date;
   onChange: (date: Date) => void;
@@ -36,9 +28,7 @@ export const DateOfBirthPicker = ({
   }, [value]);
 
   const today = new Date();
-  const maxAllowedDate = subYears(today, 0);
-  const minAllowedDate = subYears(today, 18);
-  const years = Array.from({ length: 19 }, (_, i) => today.getFullYear() - i);
+  const minDate = subYears(today, 18);
 
   const handleDateSelect = (selected: Date | undefined) => {
     if (!selected) return;
@@ -56,7 +46,7 @@ export const DateOfBirthPicker = ({
             variant={'outline'}
             className={cn(
               'w-[222px] justify-start text-left font-normal',
-              !date && 'text-muted-foreground'
+              !date && 'text-muted-foreground',
             )}
           >
             <CalendarIcon className="sm:mr h-4 w-4" />
@@ -64,58 +54,21 @@ export const DateOfBirthPicker = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="flex w-[260px] flex-col space-y-2 p-2 bg-white absolute top-full"
+          className="flex w-[248px] flex-col space-y-2 p-0 bg-white absolute top-full"
           side="bottom"
           align="start"
           sideOffset={8}
         >
-          <Select
-            onValueChange={(year) => {
-              const selectedYear = parseInt(year);
-              const baseDate = date ?? today;
-
-              let newDate = new Date(
-                selectedYear,
-                baseDate.getMonth(),
-                baseDate.getDate()
-              );
-
-              if (newDate.getMonth() !== baseDate.getMonth()) {
-                newDate = new Date(selectedYear, baseDate.getMonth() + 1, 0);
-              }
-
-              const minAllowedDate = subYears(today, 18);
-
-              if (newDate < minAllowedDate) {
-                newDate = minAllowedDate;
-              }
-
-              setDateYearSelect(newDate);
-            }}
-            value={dateYearSelect?.getFullYear().toString()}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Wybierz rok urodzenia" />
-            </SelectTrigger>
-            <SelectContent position="popper" className="max-h-[240px]">
-              {years.map((year) => (
-                <SelectItem key={year} value={year.toString()}>
-                  {year}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <div className="rounded-md border">
-            <Calendar
-              key={dateYearSelect?.toISOString()}
-              mode="single"
-              selected={date}
-              onSelect={handleDateSelect}
-              fromDate={minAllowedDate}
-              toDate={maxAllowedDate}
-              defaultMonth={dateYearSelect}
-            />
-          </div>
+          <Calendar
+            key={dateYearSelect?.toISOString()}
+            mode="single"
+            selected={date}
+            onSelect={handleDateSelect}
+            defaultMonth={dateYearSelect}
+            captionLayout="dropdown"
+            disabled={{ before: minDate, after: today }}
+            startMonth={minDate}
+          />
         </PopoverContent>
       </Popover>
     </div>

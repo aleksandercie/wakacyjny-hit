@@ -18,13 +18,13 @@ import {
   DialogHeader,
   DialogPortal,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from '../ui/dialog';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
+  AccordionTrigger,
 } from '../ui/accordion';
 
 export type Tab = 'all' | 'active' | 'completed';
@@ -43,7 +43,7 @@ export const Filters = ({
   search,
   setSearch,
   activeTab,
-  setActiveTab
+  setActiveTab,
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
@@ -100,7 +100,7 @@ export const Filters = ({
   const tabs: { name: string; value: Tab }[] = [
     { name: 'Wszystkie', value: 'all' },
     { name: 'Aktywne', value: 'active' },
-    { name: 'Zakończone', value: 'completed' }
+    { name: 'Zakończone', value: 'completed' },
   ];
 
   return (
@@ -125,7 +125,13 @@ export const Filters = ({
         <div className="flex flex-col md:flex-row md:items-center gap-0">
           <Separator orientation="vertical" className="hidden md:block" />
           <DatePickerWithRange
-            className="border-0 px-0 max-w-[260px] md:max-w-[240px]"
+            className="border-0 px-0 max-w-[260px] md:hidden"
+            date={date}
+            setDate={setDate}
+            numberOfMonths={1}
+          />
+          <DatePickerWithRange
+            className="border-0 px-0 hidden max-w-[240px] md:grid"
             date={date}
             setDate={setDate}
           />

@@ -5,6 +5,7 @@
 @theme {
   --font-sans: var(--font-nunito-sans);
   --color-primary: #f85808;
+  --color-accent: #f3f4f6;
   --breakpoint-2xs: 320px;
   --breakpoint-xs: 480px;
 }

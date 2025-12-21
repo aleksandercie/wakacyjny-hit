@@ -20,20 +20,21 @@ const buttonVariants = cva(
           'bg-white text-black hover:bg-primary hover:text-white transition-colors duration-200 rounded-full cursor-pointer',
         tab: 'text-gray-500 hover:text-black cursor-pointer rounded-full border hover:text-black',
         active:
-          'bg-primary text-white border-primary hover:bg-primary hover:text-white cursor-pointer rounded-full'
+          'bg-primary text-white border-primary hover:bg-primary hover:text-white cursor-pointer rounded-full',
+        ghost: 'hover:bg-accent hover:font-medium cursor-pointer',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
         sm: 'h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5',
         lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
-        icon: 'size-9'
-      }
+        icon: 'size-9',
+      },
     },
     defaultVariants: {
       variant: 'default',
-      size: 'default'
-    }
-  }
+      size: 'default',
+    },
+  },
 );
 
 function Button({
