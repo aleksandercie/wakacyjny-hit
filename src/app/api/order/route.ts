@@ -144,6 +144,7 @@ export async function POST(req: Request) {
       .single();
 
     if (error || !data) {
+      console.error('Supabase insert error:', error);
       return NextResponse.json(
         { error: 'Błąd zapisu zamówienia' },
         { status: 500 },
