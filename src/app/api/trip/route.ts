@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseServer';
 import { Trip } from '@/types/trip';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -11,8 +11,8 @@ const schema = z
       return url.startsWith('http://') || url.startsWith('https://');
     },
     {
-      message: 'URL must start with http:// or https://'
-    }
+      message: 'URL must start with http:// or https://',
+    },
   );
 
 export async function GET(request: Request) {
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
   if (!urlValidation.success) {
     return NextResponse.json(
       { error: urlValidation.error.message },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseServer';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
 import { checkRateLimit } from '@/lib/checkRateLimit';
 

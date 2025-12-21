@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseServer';
 import sgMail from '@sendgrid/mail';
 import { ROUTES } from '@/lib/routes';
 import { verifyRecaptcha } from '@/lib/verifyRecaptcha';
@@ -8,7 +8,7 @@ import { checkRateLimit } from '@/lib/checkRateLimit';
 
 const schema = z.object({
   email: z.string().email(),
-  token: z.string().min(10)
+  token: z.string().min(10),
 });
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     if (!token) {
       return NextResponse.json(
         { error: 'Missing reCAPTCHA token' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     if (!recaptchaRes.success || recaptchaRes.score < 0.5) {
       return NextResponse.json(
         { error: 'Failed reCAPTCHA verification' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -74,15 +74,15 @@ export async function POST(req: Request) {
       from: process.env.SENDGRID_FROM_EMAIL!,
       templateId: 'd-f593fffa0e9346159cc9bd9f6e610aeb',
       dynamicTemplateData: {
-        confirmation_url: confirmUrl
-      }
+        confirmation_url: confirmUrl,
+      },
     });
 
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

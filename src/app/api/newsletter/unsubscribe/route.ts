@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseServer';
 import sgMail from '@sendgrid/mail';
 import sgClient from '@sendgrid/client';
 
@@ -8,7 +8,7 @@ sgClient.setApiKey(process.env.SENDGRID_API_KEY!);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const schema = z.object({
-  token: z.string().min(10)
+  token: z.string().min(10),
 });
 
 export async function POST(req: Request) {
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     if (findError || !existing) {
       return NextResponse.json(
         { error: 'Invalid or expired token' },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -44,21 +44,21 @@ export async function POST(req: Request) {
     if (deleteError) {
       return NextResponse.json(
         { error: 'Failed to unsubscribe' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     await sgMail.send({
       to: existing.email,
       from: process.env.SENDGRID_FROM_EMAIL!,
-      templateId: 'd-b20ffa4a81cc42999aea67405f81cb00'
+      templateId: 'd-b20ffa4a81cc42999aea67405f81cb00',
     });
 
     try {
       const [searchRes] = await sgClient.request({
         method: 'POST',
         url: '/v3/marketing/contacts/search/emails',
-        body: { emails: [existing.email] }
+        body: { emails: [existing.email] },
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70,8 +70,8 @@ export async function POST(req: Request) {
           method: 'DELETE',
           url: '/v3/marketing/contacts',
           qs: {
-            ids: contactData.id
-          }
+            ids: contactData.id,
+          },
         });
       } else {
         console.warn(`Nie znaleziono kontaktu w SendGrid: ${existing.email}`);
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

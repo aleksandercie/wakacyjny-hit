@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseServer';
 import sgMail from '@sendgrid/mail';
 import sgClient from '@sendgrid/client';
 import { ROUTES } from '@/lib/routes';
@@ -11,7 +11,7 @@ sgClient.setApiKey(process.env.SENDGRID_API_KEY!);
 const { UNSUBSCRIBE } = ROUTES;
 
 const schema = z.object({
-  token: z.string().min(10)
+  token: z.string().min(10),
 });
 
 export async function POST(req: Request) {
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     if (error || !data || data.length === 0) {
       return NextResponse.json(
         { error: 'Invalid or expired token' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -48,10 +48,10 @@ export async function POST(req: Request) {
         body: {
           contacts: [
             {
-              email: subscriber.email
-            }
-          ]
-        }
+              email: subscriber.email,
+            },
+          ],
+        },
       });
     } catch {}
 
@@ -64,15 +64,15 @@ export async function POST(req: Request) {
       from: process.env.SENDGRID_FROM_EMAIL!,
       templateId: 'd-f794793e712d4417875cf4102e1398bb',
       dynamicTemplateData: {
-        unsubscribe_url: unsubscribeUrl
-      }
+        unsubscribe_url: unsubscribeUrl,
+      },
     });
 
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
       { error: 'Something went wrong' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
