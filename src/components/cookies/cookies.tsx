@@ -2,7 +2,7 @@
 
 import { ROUTES } from '@/lib/routes';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 
 declare global {
@@ -28,11 +28,34 @@ export const CookieConsent = () => {
     localStorage.setItem('cookie-consent', 'granted');
     setVisible(false);
     loadAnalytics();
+    loadMetaPixel();
+    trackPageView();
   };
 
   const rejectCookies = () => {
     localStorage.setItem('cookie-consent', 'denied');
     setVisible(false);
+  };
+
+  const loadMetaPixel = () => {
+    if (document.getElementById('meta-pixel')) return;
+    console.log('Loading Meta Pixel');
+
+    const script = document.createElement('script');
+    script.id = 'meta-pixel';
+    script.innerHTML = `
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '${process.env.NEXT_PUBLIC_META_PIXEL_ID}');
+    fbq('track', 'PageView');
+  `;
+    document.head.appendChild(script);
   };
 
   const loadAnalytics = () => {
@@ -50,9 +73,27 @@ export const CookieConsent = () => {
     document.head.appendChild(script);
   };
 
+  const trackPageView = useCallback(() => {
+    // Meta Pixel SPA pageview
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      window.fbq('track', 'PageView');
+    }
+
+    // Optional: if you want GTM to react to route changes in SPA
+    // if (typeof window !== 'undefined') {
+    //   window.dataLayer = window.dataLayer || [];
+    //   window.dataLayer.push({
+    //     event: 'pageview',
+    //     page_path: window.location.pathname + window.location.search,
+    //   });
+    // }
+  }, []);
+
   useEffect(() => {
     if (localStorage.getItem('cookie-consent') === 'granted') {
       loadAnalytics();
+      loadMetaPixel();
+      trackPageView();
     }
   }, []);
 
