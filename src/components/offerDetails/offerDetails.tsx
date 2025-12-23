@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { Label } from '@radix-ui/react-label';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Separator } from '@radix-ui/react-separator';
 import { useCart } from '@/context/CartContext';
 import { Trip } from '@/types/trip';
@@ -81,6 +81,15 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
 
+  useEffect(() => {
+    if (typeof window.fbq === 'function') {
+      console.log('Meta Pixel: ViewContent');
+      window.fbq('track', 'ViewContent', {
+        content_ids: [id],
+      });
+    }
+  }, [id]);
+
   const { addToCart, cart } = useCart();
   const router = useRouter();
 
@@ -132,6 +141,15 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     };
 
     addToCart(newItem);
+
+    // ✅ Meta Pixel: AddToCart
+    if (typeof window.fbq === 'function') {
+      console.log('Meta Pixel: AddToCart');
+      window.fbq('track', 'AddToCart', {
+        content_type: 'product',
+        content_ids: [String(id)], // offer id
+      });
+    }
 
     toast.success('Super!', {
       description: 'Twoja oferta została dodana do koszyka.',
