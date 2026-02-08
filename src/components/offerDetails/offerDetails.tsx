@@ -237,6 +237,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4 min-w-[280px]"
+      id="form"
     >
       {inputs.map(
         ({
@@ -301,6 +302,16 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       </Button>
     </form>
   );
+
+  const goToForm = () => {
+    const formElement = document.getElementById('form');
+
+    if (formElement) {
+      const yOffset = -150;
+      const y = formElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
@@ -369,6 +380,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
               {secondaryDescription && (
                 <p className="text-gray-500">{secondaryDescription}</p>
               )}
+              <Button onClick={goToForm} className='block md:hidden mx-auto w-full' variant="secondary">Zarezerwuj</Button>
             </div>
           </div>
         </div>
