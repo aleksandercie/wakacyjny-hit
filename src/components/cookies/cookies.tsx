@@ -39,7 +39,6 @@ export const CookieConsent = () => {
 
   const loadMetaPixel = () => {
     if (document.getElementById('meta-pixel')) return;
-    console.log('Loading Meta Pixel');
 
     const script = document.createElement('script');
     script.id = 'meta-pixel';

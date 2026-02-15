@@ -14,10 +14,6 @@ export const NewsletterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(
-      'reCAPTCHA site key:',
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-    );
 
     if (!loaded || !executeRecaptcha) {
       toast.error('reCAPTCHA is not ready yet. Please try again shortly.');
@@ -30,7 +26,7 @@ export const NewsletterForm = () => {
       const res = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         body: JSON.stringify({ email, token }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
 
       if (res.ok) {
@@ -39,11 +35,11 @@ export const NewsletterForm = () => {
           description: `Potwierdzenie wysłane na ${email}`,
           icon: <CircleCheck className="text-green-500" size={16} />,
           dismissible: true,
-          duration: 2500
+          duration: 2500,
         });
       } else {
         toast.error('Błąd', {
-          description: 'Wystąpił problem. Spróbuj ponownie.'
+          description: 'Wystąpił problem. Spróbuj ponownie.',
         });
       }
     } catch {

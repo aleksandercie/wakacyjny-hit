@@ -109,11 +109,11 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     let timeoutId = schedule();
 
     return () => window.clearTimeout(timeoutId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (typeof window.fbq === 'function') {
-      console.log('Meta Pixel: ViewContent');
       window.fbq('track', 'ViewContent', {
         content_ids: [id],
       });
@@ -174,7 +174,6 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
 
     // ✅ Meta Pixel: AddToCart
     if (typeof window.fbq === 'function') {
-      console.log('Meta Pixel: AddToCart');
       window.fbq('track', 'AddToCart', {
         content_type: 'product',
         content_ids: [String(id)], // offer id
