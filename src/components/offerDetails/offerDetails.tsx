@@ -307,7 +307,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     const formElement = document.getElementById('form');
 
     if (formElement) {
-      const yOffset = -150;
+      const yOffset = -160;
       const y = formElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -380,7 +380,19 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
               {secondaryDescription && (
                 <p className="text-gray-500">{secondaryDescription}</p>
               )}
-              <Button onClick={goToForm} className='block md:hidden mx-auto w-full' variant="secondary">Zarezerwuj</Button>
+              <Separator
+                orientation="horizontal"
+                className="h-[1px] bg-gray-300"
+              />
+              <p className="text-gray-500">Jeśli ten Wakacyjny Hit brzmi jak coś dla Was, wybierzcie liczbę osób, wpiszcie preferowany hotel i opcję wyżywienia, podajcie dane kontaktowe i kliknijcie ZAMÓW TERAZ. Po opłaceniu dostępu otrzymacie mailowo najtańszą kombinację lotów i hoteli zgodną z ofertą, wraz z bezpośrednimi linkami do rezerwacji i prostą instrukcją krok po kroku. Całość zajmie Wam maksymalnie 15 minut!</p>
+              <p className="text-gray-500">Potrzebujecie większego bagażu? Dodacie go bezpośrednio podczas zakupu biletów. Jeśli transfer z lotniska to komunikacja miejska (tramwaj, metro, autobus), to oznacza to, że to najwygodniejsza i najtańsza opcja. Otrzymacie dokładne wskazówki, jak kupić bilet i gdzie wsiąść. Wszystkie ceny w ofertach wyliczamy dla dwóch osób. Oczywiście zawsze możecie skorzystać z taksówki lub alternatywnego środka transportu.</p>
+              <p className="text-gray-500">
+                Nie jesteśmy biurem podróży ani organizatorem wyjazdów – oferujemy dostęp do wiedzy o najlepszych okazjach, którą zdobyliśmy pracując przez lata w branży turystycznej. Wysyłamy bezpieczne linki z instrukcjami, pomagamy na każdym etapie rezerwacji i jesteśmy do dyspozycji przy planowaniu podróży.
+              </p>
+              <p className="text-gray-500">
+                Pamiętajcie, że Wakacyjne Hity to czasowe okazje – aktualne w momencie publikacji. Jeśli po zakupie dostępu cena wzrośnie, nic nie tracicie – możecie wybrać inny Wakacyjny Hit lub otrzymać pełny zwrot środków.
+              </p>
+              <Button onClick={goToForm} className='block md:hidden mx-auto h-[38px]'>Zamów teraz</Button>
             </div>
           </div>
         </div>
