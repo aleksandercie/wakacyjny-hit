@@ -31,6 +31,11 @@ import Image from 'next/image';
 import { formatDate } from '@/lib/formatDate';
 import { useRouter } from 'next/navigation';
 import { quantityOptions } from '@/lib/quantityOptions';
+import {
+  formatViewersText,
+  isViewingHours,
+  nextNaturalViewers,
+} from './helpers';
 
 export const renderPrice = ({
   price,
@@ -80,6 +85,31 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   } = trip;
   const [selectedQuantity, setSelectedQuantity] = useState<string>('');
   const [selectedRooms, setSelectedRooms] = useState<string>('');
+  const [viewersCount, setViewersCount] = useState<number>(() => {
+    // stable-ish starting point (still random)
+    return 8 + Math.floor(Math.random() * 12); // 8..19
+  });
+  const isViewingTime = isViewingHours();
+
+  useEffect(() => {
+    if (!isViewingTime) return;
+    // update every 8–15 seconds (more “alive”)
+    const tick = () => {
+      setViewersCount((prev) => nextNaturalViewers(prev));
+    };
+
+    const schedule = () => {
+      const delay = 40000 + Math.floor(Math.random() * 20000); // 40–60s
+      return window.setTimeout(() => {
+        tick();
+        timeoutId = schedule();
+      }, delay);
+    };
+
+    let timeoutId = schedule();
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
 
   useEffect(() => {
     if (typeof window.fbq === 'function') {
@@ -290,6 +320,11 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           W koszyku znajduje się maksymalna ilość ofert.
         </p>
       )}
+      {isViewingTime && (
+        <p className="text-gray-500 text-sm">
+          {formatViewersText(viewersCount)}
+        </p>
+      )}
       <Button disabled={isDisabledButton} variant="secondary">
         Dodaj do koszyka
       </Button>
@@ -308,7 +343,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
 
     if (formElement) {
       const yOffset = -160;
-      const y = formElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const y =
+        formElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
@@ -384,15 +420,43 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                 orientation="horizontal"
                 className="h-[1px] bg-gray-300"
               />
-              <p className="text-gray-500">Jeśli ten Wakacyjny Hit brzmi jak coś dla Was, wybierzcie liczbę osób, wpiszcie preferowany hotel i opcję wyżywienia, podajcie dane kontaktowe i kliknijcie ZAMÓW TERAZ. Po opłaceniu dostępu otrzymacie mailowo najtańszą kombinację lotów i hoteli zgodną z ofertą, wraz z bezpośrednimi linkami do rezerwacji i prostą instrukcją krok po kroku. Całość zajmie Wam maksymalnie 15 minut!</p>
-              <p className="text-gray-500">Potrzebujecie większego bagażu? Dodacie go bezpośrednio podczas zakupu biletów. Jeśli transfer z lotniska to komunikacja miejska (tramwaj, metro, autobus), to oznacza to, że to najwygodniejsza i najtańsza opcja. Otrzymacie dokładne wskazówki, jak kupić bilet i gdzie wsiąść. Wszystkie ceny w ofertach wyliczamy dla dwóch osób. Oczywiście zawsze możecie skorzystać z taksówki lub alternatywnego środka transportu.</p>
               <p className="text-gray-500">
-                Nie jesteśmy biurem podróży ani organizatorem wyjazdów – oferujemy dostęp do wiedzy o najlepszych okazjach, którą zdobyliśmy pracując przez lata w branży turystycznej. Wysyłamy bezpieczne linki z instrukcjami, pomagamy na każdym etapie rezerwacji i jesteśmy do dyspozycji przy planowaniu podróży.
+                Jeśli ten Wakacyjny Hit brzmi jak coś dla Was, wybierzcie liczbę
+                osób, wpiszcie preferowany hotel i opcję wyżywienia, podajcie
+                dane kontaktowe i kliknijcie ZAMÓW TERAZ. Po opłaceniu dostępu
+                otrzymacie mailowo najtańszą kombinację lotów i hoteli zgodną z
+                ofertą, wraz z bezpośrednimi linkami do rezerwacji i prostą
+                instrukcją krok po kroku. Całość zajmie Wam maksymalnie 15
+                minut!
               </p>
               <p className="text-gray-500">
-                Pamiętajcie, że Wakacyjne Hity to czasowe okazje – aktualne w momencie publikacji. Jeśli po zakupie dostępu cena wzrośnie, nic nie tracicie – możecie wybrać inny Wakacyjny Hit lub otrzymać pełny zwrot środków.
+                Potrzebujecie większego bagażu? Dodacie go bezpośrednio podczas
+                zakupu biletów. Jeśli transfer z lotniska to komunikacja miejska
+                (tramwaj, metro, autobus), to oznacza to, że to najwygodniejsza
+                i najtańsza opcja. Otrzymacie dokładne wskazówki, jak kupić
+                bilet i gdzie wsiąść. Wszystkie ceny w ofertach wyliczamy dla
+                dwóch osób. Oczywiście zawsze możecie skorzystać z taksówki lub
+                alternatywnego środka transportu.
               </p>
-              <Button onClick={goToForm} className='block md:hidden mx-auto h-[38px]'>Zamów teraz</Button>
+              <p className="text-gray-500">
+                Nie jesteśmy biurem podróży ani organizatorem wyjazdów –
+                oferujemy dostęp do wiedzy o najlepszych okazjach, którą
+                zdobyliśmy pracując przez lata w branży turystycznej. Wysyłamy
+                bezpieczne linki z instrukcjami, pomagamy na każdym etapie
+                rezerwacji i jesteśmy do dyspozycji przy planowaniu podróży.
+              </p>
+              <p className="text-gray-500">
+                Pamiętajcie, że Wakacyjne Hity to czasowe okazje – aktualne w
+                momencie publikacji. Jeśli po zakupie dostępu cena wzrośnie, nic
+                nie tracicie – możecie wybrać inny Wakacyjny Hit lub otrzymać
+                pełny zwrot środków.
+              </p>
+              <Button
+                onClick={goToForm}
+                className="block md:hidden mx-auto h-[38px]"
+              >
+                Zamów teraz
+              </Button>
             </div>
           </div>
         </div>
