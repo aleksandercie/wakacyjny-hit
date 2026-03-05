@@ -98,8 +98,8 @@ export const Filters = ({
     setSearch(e.target.value);
 
   const tabs: { name: string; value: Tab }[] = [
-    { name: 'Wszystkie', value: 'all' },
     { name: 'Aktywne', value: 'active' },
+    { name: 'Wszystkie', value: 'all' },
     { name: 'Zakończone', value: 'completed' },
   ];
 

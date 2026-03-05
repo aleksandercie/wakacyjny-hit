@@ -20,7 +20,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const [priceRange, setPriceRange] = useState(defaultPriceRange);
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
-    to: undefined
+    to: undefined,
   });
   const [selectedAirports, setSelectedAirports] = useState<string[]>([]);
   const [selectedfoodOptions, setSelectedfoodOptions] = useState<string[]>([]);
@@ -30,7 +30,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const [offset, setOffset] = useState(initialTrips.length);
   const [hasMore, setHasMore] = useState(initialTrips.length === LIMIT);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [activeTab, setActiveTab] = useState<Tab>('all');
+  const [activeTab, setActiveTab] = useState<Tab>('active');
   const isComplitedTab = activeTab === 'completed';
   const isActiveTab = activeTab === 'active';
 
@@ -49,7 +49,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           food: selectedfoodOptions,
           search,
           limit: LIMIT,
-          offset: reset ? 0 : offset
+          offset: reset ? 0 : offset,
         });
 
         if (reset) {
@@ -60,7 +60,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           setTrips((prev) => {
             const uniqueTrips = [
               ...prev,
-              ...response.filter((trip) => !prev.some((t) => t.id === trip.id))
+              ...response.filter((trip) => !prev.some((t) => t.id === trip.id)),
             ];
             return uniqueTrips;
           });
@@ -77,8 +77,8 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
       selectedfoodOptions,
       search,
       offset,
-      loading
-    ]
+      loading,
+    ],
   );
 
   const handleSearch = async () => {
@@ -93,7 +93,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
 
         window.scrollTo({
           top: offsetPosition,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
     }
@@ -114,7 +114,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           fetchTrips();
         }
       },
-      { root: null, rootMargin: '400px', threshold: 1.0 }
+      { root: null, rootMargin: '400px', threshold: 1.0 },
     );
 
     const currentRef = observerRef.current;
@@ -177,7 +177,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
             endDate,
             image,
             shortDescription,
-            expired
+            expired,
           }) => (
             <Card
               id={id}
@@ -191,7 +191,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
               variant="large"
               expired={expired}
             />
-          )
+          ),
         )}
         {loading &&
           Array.from({ length: LIMIT }).map((_, index) => (
