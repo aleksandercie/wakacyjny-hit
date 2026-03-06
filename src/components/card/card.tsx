@@ -12,7 +12,7 @@ export const Card = ({
   photo,
   description,
   variant,
-  expired
+  expired,
 }: {
   id: string | number;
   title: string;
@@ -29,7 +29,7 @@ export const Card = ({
 
   return (
     <div className="relative w-full">
-      <Link href={`${OFFERS}/${id}`} className="w-full">
+      <Link href={`${OFFERS}/${encodeURIComponent(id)}`} className="w-full">
         <div className={`overflow-hidden rounded-md aspect-[3/2]`}>
           <Image
             src={photo}

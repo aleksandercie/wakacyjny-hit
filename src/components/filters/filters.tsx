@@ -43,7 +43,7 @@ export const Filters = ({
   search,
   setSearch,
   activeTab,
-  setActiveTab,
+  onTabChange,
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
@@ -58,7 +58,7 @@ export const Filters = ({
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   activeTab: Tab;
-  setActiveTab: Dispatch<SetStateAction<Tab>>;
+  onTabChange: (tab: Tab) => void;
 }) => {
   const activeFiltersCount =
     (priceRange[0] !== defaultPriceRange[0] ||
@@ -213,7 +213,7 @@ export const Filters = ({
         {tabs.map(({ name, value }) => (
           <Button
             key={value}
-            onClick={() => setActiveTab(value)}
+            onClick={() => onTabChange(value)}
             variant={activeTab === value ? 'active' : 'tab'}
           >
             {name}

@@ -4,6 +4,7 @@ import {
   BedDouble,
   Bus,
   CalendarDays,
+  ChevronRight,
   CircleCheck,
   Clock10,
   HandCoins,
@@ -357,6 +358,14 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         height={500}
         className={`rounded-md max-h-[500px] ${expired ? 'opacity-40' : ''}`}
       />
+      <div className="flex items-center gap-1 justify-start w-full">
+        <Button onClick={() => router.back()} variant="link" className="p-0">
+          <span className="text-2xl font-medium">Wakacyjne hity</span>
+        </Button>
+        <ChevronRight size={20} className="text-gray-500" />
+        <h1 className="text-2xl font-semibold"> {title}</h1>
+      </div>
+
       <div className="flex gap-8">
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">
           <div className="flex flex-col gap-8">
@@ -384,7 +393,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
               orientation="horizontal"
               className="h-[1px] bg-gray-300"
             />
-            <h1 className="text-2xl">{title}</h1>
+
             <p className="text-gray-500">{longDescription}</p>
             <Separator
               orientation="horizontal"

@@ -34,19 +34,21 @@ export async function GET(req: Request) {
   const to = searchParams.get('to');
   const departures = searchParams.getAll('departures');
   const food = searchParams.getAll('food');
+  const expired = searchParams.get('expired');
 
-  const limit = Number(searchParams.get('limit')) || 6;
+  const limit = Number(searchParams.get('limit')) || 9;
   const offset = Number(searchParams.get('offset')) || 0;
 
   // Append .range() to paginate
   let query = supabase
     .from('trips_offers')
-    .select('*')
+    .select('*', { count: 'exact' })
     .gte('price', minPrice)
     .lte('price', maxPrice)
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1);
   // search for title and tags
+
   if (search) {
     query = query.or(`title.ilike.%${search}%,tags.cs.{${search}}`);
   }
@@ -62,7 +64,13 @@ export async function GET(req: Request) {
     query = query.overlaps('food', food);
   }
 
-  const { data, error } = await query;
+  if (expired === 'true') {
+    query = query.eq('expired', true);
+  } else if (expired === 'false') {
+    query = query.eq('expired', false);
+  }
+
+  const { data, error, count } = await query;
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -74,5 +82,5 @@ export async function GET(req: Request) {
     return rest;
   });
 
-  return NextResponse.json(sanitizedData);
+  return NextResponse.json({ trips: sanitizedData, total: count });
 }

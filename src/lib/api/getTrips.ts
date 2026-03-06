@@ -8,7 +8,8 @@ export const getTrips = async (filters?: {
   search?: string;
   limit?: number;
   offset?: number;
-}): Promise<Trip[]> => {
+  expired?: boolean;
+}): Promise<{ trips: Trip[]; total: number }> => {
   const params = new URLSearchParams();
 
   if (filters?.search) params.set('search', filters.search);
@@ -21,6 +22,10 @@ export const getTrips = async (filters?: {
 
   filters?.departures?.forEach((a) => params.append('departures', a));
   filters?.food?.forEach((e) => params.append('food', e));
+
+  if (typeof filters?.expired === 'boolean') {
+    params.set('expired', String(filters.expired));
+  }
 
   if (filters?.limit) params.set('limit', String(filters.limit));
   if (filters?.offset) params.set('offset', String(filters.offset));

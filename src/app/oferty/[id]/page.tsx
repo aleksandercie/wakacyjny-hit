@@ -35,19 +35,21 @@ export async function generateMetadata({ params }: OfferPageProps) {
 
 export default async function OfferPage({ params }: OfferPageProps) {
   const { id } = await params;
+
+  let trip;
   try {
-    const trip = await getTripById(id);
-
-    if (!trip) return notFound();
-
-    return (
-      <div className="font-[family-name:var(--font-nunito-sans)]">
-        <main className="flex flex-col p-2 gap-8 items-center max-w-[1000px] mx-auto mb-12">
-          <OfferDetails trip={trip} />
-        </main>
-      </div>
-    );
+    trip = await getTripById(id);
   } catch {
     return notFound();
   }
+
+  if (!trip) return notFound();
+
+  return (
+    <div className="font-[family-name:var(--font-nunito-sans)]">
+      <main className="flex flex-col p-2 gap-8 items-center max-w-[1000px] mx-auto mb-12">
+        <OfferDetails trip={trip} />
+      </main>
+    </div>
+  );
 }

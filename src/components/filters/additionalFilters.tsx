@@ -15,7 +15,7 @@ export const AdditionalFilters = ({
   selectedfoodOptions,
   setSelectedfoodOptions,
   airportOptions,
-  foodOptions
+  foodOptions,
 }: {
   priceRange: number[];
   setPriceRange: Dispatch<SetStateAction<number[]>>;
@@ -26,7 +26,7 @@ export const AdditionalFilters = ({
   airportOptions: { label: string; value: string }[];
   foodOptions: { label: string; value: string }[];
 }) => {
-  const [newPriceRange, setNewPriceRange] = useState(defaultPriceRange);
+  const [newPriceRange, setNewPriceRange] = useState(priceRange);
 
   const setMaxPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9.]/g, '');

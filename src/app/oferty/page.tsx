@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import { OffersList } from '@/components';
 import { getTrips } from '@/lib/api/getTrips';
 import { createMetadata } from '@/lib/seo';
+import { CardSkeleton } from '@/components/card';
 
 export const generateMetadata = () =>
   createMetadata({
@@ -17,12 +19,22 @@ export const generateMetadata = () =>
   });
 
 export default async function OffersPage() {
-  const trips = await getTrips({ limit: 6, offset: 0 });
+  const { trips = [] } = await getTrips({ limit: 6, offset: 0 });
 
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col p-2 gap-8 md:gap-12 items-center mb-12">
-        <OffersList initialTrips={trips} />
+        <Suspense
+          fallback={
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <CardSkeleton key={i} />
+              ))}
+            </div>
+          }
+        >
+          <OffersList initialTrips={trips} />
+        </Suspense>
       </main>
     </div>
   );
