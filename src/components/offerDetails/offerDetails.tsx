@@ -320,7 +320,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           W koszyku znajduje się maksymalna ilość ofert.
         </p>
       )}
-      {isViewingTime && (
+      {isViewingTime && !expired && (
         <p className="text-muted text-sm">{formatViewersText(viewersCount)}</p>
       )}
       <Button disabled={isDisabledButton} variant="secondary">
