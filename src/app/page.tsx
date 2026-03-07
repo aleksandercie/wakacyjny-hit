@@ -25,7 +25,11 @@ export const generateMetadata = () =>
   });
 
 export default async function Home() {
-  const { trips = [] } = await getTrips({ limit: 8, offset: 0 });
+  const { trips = [] } = await getTrips({
+    limit: 8,
+    offset: 0,
+    expired: false,
+  });
 
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
