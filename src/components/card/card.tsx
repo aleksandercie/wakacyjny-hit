@@ -50,11 +50,13 @@ export const Card = ({
           </span>
         )}
         <div className="flex flex-col bg-background w-full p-2 bottom-2 text-base gap-1">
-          <p className="text-base">{title}</p>
-          <p className="text-muted text-sm">{date}</p>
-          <p className="text-muted text-sm">od {price} zł/os</p>
+          <p className="text-lg">{title}</p>
+          <p className="text-muted text-base">{date}</p>
+          <p className="text-primary text-base font-semibold">
+            od {price} zł/os
+          </p>
           {description && (
-            <p className="text-muted text-sm w-4/5">{description}</p>
+            <p className="text-muted text-base w-4/5">{description}</p>
           )}
         </div>
       </Link>

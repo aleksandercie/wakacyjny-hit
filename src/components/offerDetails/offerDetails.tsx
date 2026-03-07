@@ -405,7 +405,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
             />
           </div>
           <div className="flex flex-col gap-8">
-            <h2 className="text-xl">Szczegóły oferty</h2>
+            <h2 className="text-xl text-primary">Szczegóły oferty</h2>
             <div className="flex flex-col gap-8">
               {details?.map(
                 ({ title, details, icon }) =>
