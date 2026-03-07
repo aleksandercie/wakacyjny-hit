@@ -23,7 +23,7 @@ export default function TermsPage() {
         <div className="max-w-[1000px] mx-auto flex flex-col gap-6 text-base text-muted">
           <div className="flex flex-col">
             <h2 className="text-center text-xl font-bold">Regulamin serwisu</h2>
-            <p className="text-center">wakacyjnyhit.pl</p>
+            <p className="text-center">wakacyjnyhit.com</p>
           </div>
           <section>
             <h3 className="font-bold mb-4">SPIS TREŚCI</h3>
@@ -99,7 +99,7 @@ export default function TermsPage() {
               regulamin. <br />
               <span className="font-bold mb-4">Serwis</span> - serwis
               internetowy Wakacyjny hit, prowadzony przez Usługodawcę pod
-              adresem wakacyjnyhit.pl w ramach, którego dostępne są informacje
+              adresem wakacyjnyhit.com w ramach, którego dostępne są informacje
               dotyczące Usług hotelowych oraz Usług lotniczych w atrakcyjnych, w
               ocenie Usługodawcy, cenach. <br />
               <span className="font-bold mb-4">Usługobiorca</span> - każdy

@@ -17,7 +17,7 @@ export const Faq = () => {
     {
       question: 'Czy jesteśmy biurem podróży?',
       answers: [
-        'Wakacyjnyhit.pl nie jest biurem podróży. Specjalizujemy się w wyszukiwaniu okazji podróżniczych, takich jak tanie loty, promocje hotelowe i transfery. Nasza rola polega na przygotowaniu propozycji wyjazdów i przekazaniu klientom szczegółowych instrukcji, jak samodzielnie zarezerwować podróż. Wspieramy na każdym etapie, od planowania po pobyt w miejscu docelowym.',
+        'Wakacyjnyhit.com nie jest biurem podróży. Specjalizujemy się w wyszukiwaniu okazji podróżniczych, takich jak tanie loty, promocje hotelowe i transfery. Nasza rola polega na przygotowaniu propozycji wyjazdów i przekazaniu klientom szczegółowych instrukcji, jak samodzielnie zarezerwować podróż. Wspieramy na każdym etapie, od planowania po pobyt w miejscu docelowym.',
         'Zgodnie z ustawą z dnia 24 listopada 2017 roku o imprezach turystycznych i powiązanych usługach turystycznych, nie pełnimy roli organizatora imprez turystycznych. Nasze usługi są skierowane do osób, które chcą samodzielnie planować i rezerwować podróże, korzystając z naszego doświadczenia w wyszukiwaniu najlepszych ofert.',
       ],
     },

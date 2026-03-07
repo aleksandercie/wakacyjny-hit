@@ -47,7 +47,9 @@ export const Footer = () => {
         </div>
         <NewsletterForm />
       </div>
-      <p className="text-center text-base text-muted">© WakacyjnyHit.pl 2026</p>
+      <p className="text-center text-base text-muted">
+        © WakacyjnyHit.com 2026
+      </p>
     </div>
   );
 };

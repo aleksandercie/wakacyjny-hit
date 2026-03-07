@@ -28,9 +28,9 @@ export default function PrivacyPolicyPage() {
         <div className="max-w-[1000px] mx-auto flex flex-col gap-4 text-base text-muted">
           <div className="flex flex-col gap-2">
             <h2 className="text-center text-xl font-bold">
-              Polityka prywatności serwisu wakacyjnyhit.pl
+              Polityka prywatności serwisu wakacyjnyhit.com
             </h2>
-            <p className="text-center font-bold">wakacyjnyhit.pl</p>
+            <p className="text-center font-bold">wakacyjnyhit.com</p>
             <p className="text-center font-bold">(&quot;Serwis&quot;)</p>
           </div>
           <section className="mb-4 text-sm md:text-base">

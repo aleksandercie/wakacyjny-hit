@@ -38,7 +38,7 @@ export default function HowItWorksPage() {
             przygoda, którą chcemy przeżyć razem z Wami.
           </p>
           <p className="text-base text-muted">
-            Wakacyjnyhit.pl to zespół specjalistów, którzy pomagają w
+            Wakacyjnyhit.com to zespół specjalistów, którzy pomagają w
             wyszukiwaniu najlepszych okazji na przeloty, hotele oraz transfery.
             Nasza rola polega na wsparciu w planowaniu podróży, pomocy w
             samodzielnym zorganizowaniu oraz zarezerwowaniu wyjazdu. Nie
