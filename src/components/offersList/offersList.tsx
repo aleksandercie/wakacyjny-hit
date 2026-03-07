@@ -19,6 +19,7 @@ import {
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 const LIMIT = 9;
+const MOBILE_LIMIT = 8;
 
 // Helper: build URLSearchParams from current filter state
 const buildParams = ({
@@ -60,6 +61,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const initializedRef = useRef(false);
+  const limit = window.innerWidth > 1023 ? LIMIT : MOBILE_LIMIT;
 
   // Initialize state from URL params
   const [priceRange, setPriceRange] = useState<number[]>(() => {
@@ -108,7 +110,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const [loading, setLoading] = useState(hasUrlFilters);
   const [total, setTotal] = useState(0);
 
-  const totalPages = Math.ceil(total / LIMIT);
+  const totalPages = Math.ceil(total / limit);
 
   // Update URL without navigation (shallow)
   const updateUrl = useCallback(
@@ -140,14 +142,14 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
     }) => {
       setLoading(true);
       try {
-        const offset = (page - 1) * LIMIT;
+        const offset = (page - 1) * limit;
         const { trips: fetchedTrips, total: fetchedTotal } = await getTrips({
           priceRange: priceRangeVal,
           date: dateVal,
           departures: airportsVal,
           food: foodVal,
           search: searchVal,
-          limit: LIMIT,
+          limit: limit,
           offset,
           expired:
             tabVal === 'completed'
@@ -344,7 +346,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           ),
         )}
         {loading &&
-          Array.from({ length: LIMIT }).map((_, index) => (
+          Array.from({ length: limit }).map((_, index) => (
             <CardSkeleton key={index} />
           ))}
       </div>

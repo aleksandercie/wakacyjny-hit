@@ -360,10 +360,14 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       />
       <div className="flex items-center gap-1 justify-start w-full">
         <Button onClick={() => router.back()} variant="link" className="p-0">
-          <span className="text-2xl font-medium">Wakacyjne hity</span>
+          <span className="text-lg md:text-2xl font-medium">
+            Wakacyjne hity
+          </span>
         </Button>
-        <ChevronRight size={20} className="text-gray-500" />
-        <h1 className="text-2xl font-semibold"> {title}</h1>
+        <div className="w-5 h-5">
+          <ChevronRight size={20} className="text-gray-500 w-5 h-5" />
+        </div>
+        <h1 className="text-lg md:text-2xl font-semibold"> {title}</h1>
       </div>
 
       <div className="flex gap-8">
