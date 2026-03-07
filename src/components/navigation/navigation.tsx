@@ -7,10 +7,11 @@ import { ThemeSwitcher } from './themeSwitcher';
 import { ROUTES } from '@/lib/routes';
 
 export const Navigation = () => {
-  const { OFFERS, ABOUT_US, FAQ, CONTACT } = ROUTES;
+  const { OFFERS, ABOUT_US, FAQ, CONTACT, HOW_IT_WORKS } = ROUTES;
   const links = [
     { name: 'Oferty', link: OFFERS },
     { name: 'O nas', link: ABOUT_US },
+    { name: 'Jak to działa?', link: HOW_IT_WORKS },
     { name: 'FAQ', link: FAQ },
     { name: 'Kontakt', link: CONTACT },
   ];
