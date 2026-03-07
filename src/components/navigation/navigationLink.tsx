@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 export const NavigationLink = ({
   name,
   link,
-  onClick
+  onClick,
 }: {
   name: string;
   link: string;
@@ -19,7 +19,7 @@ export const NavigationLink = ({
   return (
     <Link
       href={link}
-      className={`font-bold text-black hover:text-primary focus:text-primary text-l ${
+      className={`font-bold text-foreground hover:text-primary focus:text-primary text-l ${
         isActive ? 'text-primary' : ''
       }`}
       onClick={onClick}

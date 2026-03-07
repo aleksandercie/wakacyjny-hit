@@ -7,10 +7,11 @@ import { Button } from '@/components/ui/button';
 import { NavigationLink } from './navigationLink';
 import { Logo } from '../logo';
 import { NavigationBadge } from './navigationBadge';
+import { ThemeSwitcher } from './themeSwitcher';
 import { ROUTES } from '@/lib/routes';
 
 export const MobileNavigation = ({
-  links
+  links,
 }: {
   links: { name: string; link: string }[];
 }) => {
@@ -35,7 +36,7 @@ export const MobileNavigation = ({
     <Button variant="link">
       <Link
         href={CART}
-        className="flex gap-2 items-center font-bold text-black hover:text-primary focus:text-primary text-l relative"
+        className="flex gap-2 items-center font-bold text-foreground hover:text-primary focus:text-primary text-l relative"
         onClick={closeMenu}
       >
         {displayName ? 'Koszyk' : ''}
@@ -49,13 +50,14 @@ export const MobileNavigation = ({
     <div className="w-full flex justify-between md:hidden">
       <Logo style="block" onClick={closeMenu} />
       <div className="flex gap-2 items-center">
+        <ThemeSwitcher />
         {menuOpen ? null : cartButton(false)}
         <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle Menu">
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
       {menuOpen && (
-        <div className="absolute top-12 left-0 w-full bg-white p-8 md:hidden h-screen">
+        <div className="absolute top-12 left-0 w-full bg-background p-8 md:hidden h-screen">
           <ul className="flex flex-col gap-4 items-center">
             {links.map(({ name, link }) => (
               <li key={name}>

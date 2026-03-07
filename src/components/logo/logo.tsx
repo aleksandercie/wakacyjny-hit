@@ -14,7 +14,7 @@ export const Logo: React.FC<LogoProps> = ({ style, onClick }) => {
   return (
     <Link
       href={HOME}
-      className={`font-bold text-black text-xl ${style}`}
+      className={`font-bold text-foreground text-xl ${style}`}
       onClick={onClick}
     >
       <Image

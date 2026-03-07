@@ -6,7 +6,7 @@ export const CardSkeleton = () => {
       <div className="overflow-hidden rounded-md">
         <Skeleton className="h-[250px] w-full rounded-md" />
       </div>
-      <div className="flex flex-col bg-white w-full p-2 bottom-2 text-base gap-1">
+      <div className="flex flex-col bg-background w-full p-2 bottom-2 text-base gap-1">
         <Skeleton className="h-5 w-3/4" />
         <Skeleton className="h-4 w-1/2" />
         <Skeleton className="h-4 w-1/3" />

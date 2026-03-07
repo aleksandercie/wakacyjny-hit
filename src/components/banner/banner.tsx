@@ -9,7 +9,7 @@ export const Banner = ({
   video,
   videoMobile,
   title,
-  description
+  description,
 }: {
   video: string;
   videoMobile: string;

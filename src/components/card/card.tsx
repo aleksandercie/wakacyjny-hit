@@ -41,15 +41,15 @@ export const Card = ({
             }`}
           />
         </div>
-        <p className="absolute top-3 left-3 bg-white py-1 px-2 rounded-3xl text-sm">
+        <p className="absolute top-3 left-3 bg-background py-1 px-2 rounded-3xl text-sm">
           {duration}
         </p>
         {expired && (
-          <span className="absolute top-3 right-3 bg-red-600/70 text-white text-sm px-2 py-1 rounded-full">
+          <span className="absolute top-3 right-3 bg-red-600/70 text-background text-sm px-2 py-1 rounded-full">
             Zakończona
           </span>
         )}
-        <div className="flex flex-col bg-white w-full p-2 bottom-2 text-base gap-1">
+        <div className="flex flex-col bg-background w-full p-2 bottom-2 text-base gap-1">
           <p className="text-base">{title}</p>
           <p className="text-gray-500 text-sm">{date}</p>
           <p className="text-gray-500 text-sm">od {price} zł/os</p>

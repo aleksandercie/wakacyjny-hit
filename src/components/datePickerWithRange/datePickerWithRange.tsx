@@ -59,7 +59,7 @@ export const DatePickerWithRange = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-0 bg-white absolute top-full left-0"
+          className="w-auto p-0 bg-background absolute top-full left-0"
           side="bottom"
           align="start"
           sideOffset={0}

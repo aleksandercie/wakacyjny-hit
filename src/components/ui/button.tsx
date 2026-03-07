@@ -10,17 +10,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-white shadow-xs hover:bg-black rounded-full cursor-pointer',
+          'bg-primary text-background shadow-xs hover:bg-foreground rounded-full cursor-pointer',
         secondary:
-          'bg-white text-primary border border-primary hover:bg-primary hover:text-white transition-colors duration-200 rounded-full cursor-pointer',
-        link: 'text-black hover:text-primary cursor-pointer',
+          'bg-background text-primary border border-primary hover:bg-primary hover:text-background transition-colors duration-200 rounded-full cursor-pointer',
+        link: 'text-foreground hover:text-primary cursor-pointer',
         outline:
-          'border bg-background shadow-xs cursor-pointer text-gray-500 hover:text-black',
+          'border bg-background shadow-xs cursor-pointer text-gray-500 hover:text-foreground',
         tertiary:
-          'bg-white text-black hover:bg-primary hover:text-white transition-colors duration-200 rounded-full cursor-pointer',
-        tab: 'text-gray-500 hover:text-black cursor-pointer rounded-full border hover:text-black',
+          'bg-background text-foreground hover:bg-primary hover:text-background transition-colors duration-200 rounded-full cursor-pointer',
+        tab: 'text-gray-500 hover:text-foreground cursor-pointer rounded-full border hover:text-foreground',
         active:
-          'bg-primary text-white border-primary hover:bg-primary hover:text-white cursor-pointer rounded-full',
+          'bg-primary text-background border-primary hover:bg-primary hover:text-background cursor-pointer rounded-full',
         ghost: 'hover:bg-accent hover:font-medium cursor-pointer',
         paggination: 'hover:text-primary hover:font-medium cursor-pointer',
       },

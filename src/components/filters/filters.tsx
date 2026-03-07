@@ -105,7 +105,7 @@ export const Filters = ({
 
   return (
     <div className="flex flex-col items-center gap-6 md:gap-8 w-full px-2 md:px-0">
-      <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-3 md:border-b gap-4 md:gap-0 justify-between md:items-center">
+      <div className="md:max-w-[720px] w-full flex flex-col md:flex-row md:p-3 md:border-b border-gray-500 gap-4 md:gap-0 justify-between md:items-center">
         <div className=" flex items-center w-full md:w-[260px] relative">
           <Search className="absolute md:relative" size={16} />
           <Input
@@ -148,8 +148,8 @@ export const Filters = ({
                 </Button>
               </DialogTrigger>
               <DialogPortal>
-                <div className="fixed inset-0 bg-black/10 backdrop-blur-[2px] z-110 w-full h-screen" />
-                <DialogContent className="fixed z-120 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
+                <div className="fixed inset-0 bg-foreground/10 backdrop-blur-[2px] z-110 w-full h-screen" />
+                <DialogContent className="fixed z-120 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background p-6 rounded-lg shadow-lg">
                   <DialogHeader>
                     <DialogTitle>Filtry</DialogTitle>
                   </DialogHeader>
@@ -158,7 +158,7 @@ export const Filters = ({
                     <DialogClose asChild>
                       <Button
                         onClick={reset}
-                        className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
+                        className="p-0 bg-transparent border-none shadow-none text-foreground hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
                       >
                         Wyczyść
                       </Button>
@@ -197,7 +197,7 @@ export const Filters = ({
         <div className="flex flex-col gap-2">
           <Button
             onClick={resetAll}
-            className="p-0 bg-transparent border-none shadow-none text-black hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none block md:hidden"
+            className="p-0 bg-transparent border-none shadow-none text-foreground hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none block md:hidden"
           >
             Wyczyść wszystko
           </Button>

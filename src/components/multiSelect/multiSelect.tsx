@@ -14,7 +14,7 @@ export const MultiSelect = ({
   options,
   selected,
   setSelected,
-  placeholder
+  placeholder,
 }: {
   options: { label: string; value: string }[];
   selected: string[];
@@ -24,7 +24,7 @@ export const MultiSelect = ({
   const [searchText, setSearchText] = useState('');
 
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchText.toLowerCase())
+    option.label.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   return (
@@ -48,10 +48,10 @@ export const MultiSelect = ({
         side="bottom"
         align="start"
         avoidCollisions={false}
-        className="p-2 bg-white"
+        className="p-2 bg-background"
         style={{
           minWidth: 'var(--radix-popover-trigger-width)',
-          zIndex: '135'
+          zIndex: '135',
         }}
       >
         <Input
@@ -78,7 +78,7 @@ export const MultiSelect = ({
                   setSelected((prev) =>
                     prev.includes(option.value)
                       ? prev.filter((val) => val !== option.value)
-                      : [...prev, option.value]
+                      : [...prev, option.value],
                   );
                 }}
                 onKeyDown={(e) => {
@@ -86,7 +86,7 @@ export const MultiSelect = ({
                     setSelected((prev) =>
                       prev.includes(option.value)
                         ? prev.filter((val) => val !== option.value)
-                        : [...prev, option.value]
+                        : [...prev, option.value],
                     );
                   }
                 }}
@@ -98,7 +98,7 @@ export const MultiSelect = ({
                     setSelected((prev) =>
                       prev.includes(option.value)
                         ? prev.filter((val) => val !== option.value)
-                        : [...prev, option.value]
+                        : [...prev, option.value],
                     );
                   }}
                   className="hidden"

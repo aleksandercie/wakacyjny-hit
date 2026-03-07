@@ -23,3 +23,4 @@ export * from './cart';
 export * from './newsletter';
 export * from './unsubscribe';
 export * from './cookies';
+export * from './themeProvider';

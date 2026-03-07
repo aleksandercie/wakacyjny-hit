@@ -18,7 +18,7 @@ export const generateMetadata = () =>
 export default function CartPage() {
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
-      <main className="flex flex-col gap-8 md:gap-12 p-2 bg-gray-100 pb-12">
+      <main className="flex flex-col gap-8 md:gap-12 p-2 bg-gray-100 pb-12 dark:bg-background">
         <Cart />
       </main>
     </div>

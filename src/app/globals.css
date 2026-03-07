@@ -2,12 +2,27 @@
 
 @plugin "tailwindcss-animate";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --font-sans: var(--font-nunito-sans);
   --color-primary: #f85808;
   --color-accent: #f3f4f6;
+  --color-background: #ffffff;
+  --color-foreground: #121212;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
   --breakpoint-2xs: 320px;
   --breakpoint-xs: 480px;
+}
+
+.dark {
+  --color-primary: #f85808;
+  --color-accent: #1f2937;
+  --color-background: #121212;
+  --color-foreground: #ffffff;
+  --color-muted: #94a3b8;
+  --color-border: #334155;
 }
 
 
@@ -25,7 +40,7 @@
 
 .policy-table th,
 .policy-table td {
-  border: 1px solid black;
+  border: 1px solid var(--color-foreground);
   text-align: center;
   vertical-align: middle;
   font-size: 0.625rem;

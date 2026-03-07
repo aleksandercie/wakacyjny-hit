@@ -47,43 +47,43 @@ export const Gallery = () => {
       country: 'Japonia',
       photo: '/kyoto.jpg',
       width: 'w-full md:w-[53%]',
-      position: 'left'
+      position: 'left',
     },
     {
       location: '',
       country: 'Tanzania',
       photo: '/tanzania.jpg',
       width: 'w-full md:w-[44%]',
-      position: 'left'
+      position: 'left',
     },
     {
       location: '',
       country: 'Mauritius',
       photo: '/mauritius.jpg',
       width: 'w-full md:w-[44%]',
-      position: 'right'
+      position: 'right',
     },
     {
       location: 'Sydney',
       country: 'Australia',
       photo: '/sydney.jpg',
       width: 'w-full md:w-[53%]',
-      position: 'right'
+      position: 'right',
     },
     {
       location: 'Dubai',
       country: 'Zjednoczone Emiraty Arabskie',
       photo: '/dubai.jpg',
       width: 'w-full md:w-[53%]',
-      position: 'left'
+      position: 'left',
     },
     {
       location: 'Bali',
       country: 'Indonezja',
       photo: '/bali.jpg',
       width: 'w-full md:w-[44%]',
-      position: 'left'
-    }
+      position: 'left',
+    },
   ];
 
   return (

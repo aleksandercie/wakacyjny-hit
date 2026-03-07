@@ -12,7 +12,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '../ui/select';
 import { DateOfBirthPicker } from '../dateOfBirthPicker';
 import { quantityOptions } from '@/lib/quantityOptions';
@@ -24,7 +24,7 @@ type TouchedRoomsMap = {
 export const OrderDetailsSection = ({
   cart,
   updateCartItem,
-  removeItemCart
+  removeItemCart,
 }: {
   cart: CartItem[];
   updateCartItem: (item: CartItem) => void;
@@ -35,7 +35,7 @@ export const OrderDetailsSection = ({
   const handleRoomTouch = (itemId: string, roomIndex: number) => {
     setTouchedRooms((prev) => ({
       ...prev,
-      [itemId]: new Set([...(prev[itemId] ?? []), roomIndex])
+      [itemId]: new Set([...(prev[itemId] ?? []), roomIndex]),
     }));
   };
 
@@ -43,7 +43,7 @@ export const OrderDetailsSection = ({
     touchedRooms[item.id]?.size === item.roomsDetails.length;
 
   return (
-    <div className="flex flex-col gap-4 p-4 rounded-md bg-white">
+    <div className="flex flex-col gap-4 p-4 rounded-md bg-background dark:border dark:border-gray-500">
       <div className="flex flex-col gap-2">
         <h3 className="text-2xl font-bold pt-4 lg:pt-0 max-w-[390px]">
           Informacje dotyczące zamówienia{' '}
@@ -77,7 +77,7 @@ export const OrderDetailsSection = ({
                 value={item.price}
                 onValueChange={async (value) => {
                   const selectedQuantity = quantityOptions.find(
-                    (option) => option.value === value
+                    (option) => option.value === value,
                   );
                   if (selectedQuantity?.id) {
                     await updateCartItem({
@@ -88,7 +88,7 @@ export const OrderDetailsSection = ({
                       qunatityId: selectedQuantity?.id,
                       salePrice: selectedQuantity?.salePrice,
                       maxPersons: selectedQuantity?.maxPersons,
-                      minPersons: selectedQuantity?.minPersons
+                      minPersons: selectedQuantity?.minPersons,
                     });
                     window.location.reload();
                   }
@@ -116,8 +116,8 @@ export const OrderDetailsSection = ({
                     rooms: value as string,
                     roomsDetails: Array.from(
                       { length: parseInt(value as string) },
-                      () => ({ adults: undefined, children: undefined })
-                    )
+                      () => ({ adults: undefined, children: undefined }),
+                    ),
                   })
                 }
               >
@@ -181,8 +181,8 @@ export const OrderDetailsSection = ({
                             roomsDetails: item.roomsDetails.map((room, i) =>
                               i === roomIndex
                                 ? { ...room, adults: value }
-                                : room
-                            )
+                                : room,
+                            ),
                           });
                         }}
                       />
@@ -226,18 +226,18 @@ export const OrderDetailsSection = ({
                                     ...room,
                                     children: Array.from(
                                       {
-                                        length: parseInt(e.target.value) || 0
+                                        length: parseInt(e.target.value) || 0,
                                       },
-                                      () => ({ dateOfBirth: '' })
-                                    )
+                                      () => ({ dateOfBirth: '' }),
+                                    ),
                                   }
-                                : room
-                            )
+                                : room,
+                            ),
                           });
                         }}
                       />
-                      {item?.roomsDetails?.[roomIndex]?.children?.length ??
-                      0 > 0 ? (
+                      {(item?.roomsDetails?.[roomIndex]?.children?.length ??
+                      0 > 0) ? (
                         <div className="gap-8 mt-4">
                           <Label
                             htmlFor={`children-dob-${item.id}-${roomIndex}`}
@@ -268,17 +268,17 @@ export const OrderDetailsSection = ({
                                                       ? {
                                                           ...c,
                                                           dateOfBirth:
-                                                            newDate.toISOString()
+                                                            newDate.toISOString(),
                                                         }
-                                                      : c
-                                                )
+                                                      : c,
+                                                ),
                                               }
-                                            : room
-                                      )
+                                            : room,
+                                      ),
                                     });
                                   }}
                                 />
-                              )
+                              ),
                             )}
                           </div>
                         </div>
@@ -293,11 +293,11 @@ export const OrderDetailsSection = ({
                 {(() => {
                   const totalAdults = item.roomsDetails.reduce(
                     (sum, room) => sum + parseInt(room.adults ?? '0'),
-                    0
+                    0,
                   );
                   const totalChildren = item.roomsDetails.reduce(
                     (sum, room) => sum + (room.children?.length || 0),
-                    0
+                    0,
                   );
                   const totalPeople = totalAdults + totalChildren;
                   const min = item.minPersons ?? 1;
@@ -308,7 +308,7 @@ export const OrderDetailsSection = ({
                       index: i + 1,
                       count:
                         parseInt(room.adults ?? '0') +
-                        (room.children?.length || 0)
+                        (room.children?.length || 0),
                     }))
                     .filter((room) => room.count < 1);
 
@@ -316,8 +316,8 @@ export const OrderDetailsSection = ({
                     .map((room, i) => ({
                       index: i + 1,
                       missing: (room.children || []).some(
-                        (child) => !child.dateOfBirth
-                      )
+                        (child) => !child.dateOfBirth,
+                      ),
                     }))
                     .filter((room) => room.missing);
 

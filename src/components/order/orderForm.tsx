@@ -1,22 +1,24 @@
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, Appearance } from '@stripe/stripe-js';
 import { OrderFormContent } from './orderFormContent';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
+import { useTheme } from 'next-themes';
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
 export const OrderForm = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const { cart } = useCart();
+  const { resolvedTheme } = useTheme();
 
   const fetchClientSecret = async () => {
     const orderItems = cart.map((item) => ({
       orderId: item.orderId,
-      quantityId: item.qunatityId
+      quantityId: item.qunatityId,
     }));
 
     const res = await fetch(
@@ -26,9 +28,9 @@ export const OrderForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           orderItems,
-          currency: 'pln'
-        })
-      }
+          currency: 'pln',
+        }),
+      },
     );
 
     const data = await res.json();
@@ -49,8 +51,19 @@ export const OrderForm = () => {
     );
   }
 
+  const appearance: Appearance = {
+    theme: resolvedTheme === 'dark' ? 'night' : 'stripe',
+    variables: {
+      colorPrimary: resolvedTheme === 'dark' ? '#ff7a3d' : '#f85808',
+    },
+  };
+
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret }}>
+    <Elements
+      stripe={stripePromise}
+      options={{ clientSecret, appearance }}
+      key={resolvedTheme}
+    >
       <OrderFormContent
         clientSecret={clientSecret}
         paymentIntentId={paymentIntentId}

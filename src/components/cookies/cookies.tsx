@@ -99,7 +99,7 @@ export const CookieConsent = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 w-full bg-white shadow-md p-4 z-50">
+    <div className="fixed bottom-0 w-full bg-background shadow-md p-4 z-50">
       <div className="flex flex-col gap-4 items-end mx-auto max-w-[1000px]">
         <p className="text-sm">
           Ta strona wykorzystuje pliki cookies do poprawnego działania, analizy

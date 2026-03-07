@@ -99,7 +99,7 @@ export const OrderSummary = ({
 
   return (
     <div
-      className={`flex flex-col rounded-md md:mx-8 lg:mx-0 lg:mt-0 lg:max-h-fit bg-white ${
+      className={`flex flex-col rounded-md md:mx-8 lg:mx-0 lg:mt-0 lg:max-h-fit bg-background dark:border dark:border-gray-500 ${
         isCartVariant
           ? 'lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-auto p-4 '
           : 'w-[320px] p-4 pr-1 border shadow-lg'
@@ -162,7 +162,7 @@ export const OrderSummary = ({
       {isCartVariant ? (
         <div className="flex flex-col gap-4 mt-6">
           {clientSecret && (
-            <div className="flex flex-col bg-white border-t border-gray-300 py-4 gap-4">
+            <div className="flex flex-col bg-background border-t border-gray-300 py-4 gap-4">
               <h2 className="text-xl font-semibold">Płatność</h2>
               <PaymentElement
                 options={paymentElementOptions}

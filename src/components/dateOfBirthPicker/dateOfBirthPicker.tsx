@@ -54,7 +54,7 @@ export const DateOfBirthPicker = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="flex w-[248px] flex-col space-y-2 p-0 bg-white absolute top-full"
+          className="flex w-[248px] flex-col space-y-2 p-0 bg-background absolute top-full"
           side="bottom"
           align="start"
           sideOffset={8}

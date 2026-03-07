@@ -5,7 +5,7 @@ import { textShadow } from '@/lib/styles';
 export const ImageBanner = async ({
   title,
   image,
-  alt
+  alt,
 }: {
   title?: string;
   image: string;

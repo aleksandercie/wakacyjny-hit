@@ -18,7 +18,7 @@ export const Cart = () => {
         </div>
       ) : cart.length === 0 ? (
         <div className="flex w-full justify-center min-h-[40vh] items-center flex-col gap-4">
-          <p className="text-center">Twój koszyk jest pusty</p>
+          <p className="text-foreground text-center">Twój koszyk jest pusty</p>
           <Link href={OFFERS}>
             <Button>Sprawdź oferty</Button>
           </Link>
