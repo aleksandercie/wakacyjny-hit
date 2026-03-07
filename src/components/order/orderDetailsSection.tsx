@@ -43,7 +43,7 @@ export const OrderDetailsSection = ({
     touchedRooms[item.id]?.size === item.roomsDetails.length;
 
   return (
-    <div className="flex flex-col gap-4 p-4 rounded-md bg-background dark:border dark:border-gray-500">
+    <div className="flex flex-col gap-4 p-4 rounded-md bg-background border border-border">
       <div className="flex flex-col gap-2">
         <h3 className="text-2xl font-bold pt-4 lg:pt-0 max-w-[390px]">
           Informacje dotyczące zamówienia{' '}
@@ -328,19 +328,19 @@ export const OrderDetailsSection = ({
                     >
                       <p className="opacity-0 h-[16px] text-xs w-full" />
                       {totalPeople < min && (
-                        <p className="text-red-600">
+                        <p className="text-destructive">
                           Minimalna liczba uczestników dla tej oferty to {min}.
                           Aktualnie przypisano {totalPeople}.
                         </p>
                       )}
                       {totalPeople > max && (
-                        <p className="text-red-600">
+                        <p className="text-destructive">
                           Maksymalna liczba uczestników dla tej oferty to {max}.
                           Aktualnie przypisano {totalPeople}.
                         </p>
                       )}
                       {emptyRooms.length > 0 && (
-                        <p className="text-red-600">
+                        <p className="text-destructive">
                           Każdy pokój musi mieć przynajmniej jedną osobę.
                           Sprawdź pokój
                           {emptyRooms.length > 1 ? 'e' : ''}:{' '}
@@ -348,7 +348,7 @@ export const OrderDetailsSection = ({
                         </p>
                       )}
                       {missingBirthDates.length > 0 && (
-                        <p className="text-red-600">
+                        <p className="text-destructive">
                           Uzupełnij daty urodzenia dzieci w pokoj
                           {missingBirthDates.length > 1 ? 'ach' : 'u'}:{' '}
                           {missingBirthDates.map((r) => r.index).join(', ')}.

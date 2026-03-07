@@ -20,7 +20,7 @@ export default function TermsPage() {
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
         <ImageBanner image="/banner.jpg" alt="Regulamin" title="Regulamin" />
-        <div className="max-w-[1000px] mx-auto flex flex-col gap-6 text-base text-gray-700">
+        <div className="max-w-[1000px] mx-auto flex flex-col gap-6 text-base text-muted">
           <div className="flex flex-col">
             <h2 className="text-center text-xl font-bold">Regulamin serwisu</h2>
             <p className="text-center">wakacyjnyhit.pl</p>

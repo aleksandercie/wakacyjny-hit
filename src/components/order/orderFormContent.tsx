@@ -147,7 +147,7 @@ export const OrderFormContent = ({
     // 4. Show success
     toast.success('Sukces!', {
       description: 'Dziękujemy za złożenie zamówienia!',
-      icon: <CircleCheck className="text-green-500" size={16} />,
+      icon: <CircleCheck className="text-success" size={16} />,
       dismissible: true,
       duration: 2000,
     });

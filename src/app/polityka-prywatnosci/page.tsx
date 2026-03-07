@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
           title="Polityka prywatności"
         />
 
-        <div className="max-w-[1000px] mx-auto flex flex-col gap-4 text-base text-gray-700">
+        <div className="max-w-[1000px] mx-auto flex flex-col gap-4 text-base text-muted">
           <div className="flex flex-col gap-2">
             <h2 className="text-center text-xl font-bold">
               Polityka prywatności serwisu wakacyjnyhit.pl

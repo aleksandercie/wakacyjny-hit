@@ -352,7 +352,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
       </div>
       {!loading && trips.length === 0 && (
         <div className="min-h-[121px]" id="show-items">
-          <p className="text-center text-gray-500 py-6">
+          <p className="text-center text-muted py-6">
             Brak ofert spełniających wybrane kryteria.
           </p>
         </div>

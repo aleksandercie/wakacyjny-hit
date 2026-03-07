@@ -23,7 +23,7 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="w-full bg-foreground dark:bg-background flex flex-col text-background dark:text-foreground gap-12 p-8 dark:border-t dark:border-gray-500">
+    <div className="w-full bg-foreground dark:bg-background flex flex-col text-background dark:text-foreground gap-12 p-8 border-t border-border">
       <div className="flex flex-col lg:flex-row gap-12 justify-between mb-8">
         <div className="flex flex-col md:flex-row gap-12 md:mx-auto">
           {sections.map(({ title, links }) => (
@@ -34,7 +34,7 @@ export const Footer = () => {
                   <li key={name}>
                     <Link
                       href={link}
-                      className="text-base text-gray-500 hover:text-primary focus:text-primary"
+                      className="text-base text-muted hover:text-primary focus:text-primary"
                     >
                       {name}
                     </Link>
@@ -47,9 +47,7 @@ export const Footer = () => {
         </div>
         <NewsletterForm />
       </div>
-      <p className="text-center text-base text-gray-500">
-        © WakacyjnyHit.pl 2026
-      </p>
+      <p className="text-center text-base text-muted">© WakacyjnyHit.pl 2026</p>
     </div>
   );
 };

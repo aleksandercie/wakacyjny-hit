@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export const Unsubscribe = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
-    'loading'
+    'loading',
   );
   const params = useSearchParams();
 
@@ -22,7 +22,7 @@ export const Unsubscribe = () => {
       const res = await fetch('/api/newsletter/unsubscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
+        body: JSON.stringify({ token }),
       });
 
       setStatus(res.ok ? 'success' : 'error');
@@ -40,14 +40,14 @@ export const Unsubscribe = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       {status === 'loading' && (
-        <p className="text-gray-500">Przetwarzanie rezygnacji...</p>
+        <p className="text-muted">Przetwarzanie rezygnacji...</p>
       )}
       {status === 'success' && (
         <>
-          <h1 className="text-2xl font-bold text-green-500">
+          <h1 className="text-2xl font-bold text-success">
             Zrezygnowano z subskrypcji
           </h1>
-          <p className="text-gray-500">
+          <p className="text-muted">
             Twój adres email został usunięty z naszej listy.
           </p>
           {buttonHomepage}
@@ -55,8 +55,8 @@ export const Unsubscribe = () => {
       )}
       {status === 'error' && (
         <>
-          <h1 className="text-2xl font-bold text-red-500">Ups!</h1>
-          <p className="text-gray-500">Link jest nieprawidłowy lub wygasł.</p>
+          <h1 className="text-2xl font-bold text-destructive">Ups!</h1>
+          <p className="text-muted">Link jest nieprawidłowy lub wygasł.</p>
           {buttonHomepage}
         </>
       )}

@@ -126,7 +126,7 @@ export const CustomerInfoSection = ({
   }, [watchAllFields]);
 
   return (
-    <div className="flex flex-col gap-8 p-4 pb-8 rounded-md bg-background dark:border dark:border-gray-500">
+    <div className="flex flex-col gap-8 p-4 pb-8 rounded-md bg-background border border-border">
       <h2 className="text-2xl font-bold">Dane do zamówienia</h2>
       <div className="flex flex-col gap-4">
         <div>
@@ -138,7 +138,7 @@ export const CustomerInfoSection = ({
             maxLength={254}
           />
           {errors.email && (
-            <p className="text-red-600 text-sm">{errors.email.message}</p>
+            <p className="text-destructive text-sm">{errors.email.message}</p>
           )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -151,7 +151,7 @@ export const CustomerInfoSection = ({
               maxLength={50}
             />
             {errors.firstName && (
-              <p className="text-red-600 text-sm">{errors.firstName.message}</p>
+              <p className="text-destructive text-sm">{errors.firstName.message}</p>
             )}
           </div>
           <div>
@@ -163,7 +163,7 @@ export const CustomerInfoSection = ({
               maxLength={50}
             />
             {errors.lastName && (
-              <p className="text-red-600 text-sm">{errors.lastName.message}</p>
+              <p className="text-destructive text-sm">{errors.lastName.message}</p>
             )}
           </div>
         </div>
@@ -195,7 +195,7 @@ export const CustomerInfoSection = ({
               )}
             />
             {errors.country && (
-              <p className="text-red-600 text-sm">{errors.country.message}</p>
+              <p className="text-destructive text-sm">{errors.country.message}</p>
             )}
           </div>
           <div>
@@ -214,7 +214,7 @@ export const CustomerInfoSection = ({
               className="mt-2"
             />
             {errors.postalCode && (
-              <p className="text-red-600 text-sm">
+              <p className="text-destructive text-sm">
                 {errors.postalCode.message}
               </p>
             )}
@@ -229,7 +229,7 @@ export const CustomerInfoSection = ({
             maxLength={100}
           />
           {errors.city && (
-            <p className="text-red-600 text-sm">{errors.city.message}</p>
+            <p className="text-destructive text-sm">{errors.city.message}</p>
           )}
         </div>
         <div>
@@ -241,11 +241,11 @@ export const CustomerInfoSection = ({
             maxLength={100}
           />
           {errors.address && (
-            <p className="text-red-600 text-sm">{errors.address.message}</p>
+            <p className="text-destructive text-sm">{errors.address.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="phone" className="text-gray-500 text-base">
+          <Label htmlFor="phone" className="text-muted text-base">
             Numer telefonu
           </Label>
           <div className="flex gap-2">
@@ -283,7 +283,7 @@ export const CustomerInfoSection = ({
             />
           </div>
           {(errors.prefix || errors.number) && (
-            <p className="text-red-600 text-sm">
+            <p className="text-destructive text-sm">
               {errors.prefix?.message || errors.number?.message}
             </p>
           )}
@@ -313,7 +313,7 @@ export const CustomerInfoSection = ({
                 maxLength={100}
               />
               {errors.companyName && (
-                <p className="text-red-600 text-sm">
+                <p className="text-destructive text-sm">
                   {errors.companyName.message}
                 </p>
               )}
@@ -331,7 +331,7 @@ export const CustomerInfoSection = ({
                 }}
               />
               {errors.taxId && (
-                <p className="text-red-600 text-sm max-w-[220px]">
+                <p className="text-destructive text-sm max-w-[220px]">
                   {errors.taxId.message}
                 </p>
               )}
@@ -370,7 +370,7 @@ export const CustomerInfoSection = ({
             </Label>
           </div>
           {errors.acceptedPolicy && (
-            <p className="text-red-600 text-sm">
+            <p className="text-destructive text-sm">
               {errors.acceptedPolicy.message}
             </p>
           )}

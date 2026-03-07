@@ -8,19 +8,19 @@ export const HowItWorks = async () => {
       title:
         'Dodaj interesującą Cię ofertę do koszyka, wybierając liczbę podróżnych, termin oraz rodzaj wyżywienia, jeśli oferta oferuje różne opcje.',
       description: '',
-      icon: <ShoppingCart />
+      icon: <ShoppingCart />,
     },
     {
       title: 'Wprowadź swoje dane, opłać usługę i zrealizuj zamówienie.',
       description: '',
-      icon: <FileText />
+      icon: <FileText />,
     },
     {
       title:
         'Po opłaceniu usługi, w ciągu maksymalnie 24h otrzymasz linki do rezerwacji wraz z instrukcją "gdzie kliknąć" :). Nie martw się - w razie czego pomożemy Ci przejść przez cały proces rezerwacji!',
       description: '',
-      icon: <MailCheck />
-    }
+      icon: <MailCheck />,
+    },
   ];
   const imageUrl = '/guide.jpg';
 
@@ -39,7 +39,7 @@ export const HowItWorks = async () => {
         <div className="flex items-center w-full md:w-1/2">
           <div className="flex flex-col">
             <div className="px-8 w-full">
-              <h2 className="text-base lg:text-lg text-gray-500">
+              <h2 className="text-base lg:text-lg text-muted">
                 Jak to działa?
               </h2>
               <h3 className="text-xl lg:text-4xl font-bold mt-4 max-w-[300px] lg:max-w-[400px]">
@@ -55,7 +55,7 @@ export const HowItWorks = async () => {
                   <div className="p-2 flex justify-center items-center">
                     {icon}
                   </div>
-                  <p className="text-gray-500 text-sm md:text-base">{title}</p>
+                  <p className="text-muted text-sm md:text-base">{title}</p>
                 </div>
               ))}
             </div>

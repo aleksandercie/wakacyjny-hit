@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const Contact = ({
   title,
-  footer
+  footer,
 }: {
   title: string;
   footer?: boolean;
@@ -12,7 +12,7 @@ export const Contact = ({
   const contact = [
     { link: 'facebook', icon: <Facebook />, name: 'Facebook' },
     { link: 'instagram', icon: <Instagram />, name: 'Intagram' },
-    { link: 'mail', icon: <Mail />, name: 'Mail' }
+    { link: 'mail', icon: <Mail />, name: 'Mail' },
   ];
 
   const isFooter = footer === true;
@@ -24,8 +24,8 @@ export const Contact = ({
       ) : (
         <h2 className="text-xl font-bold">{title}</h2>
       )}
-      <p className="text-base text-gray-500">+48 800 800 800</p>
-      <p className="text-base text-gray-500">info@wakacyjnyhit.pl</p>
+      <p className="text-base text-muted">+48 800 800 800</p>
+      <p className="text-base text-muted">info@wakacyjnyhit.pl</p>
       <div className="flex gap-4">
         {contact.map(({ link, icon, name }) => (
           <Link

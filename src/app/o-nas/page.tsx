@@ -29,7 +29,7 @@ export default function HowItWorksPage() {
       <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
         <ImageBanner image="/banner.jpg" alt="Plaza" title="Poznaj nas!" />
         <div className="max-w-[1000px] mx-auto flex flex-col gap-4">
-          <p className="text-base text-gray-500">
+          <p className="text-base text-muted">
             Jesteśmy pasjonatami podróży, którzy na własnej skórze odkryli setki
             miejsc na całym świecie. Dzielimy się tymi doświadczeniami,
             pomagając Wam znaleźć najlepsze oferty i stworzyć niezapomniane
@@ -37,7 +37,7 @@ export default function HowItWorksPage() {
             dostęp do najatrakcyjniejszych cen, a każda podróż to dla nas nowa
             przygoda, którą chcemy przeżyć razem z Wami.
           </p>
-          <p className="text-base text-gray-500">
+          <p className="text-base text-muted">
             Wakacyjnyhit.pl to zespół specjalistów, którzy pomagają w
             wyszukiwaniu najlepszych okazji na przeloty, hotele oraz transfery.
             Nasza rola polega na wsparciu w planowaniu podróży, pomocy w
@@ -46,7 +46,7 @@ export default function HowItWorksPage() {
             to wyłącznie podróże na własną rękę. Pamiętajcie, że ceny mogą się
             zmieniać w każdej chwili.
           </p>
-          <p className="text-base text-gray-500">
+          <p className="text-base text-muted">
             Dlaczego warto z nami? Nasza wiedza i doświadczenie pozwalają Ci
             odkryć tanie wakacje, które spełniają Twoje marzenia. Z nami nie
             tylko planujesz wyjazd, ale także doświadczasz świata w sposób,

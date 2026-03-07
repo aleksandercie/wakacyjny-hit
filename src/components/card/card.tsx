@@ -45,16 +45,16 @@ export const Card = ({
           {duration}
         </p>
         {expired && (
-          <span className="absolute top-3 right-3 bg-red-600/70 text-background text-sm px-2 py-1 rounded-full">
+          <span className="absolute top-3 right-3 bg-destructive/70 text-background text-sm px-2 py-1 rounded-full">
             Zakończona
           </span>
         )}
         <div className="flex flex-col bg-background w-full p-2 bottom-2 text-base gap-1">
           <p className="text-base">{title}</p>
-          <p className="text-gray-500 text-sm">{date}</p>
-          <p className="text-gray-500 text-sm">od {price} zł/os</p>
+          <p className="text-muted text-sm">{date}</p>
+          <p className="text-muted text-sm">od {price} zł/os</p>
           {description && (
-            <p className="text-gray-500 text-sm w-4/5">{description}</p>
+            <p className="text-muted text-sm w-4/5">{description}</p>
           )}
         </div>
       </Link>

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export const Newsletter = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
-    'loading'
+    'loading',
   );
   const params = useSearchParams();
 
@@ -23,7 +23,7 @@ export const Newsletter = () => {
       const res = await fetch('/api/newsletter/confirm', {
         method: 'POST',
         body: JSON.stringify({ token }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
 
       setStatus(res.ok ? 'success' : 'error');
@@ -41,21 +41,19 @@ export const Newsletter = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       {status === 'loading' && (
-        <p className="text-gray-500">Potwierdzanie subskrypcji...</p>
+        <p className="text-muted">Potwierdzanie subskrypcji...</p>
       )}
       {status === 'success' && (
         <>
-          <h1 className="text-2xl font-bold text-green-500">Dziękujemy!</h1>
-          <p className="text-gray-500">
-            Twoja subskrypcja została potwierdzona.
-          </p>
+          <h1 className="text-2xl font-bold text-success">Dziękujemy!</h1>
+          <p className="text-muted">Twoja subskrypcja została potwierdzona.</p>
           {buttonHomepage}
         </>
       )}
       {status === 'error' && (
         <>
-          <h1 className="text-2xl font-bold text-red-500">Ups!</h1>
-          <p className="text-gray-500">Link jest nieprawidłowy lub wygasł.</p>
+          <h1 className="text-2xl font-bold text-destructive">Ups!</h1>
+          <p className="text-muted">Link jest nieprawidłowy lub wygasł.</p>
           {buttonHomepage}
         </>
       )}

@@ -6,11 +6,13 @@ import { Button } from '../ui/button';
 import { CircleCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { useReCaptcha } from 'next-recaptcha-v3';
+import { useTheme } from 'next-themes';
 
 export const NewsletterForm = () => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const { executeRecaptcha, loaded } = useReCaptcha();
+  const { resolvedTheme } = useTheme();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ export const NewsletterForm = () => {
         setSubmitted(true);
         toast.success('Super!', {
           description: `Potwierdzenie wysłane na ${email}`,
-          icon: <CircleCheck className="text-green-500" size={16} />,
+          icon: <CircleCheck className="text-success" size={16} />,
           dismissible: true,
           duration: 2500,
         });
@@ -52,16 +54,16 @@ export const NewsletterForm = () => {
       <h4 className="text-xl font-bold">Newsletter</h4>
       {submitted && (
         <div className="w-full  rounded-md h-fit flex gap-2 items-center">
-          <p className="text-base text-gray-500">
+          <p className="text-base text-muted">
             Potwierdzenie wysłane na:{' '}
-            <span className="font-semibold break-all block mt-2 text-green-500">
+            <span className="font-semibold break-all block mt-2 text-success">
               {email}
             </span>
           </p>
         </div>
       )}
       <p
-        className={`text-base text-gray-500 ${
+        className={`text-base text-muted ${
           submitted ? 'opacity-0' : 'opacity-100'
         }`}
       >
@@ -81,7 +83,11 @@ export const NewsletterForm = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <Button type="submit" variant="tertiary" disabled={!loaded}>
+          <Button
+            type="submit"
+            variant={resolvedTheme === 'dark' ? 'default' : 'tertiary'}
+            disabled={!loaded}
+          >
             {!loaded ? 'Ładowanie...' : 'Zapisz mnie'}
           </Button>
         </form>

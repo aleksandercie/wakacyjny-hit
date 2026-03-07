@@ -54,7 +54,14 @@ export const OrderForm = () => {
   const appearance: Appearance = {
     theme: resolvedTheme === 'dark' ? 'night' : 'stripe',
     variables: {
-      colorPrimary: resolvedTheme === 'dark' ? '#ff7a3d' : '#f85808',
+      colorPrimary: '#f85808',
+      borderRadius: '6px',
+      colorBackground: resolvedTheme === 'dark' ? '#121212' : '#ffffff',
+    },
+    rules: {
+      '.AccordionItem': {
+        borderColor: resolvedTheme === 'dark' ? '#434a55' : '#e5e7eb',
+      },
     },
   };
 

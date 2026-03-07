@@ -99,7 +99,7 @@ export const OrderSummary = ({
 
   return (
     <div
-      className={`flex flex-col rounded-md md:mx-8 lg:mx-0 lg:mt-0 lg:max-h-fit bg-background dark:border dark:border-gray-500 ${
+      className={`flex flex-col rounded-md md:mx-8 lg:mx-0 lg:mt-0 lg:max-h-fit bg-background border border-border ${
         isCartVariant
           ? 'lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-auto p-4 '
           : 'w-[320px] p-4 pr-1 border shadow-lg'
@@ -162,7 +162,7 @@ export const OrderSummary = ({
       {isCartVariant ? (
         <div className="flex flex-col gap-4 mt-6">
           {clientSecret && (
-            <div className="flex flex-col bg-background border-t border-gray-300 py-4 gap-4">
+            <div className="flex flex-col bg-background border-t border-separator py-4 gap-4">
               <h2 className="text-xl font-semibold">Płatność</h2>
               <PaymentElement
                 options={paymentElementOptions}
@@ -202,7 +202,7 @@ export const OrderItemSummary = ({
   const isCartVariant = variant === 'cart';
   return (
     <div
-      className={`flex flex-col border-b border-gray-300  ${
+      className={`flex flex-col border-b border-separator  ${
         isCartVariant ? 'pb-6 pt-2' : 'pb-4'
       }`}
     >
@@ -216,7 +216,7 @@ export const OrderItemSummary = ({
       </div>
 
       {isCartVariant && item.roomsDetails?.length > 0 && (
-        <div className="mt-2 text-s text-gray-600">
+        <div className="mt-2 text-s text-muted">
           <p>Liczba pokoi: {item.roomsDetails.length}</p>
           {item.roomsDetails.map((room, index) => (
             <RoomBreakdown

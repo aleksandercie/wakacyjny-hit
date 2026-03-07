@@ -19,7 +19,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select';
 
 const formSchema = z.object({
@@ -48,8 +48,8 @@ const formSchema = z.object({
   terms: z
     .boolean({ message: 'Akceptacja regulaminu jest wymagana' })
     .refine((val) => val === true, {
-      message: 'Akceptacja regulaminu jest wymagana'
-    })
+      message: 'Akceptacja regulaminu jest wymagana',
+    }),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -61,13 +61,13 @@ export const ContactForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-    control
+    control,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: 'onBlur',
     defaultValues: {
-      prefix: '+48'
-    }
+      prefix: '+48',
+    },
   });
 
   const { executeRecaptcha, loaded } = useReCaptcha();
@@ -84,16 +84,16 @@ export const ContactForm = () => {
       const res = await fetch('/api/contact', {
         method: 'POST',
         body: JSON.stringify({ ...rest, phone, token }),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
 
       if (res.ok) {
         toast.success('Sukces!', {
           description:
             'Dziękujemy! Twoja wiadomość została wysłana. Skontaktujemy się z Tobą wkrótce.',
-          icon: <CircleCheck className="text-green-500" size={16} />,
+          icon: <CircleCheck className="text-success" size={16} />,
           dismissible: true,
-          duration: 2000
+          duration: 2000,
         });
         reset({
           email: '',
@@ -101,17 +101,17 @@ export const ContactForm = () => {
           number: '',
           title: '',
           message: '',
-          terms: false
+          terms: false,
         });
       } else {
         toast('Błąd!', {
           description:
-            'Nie udało się wysłać wiadomości. Spróbuj ponownie później.'
+            'Nie udało się wysłać wiadomości. Spróbuj ponownie później.',
         });
       }
     } catch {
       toast('Błąd!', {
-        description: 'Coś poszło nie tak. Spróbuj ponownie.'
+        description: 'Coś poszło nie tak. Spróbuj ponownie.',
       });
     }
   };
@@ -121,7 +121,7 @@ export const ContactForm = () => {
       <h2 className="text-xl font-bold">Formularz kontaktowy</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="flex flex-col gap-4">
-          <Label htmlFor="email" className="text-gray-500 text-base">
+          <Label htmlFor="email" className="text-muted text-base">
             Adres e-mail
           </Label>
           <Input
@@ -130,11 +130,11 @@ export const ContactForm = () => {
             {...register('email', { onBlur: () => {} })}
           />
           {errors.email && (
-            <p className="text-red-600 text-sm">{errors.email.message}</p>
+            <p className="text-destructive text-sm">{errors.email.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="phone" className="text-gray-500 text-base">
+          <Label htmlFor="phone" className="text-muted text-base">
             Numer telefonu
           </Label>
           <div className="flex gap-2">
@@ -172,27 +172,27 @@ export const ContactForm = () => {
             />
           </div>
           {(errors.prefix || errors.number) && (
-            <p className="text-red-600 text-sm">
+            <p className="text-destructive text-sm">
               {errors.prefix?.message || errors.number?.message}
             </p>
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="title" className="text-gray-500 text-base">
+          <Label htmlFor="title" className="text-muted text-base">
             Tytuł
           </Label>
           <Input id="title" type="text" {...register('title')} />
           {errors.title && (
-            <p className="text-red-600 text-sm">{errors.title.message}</p>
+            <p className="text-destructive text-sm">{errors.title.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <Label htmlFor="message" className="text-gray-500 text-base">
+          <Label htmlFor="message" className="text-muted text-base">
             Wiadomość
           </Label>
           <Textarea id="message" {...register('message')} />
           {errors.message && (
-            <p className="text-red-600 text-sm">{errors.message.message}</p>
+            <p className="text-destructive text-sm">{errors.message.message}</p>
           )}
         </div>
         <Controller
@@ -205,7 +205,7 @@ export const ContactForm = () => {
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
-              <Label htmlFor="terms" className="text-gray-500 text-base">
+              <Label htmlFor="terms" className="text-muted text-base">
                 Akceptuję{' '}
                 <Link
                   href={TERMS}
@@ -218,7 +218,7 @@ export const ContactForm = () => {
           )}
         />
         {errors.terms && (
-          <p className="text-red-600 text-sm">{errors.terms.message}</p>
+          <p className="text-destructive text-sm">{errors.terms.message}</p>
         )}
 
         <Button type="submit" disabled={isSubmitting} className="mt-4">

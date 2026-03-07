@@ -15,10 +15,10 @@ const buttonVariants = cva(
           'bg-background text-primary border border-primary hover:bg-primary hover:text-background transition-colors duration-200 rounded-full cursor-pointer',
         link: 'text-foreground hover:text-primary cursor-pointer',
         outline:
-          'border bg-background shadow-xs cursor-pointer text-gray-500 hover:text-foreground',
+          'border bg-background shadow-xs cursor-pointer text-muted hover:text-foreground',
         tertiary:
           'bg-background text-foreground hover:bg-primary hover:text-background transition-colors duration-200 rounded-full cursor-pointer',
-        tab: 'text-gray-500 hover:text-foreground cursor-pointer rounded-full border hover:text-foreground',
+        tab: 'text-muted hover:text-foreground cursor-pointer rounded-full border hover:text-foreground',
         active:
           'bg-primary text-background border-primary hover:bg-primary hover:text-background cursor-pointer rounded-full',
         ghost: 'hover:bg-accent hover:font-medium cursor-pointer',

@@ -127,17 +127,17 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const details = [
     {
       title: 'Nocleg',
-      icon: <BedDouble size={28} className="text-gray-500" />,
+      icon: <BedDouble size={28} className="text-muted" />,
       details: accomodation,
     },
     {
       title: 'Przelot',
-      icon: <PlaneTakeoff size={28} className="text-gray-500" />,
+      icon: <PlaneTakeoff size={28} className="text-muted" />,
       details: flight,
     },
     {
       title: 'Transfer',
-      icon: <Bus size={28} className="text-gray-500" />,
+      icon: <Bus size={28} className="text-muted" />,
       details: transfer,
     },
   ];
@@ -183,7 +183,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
 
     toast.success('Super!', {
       description: 'Twoja oferta została dodana do koszyka.',
-      icon: <CircleCheck className="text-green-500" size={16} />,
+      icon: <CircleCheck className="text-success" size={16} />,
       dismissible: true,
       duration: 2000,
     });
@@ -241,17 +241,17 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const about = [
     {
       name: 'Termin wyjazdu',
-      icon: <CalendarDays size={28} className="text-gray-500" />,
+      icon: <CalendarDays size={28} className="text-muted" />,
       value: `${formatDate(startDate)} - ${formatDate(endDate)}`,
     },
     {
       name: 'Długość pobytu',
-      icon: <Clock10 size={28} className="text-gray-500" />,
+      icon: <Clock10 size={28} className="text-muted" />,
       value: duration,
     },
     {
       name: 'Cena',
-      icon: <HandCoins size={28} className="text-gray-500" />,
+      icon: <HandCoins size={28} className="text-muted" />,
       value: `${price} zł`,
     },
   ];
@@ -280,7 +280,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           disabled,
         }) => (
           <div key={name} className="flex flex-col gap-1">
-            <Label htmlFor={name} className="text-gray-500 text-base">
+            <Label htmlFor={name} className="text-muted text-base">
               {label}
             </Label>
             <div className="w-[260px] md:w-full">
@@ -316,12 +316,12 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         </div>
       )}
       {cart.length === 5 && (
-        <p className="text-red-600">
+        <p className="text-destructive">
           W koszyku znajduje się maksymalna ilość ofert.
         </p>
       )}
       {isViewingTime && (
-        <p className="text-gray-500 text-sm">
+        <p className="text-muted text-sm">
           {formatViewersText(viewersCount)}
         </p>
       )}
@@ -365,7 +365,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           </span>
         </Button>
         <div className="w-5 h-5">
-          <ChevronRight size={20} className="text-gray-500 w-5 h-5" />
+          <ChevronRight size={20} className="text-muted w-5 h-5" />
         </div>
         <h1 className="text-lg md:text-2xl font-semibold"> {title}</h1>
       </div>
@@ -374,11 +374,11 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">
           <div className="flex flex-col gap-8">
             {expired && (
-              <p className="text-red-600">
+              <p className="text-destructive">
                 Oferta zakończona. Oferta nie jest już dostępna do rezerwacji.
               </p>
             )}
-            <p className="text-gray-500">
+            <p className="text-muted">
               Data publikacji oferty: <span>{formatDate(created_at)}</span>
             </p>
             <div className="flex flex-col gap-6">
@@ -386,7 +386,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                 <div key={name} className="flex gap-4 items-center">
                   <div>{icon}</div>
                   <div className="flex flex-col gap-2">
-                    <p className="text-base text-gray-500">{name}</p>
+                    <p className="text-base text-muted">{name}</p>
                     <p className="text-xl">{value}</p>
                   </div>
                 </div>
@@ -395,13 +395,13 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
             <div className=" block md:hidden">{form}</div>
             <Separator
               orientation="horizontal"
-              className="h-[1px] bg-gray-300"
+              className="h-[1px] bg-separator"
             />
 
-            <p className="text-gray-500">{longDescription}</p>
+            <p className="text-muted">{longDescription}</p>
             <Separator
               orientation="horizontal"
-              className="h-[1px] bg-gray-300"
+              className="h-[1px] bg-separator"
             />
           </div>
           <div className="flex flex-col gap-8">
@@ -417,7 +417,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                       </div>
                       <ul className="flex flex-col gap-4">
                         {details?.map((detail) => (
-                          <li key={detail} className="text-gray-500">
+                          <li key={detail} className="text-muted">
                             {detail}
                           </li>
                         ))}
@@ -426,13 +426,13 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                   ),
               )}
               {secondaryDescription && (
-                <p className="text-gray-500">{secondaryDescription}</p>
+                <p className="text-muted">{secondaryDescription}</p>
               )}
               <Separator
                 orientation="horizontal"
-                className="h-[1px] bg-gray-300"
+                className="h-[1px] bg-separator"
               />
-              <p className="text-gray-500">
+              <p className="text-muted">
                 Jeśli ten Wakacyjny Hit brzmi jak coś dla Was, wybierzcie liczbę
                 osób, wpiszcie preferowany hotel i opcję wyżywienia, podajcie
                 dane kontaktowe i kliknijcie ZAMÓW TERAZ. Po opłaceniu dostępu
@@ -441,7 +441,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                 instrukcją krok po kroku. Całość zajmie Wam maksymalnie 15
                 minut!
               </p>
-              <p className="text-gray-500">
+              <p className="text-muted">
                 Potrzebujecie większego bagażu? Dodacie go bezpośrednio podczas
                 zakupu biletów. Jeśli transfer z lotniska to komunikacja miejska
                 (tramwaj, metro, autobus), to oznacza to, że to najwygodniejsza
@@ -450,14 +450,14 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                 dwóch osób. Oczywiście zawsze możecie skorzystać z taksówki lub
                 alternatywnego środka transportu.
               </p>
-              <p className="text-gray-500">
+              <p className="text-muted">
                 Nie jesteśmy biurem podróży ani organizatorem wyjazdów –
                 oferujemy dostęp do wiedzy o najlepszych okazjach, którą
                 zdobyliśmy pracując przez lata w branży turystycznej. Wysyłamy
                 bezpieczne linki z instrukcjami, pomagamy na każdym etapie
                 rezerwacji i jesteśmy do dyspozycji przy planowaniu podróży.
               </p>
-              <p className="text-gray-500">
+              <p className="text-muted">
                 Pamiętajcie, że Wakacyjne Hity to czasowe okazje – aktualne w
                 momencie publikacji. Jeśli po zakupie dostępu cena wzrośnie, nic
                 nie tracicie – możecie wybrać inny Wakacyjny Hit lub otrzymać
