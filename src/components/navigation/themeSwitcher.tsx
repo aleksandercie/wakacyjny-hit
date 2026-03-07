@@ -27,7 +27,7 @@ export const ThemeSwitcher = () => {
       aria-label="Zmień motyw"
       className="text-foreground hover:text-primary transition-colors cursor-pointer"
     >
-      {resolvedTheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+      {resolvedTheme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
     </button>
   );
 };
