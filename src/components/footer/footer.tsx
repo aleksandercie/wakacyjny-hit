@@ -9,17 +9,17 @@ export const Footer = () => {
       title: 'Informacje',
       links: [
         { name: 'Oferty', link: '/oferty' },
-        { name: 'O nas', link: '/o-nas' }
-      ]
+        { name: 'O nas', link: '/o-nas' },
+      ],
     },
     {
       title: 'Pomoc',
       links: [
         { name: 'Polityka prywatności', link: '/polityka-prywatnosci' },
         { name: 'Regulamin', link: '/regulamin' },
-        { name: 'FAQ', link: '/faq' }
-      ]
-    }
+        { name: 'FAQ', link: '/faq' },
+      ],
+    },
   ];
 
   return (
@@ -48,7 +48,7 @@ export const Footer = () => {
         <NewsletterForm />
       </div>
       <p className="text-center text-base text-gray-500">
-        © WakacyjnyHit.pl 2025
+        © WakacyjnyHit.pl 2026
       </p>
     </div>
   );

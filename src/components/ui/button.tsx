@@ -22,6 +22,7 @@ const buttonVariants = cva(
         active:
           'bg-primary text-white border-primary hover:bg-primary hover:text-white cursor-pointer rounded-full',
         ghost: 'hover:bg-accent hover:font-medium cursor-pointer',
+        paggination: 'hover:text-primary hover:font-medium cursor-pointer',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
