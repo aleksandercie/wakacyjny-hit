@@ -17,10 +17,10 @@ export const Navigation = () => {
   ];
 
   return (
-    <div className="w-full flex sticky top-0 z-100 py-4 px-4 md:px-8 justify-between bg-background items-center relative">
+    <div className="w-full flex sticky top-0 z-100 py-4 px-4 lg:px-8 justify-between bg-background items-center relative">
       <Logo style="hidden md:block" />
-      <div className="hidden md:flex items-center gap-8 md:gap-12">
-        <ul className="flex gap-8">
+      <div className="hidden md:flex items-center gap-6 lg:gap-12">
+        <ul className="flex gap-4 lg:gap-8">
           {links.map(({ name, link }) => (
             <li key={name} className="text-foreground">
               <NavigationLink name={name} link={link} />
