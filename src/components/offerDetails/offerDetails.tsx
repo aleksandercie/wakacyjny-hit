@@ -321,9 +321,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         </p>
       )}
       {isViewingTime && (
-        <p className="text-muted text-sm">
-          {formatViewersText(viewersCount)}
-        </p>
+        <p className="text-muted text-sm">{formatViewersText(viewersCount)}</p>
       )}
       <Button disabled={isDisabledButton} variant="secondary">
         Dodaj do koszyka
@@ -351,13 +349,15 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
 
   return (
     <>
-      <Image
-        src={image}
-        alt={title}
-        width={984}
-        height={500}
-        className={`rounded-md max-h-[500px] ${expired ? 'opacity-40' : ''}`}
-      />
+      <div className="relative w-full max-h-[500px] aspect-[16/9] overflow-hidden rounded-md">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, 984px"
+          className={`object-cover ${expired ? 'opacity-40' : ''}`}
+        />
+      </div>
       <div className="flex items-center gap-1 justify-start w-full">
         <Button onClick={() => router.back()} variant="link" className="p-0">
           <span className="text-lg md:text-2xl font-medium">
