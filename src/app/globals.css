@@ -4,6 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 @theme {
   --font-sans: var(--font-nunito-sans);
 
