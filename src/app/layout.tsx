@@ -1,23 +1,17 @@
-'use client';
-
+import type { Metadata, Viewport } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
-import { CookieConsent, Footer, Navigation, ThemeProvider } from '@/components';
-import { Toaster } from 'sonner';
-import { CartProvider } from '@/context/CartContext';
-import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
-import { Metadata, Viewport } from 'next';
-
-const ReCaptchaProvider = dynamic(
-  () => import('next-recaptcha-v3').then((mod) => mod.ReCaptchaProvider),
-  { ssr: false },
-);
+import { Footer } from '@/components/footer';
+import { Navigation } from '@/components/navigation';
+import { ClientLayout } from '@/components/clientLayout';
 
 const nunitoSans = Nunito({
   variable: '--font-nunito-sans',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   subsets: ['latin'],
+  display: 'swap',
+  adjustFontFallback: true,
+  preload: true,
   fallback: ['Arial', 'sans-serif'],
 });
 
@@ -44,28 +38,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <html lang="pl" suppressHydrationWarning>
+      <head>
+        <link
+          rel="dns-prefetch"
+          href="https://trfyanyvdyozqndwmiyr.supabase.co"
+        />
+        <link
+          rel="preconnect"
+          href="https://trfyanyvdyozqndwmiyr.supabase.co"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
-        className={`${nunitoSans.variable} antialiased relative bg-background `}
+        className={`${nunitoSans.variable} antialiased relative bg-background overflow-x-hidden`}
       >
-        <ThemeProvider>
-          <ReCaptchaProvider
-            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-          >
-            <CartProvider>
-              <Navigation />
-              <div className="container mx-auto max-w-[1920px]">{children}</div>
-              <Footer />
-              <Toaster position="top-right" />
-            </CartProvider>
-          </ReCaptchaProvider>
-          <CookieConsent />
-        </ThemeProvider>
+        <ClientLayout>
+          <Navigation />
+          <div className="container mx-auto max-w-[1920px]">{children}</div>
+          <Footer />
+        </ClientLayout>
       </body>
     </html>
   );

@@ -36,6 +36,13 @@ export const Card = ({
             alt={title}
             width={isLarge ? 600 : 492}
             height={isLarge ? 400 : 328}
+            sizes={
+              isLarge
+                ? '(max-width: 768px) 100vw, 600px'
+                : '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 492px'
+            }
+            quality={75}
+            loading="lazy"
             className={`rounded-md object-cover w-full h-full ${
               expired ? 'opacity-40' : ''
             }`}

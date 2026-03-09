@@ -30,6 +30,9 @@ export const ImageBanner = async ({
             width={1920}
             height={400}
             alt={alt}
+            sizes="100vw"
+            quality={75}
+            priority
             className="w-full h-full object-cover rounded-md object-middle"
           />
         </div>

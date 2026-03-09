@@ -23,6 +23,7 @@ export const Logo: React.FC<LogoProps> = ({ style, onClick }) => {
         alt="Logo WakacyjnyHit.com"
         width={202}
         height={70}
+        priority
         className="absolute top-[10px] left-[4px] sm:top-[2px] sm:left-[4px] md:left-[12px] w-[160px] h-[54px] sm:w-[202px] sm:h-[68px] z-1"
       />
     </Link>

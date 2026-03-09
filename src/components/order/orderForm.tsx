@@ -1,13 +1,20 @@
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe, Appearance } from '@stripe/stripe-js';
+import type { Appearance, Stripe } from '@stripe/stripe-js';
 import { OrderFormContent } from './orderFormContent';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useTheme } from 'next-themes';
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-);
+let stripePromise: Promise<Stripe | null> | null = null;
+
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = import('@stripe/stripe-js').then((mod) =>
+      mod.loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!),
+    );
+  }
+  return stripePromise;
+};
 
 export const OrderForm = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -67,7 +74,7 @@ export const OrderForm = () => {
 
   return (
     <Elements
-      stripe={stripePromise}
+      stripe={getStripe()}
       options={{ clientSecret, appearance }}
       key={resolvedTheme}
     >

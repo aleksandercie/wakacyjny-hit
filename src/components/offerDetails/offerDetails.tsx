@@ -355,6 +355,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           alt={title}
           fill
           sizes="(max-width: 768px) 100vw, 984px"
+          priority
           className={`object-cover ${expired ? 'opacity-40' : ''}`}
         />
       </div>

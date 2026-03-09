@@ -33,6 +33,9 @@ export const HowItWorks = async () => {
             alt="Drogowskazy"
             width={484}
             height={580}
+            sizes="(max-width: 768px) 100vw, 484px"
+            quality={75}
+            loading="lazy"
             className="w-full h-full object-cover object-center md:object-bottom rounded-md"
           />
         </div>

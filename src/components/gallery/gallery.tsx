@@ -22,6 +22,9 @@ const Photos = ({ photos }: { photos: PhotoType[] }) =>
           alt={location}
           width={530}
           height={320}
+          sizes="(max-width: 768px) 100vw, 530px"
+          quality={75}
+          loading="lazy"
           className="rounded-md object-cover w-full h-full"
         />
         <div

@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Video = ({
   videoSrc,
-  videoSrcMobile
+  videoSrcMobile,
 }: {
   videoSrc: string;
   videoSrcMobile: string;
@@ -19,7 +19,7 @@ export const Video = ({
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
         className="w-full h-auto rounded-md hidden min-[720px]:block pointer-events-none"
       >
@@ -34,7 +34,7 @@ export const Video = ({
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
         className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md min-[720px]:hidden pointer-events-none"
       >

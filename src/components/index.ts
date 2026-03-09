@@ -24,3 +24,4 @@ export * from './newsletter';
 export * from './unsubscribe';
 export * from './cookies';
 export * from './themeProvider';
+export * from './clientLayout';
