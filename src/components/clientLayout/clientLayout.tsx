@@ -23,6 +23,7 @@ export const ClientLayout = ({ children }: { children: React.ReactNode }) => {
     <ThemeProvider>
       <ReCaptchaProvider
         reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+        strategy="lazyOnload"
       >
         <CartProvider>
           {children}

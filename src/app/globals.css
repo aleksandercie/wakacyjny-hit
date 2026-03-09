@@ -74,9 +74,12 @@ html, body {
 
 
 .grecaptcha-badge {
-  transform: scale(0.6);
-  transform-origin: bottom right;
-  opacity: 0.75; 
+  visibility: hidden !important;
+  opacity: 0;
+  position: absolute !important;
+  overflow: hidden;
+  width: 0;
+  height: 0;
 }
 
 .policy-table {

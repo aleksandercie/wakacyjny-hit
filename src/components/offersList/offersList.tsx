@@ -61,7 +61,11 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const initializedRef = useRef(false);
-  const limit = window.innerWidth > 1023 ? LIMIT : MOBILE_LIMIT;
+  const [limit, setLimit] = useState(LIMIT);
+
+  useEffect(() => {
+    setLimit(window.innerWidth > 1023 ? LIMIT : MOBILE_LIMIT);
+  }, []);
 
   // Initialize state from URL params
   const [priceRange, setPriceRange] = useState<number[]>(() => {
@@ -164,7 +168,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
 
       setLoading(false);
     },
-    [],
+    [limit],
   );
 
   const scrollToResults = () => {
