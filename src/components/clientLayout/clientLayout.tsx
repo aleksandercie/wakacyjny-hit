@@ -1,15 +1,22 @@
 'use client';
 
 import { CartProvider } from '@/context/CartContext';
-import { CookieConsent } from '@/components/cookies';
 import { ThemeProvider } from '@/components/themeProvider';
-import { Toaster } from 'sonner';
 import dynamic from 'next/dynamic';
 
 const ReCaptchaProvider = dynamic(
   () => import('next-recaptcha-v3').then((mod) => mod.ReCaptchaProvider),
   { ssr: false },
 );
+
+const CookieConsent = dynamic(
+  () => import('@/components/cookies').then((mod) => mod.CookieConsent),
+  { ssr: false },
+);
+
+const Toaster = dynamic(() => import('sonner').then((mod) => mod.Toaster), {
+  ssr: false,
+});
 
 export const ClientLayout = ({ children }: { children: React.ReactNode }) => {
   return (

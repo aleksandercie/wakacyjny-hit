@@ -1,4 +1,4 @@
-import { Cart } from '@/components';
+import { Cart } from '@/components/cart';
 import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>

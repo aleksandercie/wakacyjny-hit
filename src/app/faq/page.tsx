@@ -1,4 +1,5 @@
-import { Faq, ImageBanner } from '@/components';
+import { Faq } from '@/components/faq';
+import { ImageBanner } from '@/components/imageBanner';
 import { createMetadata } from '@/lib/seo';
 import dynamic from 'next/dynamic';
 

@@ -1,4 +1,4 @@
-import { MultiSelect } from '@/components';
+import { MultiSelect } from '@/components/multiSelect';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { Slider } from '../ui/slider';
 import { PriceInput } from './priceInput';

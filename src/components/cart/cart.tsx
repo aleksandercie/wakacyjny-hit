@@ -1,10 +1,21 @@
 'use client';
 
-import { OrderForm } from '@/components/order';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
 import { ROUTES } from '@/lib/routes';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const OrderForm = dynamic(
+  () => import('@/components/order').then((mod) => mod.OrderForm),
+  {
+    loading: () => (
+      <div className="flex w-full justify-center min-h-[40vh] items-center">
+        <p>Ładowanie formularza...</p>
+      </div>
+    ),
+  },
+);
 
 export const Cart = () => {
   const { cart, isLoading } = useCart();

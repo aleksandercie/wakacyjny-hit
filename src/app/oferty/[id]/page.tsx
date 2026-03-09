@@ -1,4 +1,4 @@
-import { OfferDetails } from '@/components';
+import { OfferDetails } from '@/components/offerDetails';
 import { getTripById } from '@/lib/api/getTrip';
 import { notFound } from 'next/navigation';
 import { createMetadata } from '@/lib/seo';

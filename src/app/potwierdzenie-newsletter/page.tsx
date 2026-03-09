@@ -1,4 +1,4 @@
-import { Newsletter } from '@/components';
+import { Newsletter } from '@/components/newsletter';
 import { Suspense } from 'react';
 
 export default function NewsletterConfirmPage() {

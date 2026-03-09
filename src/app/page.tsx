@@ -1,4 +1,5 @@
-import { Banner, Offers } from '@/components';
+import { Banner } from '@/components/banner';
+import { Offers } from '@/components/offers';
 import { getTrips } from '@/lib/api/getTrips';
 import { createMetadata } from '@/lib/seo';
 import dynamic from 'next/dynamic';

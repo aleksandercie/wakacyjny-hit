@@ -1,4 +1,6 @@
-import { Contact, ContactForm, ImageBanner } from '@/components';
+import { Contact } from '@/components/contact';
+import { ContactForm } from '@/components/contact';
+import { ImageBanner } from '@/components/imageBanner';
 import { ROUTES } from '@/lib/routes';
 import { createMetadata } from '@/lib/seo';
 import Link from 'next/link';

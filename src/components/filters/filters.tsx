@@ -1,6 +1,7 @@
 'use client';
 
-import { Badge, DatePickerWithRange } from '@/components';
+import { Badge } from '@/components/badge';
+import { DatePickerWithRange } from '@/components/datePickerWithRange';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, SlidersHorizontal } from 'lucide-react';

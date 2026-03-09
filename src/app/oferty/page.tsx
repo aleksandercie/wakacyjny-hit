@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { OffersList } from '@/components';
+import { OffersList } from '@/components/offersList';
 import { getTrips } from '@/lib/api/getTrips';
 import { createMetadata } from '@/lib/seo';
 import { CardSkeleton } from '@/components/card';

@@ -1,4 +1,4 @@
-import { Success } from '@/components';
+import { Success } from '@/components/success';
 import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>

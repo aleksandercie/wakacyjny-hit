@@ -1,4 +1,4 @@
-import { ImageBanner } from '@/components';
+import { ImageBanner } from '@/components/imageBanner';
 import { createMetadata } from '@/lib/seo';
 
 export const generateMetadata = () =>

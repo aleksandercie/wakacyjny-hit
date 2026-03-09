@@ -1,4 +1,4 @@
-import { Unsubscribe } from '@/components';
+import { Unsubscribe } from '@/components/unsubscribe';
 import { Suspense } from 'react';
 
 export default function UnsubscribePage() {
