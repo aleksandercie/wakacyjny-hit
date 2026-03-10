@@ -20,6 +20,27 @@ const nunitoSans = Nunito({
   fallback: ['Arial', 'sans-serif'],
 });
 
+<<<<<<< HEAD
+=======
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#f85808',
+};
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Wakacyjny Hit - Najlepsze oferty wakacji',
+    template: '%s | Wakacyjny Hit',
+  },
+  description:
+    'Znajdź wymarzone wakacje w najlepszych cenach! Sprawdź nasze oferty podróży do najpiękniejszych miejsc świata.',
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.wakacyjnyhit.com',
+  ),
+};
+
+>>>>>>> b59159c (update sitemap)
 export default function RootLayout({
   children,
 }: Readonly<{

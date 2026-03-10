@@ -19,7 +19,7 @@ export function createMetadata({
   ogUrl,
   ogImage,
   canonicalUrl,
-  noIndex = true
+  noIndex = false,
 }: HeadComponentProps): Metadata {
   return {
     title,
@@ -29,14 +29,14 @@ export function createMetadata({
       description: ogDescription || description,
       url: ogUrl,
       images: ogImage ? [{ url: ogImage }] : [],
-      type: 'website'
+      type: 'website',
     },
     alternates: {
-      canonical: canonicalUrl || undefined
+      canonical: canonicalUrl || undefined,
     },
     robots: {
       index: !noIndex,
-      follow: !noIndex
-    }
+      follow: !noIndex,
+    },
   };
 }
