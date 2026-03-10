@@ -10,9 +10,17 @@ export const Contact = ({
   footer?: boolean;
 }) => {
   const contact = [
-    { link: 'facebook', icon: <Facebook />, name: 'Facebook' },
-    { link: 'instagram', icon: <Instagram />, name: 'Intagram' },
-    { link: 'mail', icon: <Mail />, name: 'Mail' },
+    {
+      link: 'https://www.facebook.com/wakacyjnyhit',
+      icon: <Facebook />,
+      name: 'Facebook',
+    },
+    {
+      link: 'https://www.instagram.com/wakacyjnyhit',
+      icon: <Instagram />,
+      name: 'Instagram',
+    },
+    { link: 'mailto:kontakt@wakacyjnyhit.com', icon: <Mail />, name: 'Mail' },
   ];
 
   const isFooter = footer === true;
