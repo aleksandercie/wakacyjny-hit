@@ -2,22 +2,26 @@ import Link from 'next/link';
 import React from 'react';
 import { Contact } from '../contact';
 import { NewsletterForm } from './newsletterForm';
+import { ROUTES } from '@/lib/routes';
+
+const { OFFERS, ABOUT_US, PRIVACY_POLICY, TERMS, FAQ, HOW_IT_WORKS } = ROUTES;
 
 export const Footer = () => {
   const sections = [
     {
       title: 'Informacje',
       links: [
-        { name: 'Oferty', link: '/oferty' },
-        { name: 'O nas', link: '/o-nas' },
+        { name: 'Oferty', link: OFFERS },
+        { name: 'O nas', link: ABOUT_US },
+        { name: 'Jak to działa?', link: HOW_IT_WORKS },
       ],
     },
     {
       title: 'Pomoc',
       links: [
-        { name: 'Polityka prywatności', link: '/polityka-prywatnosci' },
-        { name: 'Regulamin', link: '/regulamin' },
-        { name: 'FAQ', link: '/faq' },
+        { name: 'Polityka prywatności', link: PRIVACY_POLICY },
+        { name: 'Regulamin', link: TERMS },
+        { name: 'FAQ', link: FAQ },
       ],
     },
   ];
