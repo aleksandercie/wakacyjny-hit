@@ -33,11 +33,12 @@ export const MobileNavigation = ({
   const closeMenu = () => setMenuOpen(false);
 
   const cartButton = (displayName: boolean) => (
-    <Button variant="link">
+    <Button variant="link" aria-label="Koszyk - Przejdź do koszyka">
       <Link
         href={CART}
         className="flex gap-2 items-center font-bold text-foreground hover:text-primary focus:text-primary text-l relative"
         onClick={closeMenu}
+        aria-label="Koszyk - Przejdź do koszyka"
       >
         {displayName ? 'Koszyk' : ''}
         <ShoppingCart size={20} />
