@@ -7,6 +7,7 @@ import { Toaster } from 'sonner';
 import { CartProvider } from '@/context/CartContext';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
+import { Metadata, Viewport } from 'next';
 
 const ReCaptchaProvider = dynamic(
   () => import('next-recaptcha-v3').then((mod) => mod.ReCaptchaProvider),
@@ -20,8 +21,6 @@ const nunitoSans = Nunito({
   fallback: ['Arial', 'sans-serif'],
 });
 
-<<<<<<< HEAD
-=======
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -40,7 +39,6 @@ export const metadata: Metadata = {
   ),
 };
 
->>>>>>> b59159c (update sitemap)
 export default function RootLayout({
   children,
 }: Readonly<{
