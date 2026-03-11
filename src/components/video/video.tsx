@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Loader2 } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
 
 export const Video = ({
   videoSrc,
@@ -13,7 +12,6 @@ export const Video = ({
   const desktopRef = useRef<HTMLVideoElement>(null);
   const mobileRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,17 +42,8 @@ export const Video = ({
     }
   }, [isVisible]);
 
-  const handleCanPlay = useCallback(() => {
-    setIsLoaded(true);
-  }, []);
-
   return (
-    <div className="relative w-full h-full">
-      {!isLoaded && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-card rounded-md animate-pulse opacity-50">
-          <Loader2 className="size-8 text-muted-foreground animate-spin absolute top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-2/3" />
-        </div>
-      )}
+    <>
       <video
         ref={desktopRef}
         width={2048}
@@ -65,10 +54,7 @@ export const Video = ({
         playsInline
         preload="none"
         aria-hidden="true"
-        onCanPlay={handleCanPlay}
-        className={`w-full h-auto rounded-md hidden min-[720px]:block pointer-events-none transition-opacity duration-500 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="w-full h-auto rounded-md hidden min-[720px]:block pointer-events-none"
       >
         {isVisible && <source src={videoSrc} type="video/mp4" />}
       </video>
@@ -82,13 +68,10 @@ export const Video = ({
         playsInline
         preload="none"
         aria-hidden="true"
-        onCanPlay={handleCanPlay}
-        className={`w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md min-[720px]:hidden pointer-events-none transition-opacity duration-500 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md min-[720px]:hidden pointer-events-none"
       >
         {isVisible && <source src={videoSrcMobile} type="video/mp4" />}
       </video>
-    </div>
+    </>
   );
 };
