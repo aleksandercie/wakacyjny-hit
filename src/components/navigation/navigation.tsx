@@ -1,10 +1,21 @@
 import React from 'react';
 import { NavigationLink } from './navigationLink';
-import { MobileNavigation } from './mobileNavigation';
 import { Logo } from '../logo';
-import { CartPopover } from './cartPopover';
-import { ThemeSwitcher } from './themeSwitcher';
 import { ROUTES } from '@/lib/routes';
+import dynamic from 'next/dynamic';
+
+const MobileNavigation = dynamic(() =>
+  import('./mobileNavigation').then((mod) => mod.MobileNavigation),
+);
+
+const CartPopover = dynamic(() =>
+  import('./cartPopover').then((mod) => mod.CartPopover),
+);
+
+const ThemeSwitcher = dynamic(
+  () => import('./themeSwitcher').then((mod) => mod.ThemeSwitcher),
+  { loading: () => <div className="w-5 h-5" /> },
+);
 
 export const Navigation = () => {
   const { OFFERS, ABOUT_US, FAQ, CONTACT, HOW_IT_WORKS } = ROUTES;

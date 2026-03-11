@@ -13,6 +13,7 @@ export const Card = ({
   description,
   variant,
   expired,
+  priority = false,
 }: {
   id: string | number;
   title: string;
@@ -23,6 +24,7 @@ export const Card = ({
   description?: string;
   variant: 'small' | 'large';
   expired?: boolean;
+  priority?: boolean;
 }) => {
   const { OFFERS } = ROUTES;
   const isLarge = variant === 'large';
@@ -42,7 +44,8 @@ export const Card = ({
                 : '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 492px'
             }
             quality={75}
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            priority={priority}
             className={`rounded-md object-cover w-full h-full ${
               expired ? 'opacity-40' : ''
             }`}

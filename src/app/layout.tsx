@@ -1,14 +1,23 @@
 import type { Metadata, Viewport } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
-import { Footer } from '@/components/footer';
 import { Navigation } from '@/components/navigation';
 import { ClientLayout } from '@/components/clientLayout';
+import dynamic from 'next/dynamic';
+
+const DynamicFooter = dynamic(
+  () => import('@/components/footer/footer').then((mod) => mod.Footer),
+  {
+    loading: () => (
+      <div className="w-full bg-foreground dark:bg-background h-[300px]" />
+    ),
+  },
+);
 
 const nunitoSans = Nunito({
   variable: '--font-nunito-sans',
   weight: ['400', '600', '700'],
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   display: 'swap',
   adjustFontFallback: true,
   preload: true,
@@ -57,7 +66,7 @@ export default function RootLayout({
         <ClientLayout>
           <Navigation />
           <div className="container mx-auto max-w-[1920px]">{children}</div>
-          <Footer />
+          <DynamicFooter />
         </ClientLayout>
       </body>
     </html>
