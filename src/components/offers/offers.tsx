@@ -19,19 +19,16 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {trips.map(
-          (
-            {
-              title,
-              price,
-              duration,
-              shortDescription,
-              image,
-              id,
-              startDate,
-              endDate,
-            },
-            index,
-          ) => (
+          ({
+            title,
+            price,
+            duration,
+            shortDescription,
+            image,
+            id,
+            startDate,
+            endDate
+          }) => (
             <Card
               id={id}
               key={id}
@@ -42,9 +39,8 @@ export const Offers = ({ trips }: { trips: Trip[] }) => {
               photo={image}
               description={shortDescription}
               variant="small"
-              priority={index < 2}
             />
-          ),
+          )
         )}
       </div>
       <div className="flex justify-center my-8">

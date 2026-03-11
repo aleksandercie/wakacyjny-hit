@@ -1,12 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 import { Contact } from '../contact';
+import { NewsletterForm } from './newsletterForm';
 import { ROUTES } from '@/lib/routes';
-import dynamic from 'next/dynamic';
-
-const NewsletterForm = dynamic(() =>
-  import('./newsletterForm').then((mod) => mod.NewsletterForm),
-);
 
 const { OFFERS, ABOUT_US, PRIVACY_POLICY, TERMS, FAQ, HOW_IT_WORKS } = ROUTES;
 

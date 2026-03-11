@@ -6,13 +6,8 @@ import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavigationBadge } from './navigationBadge';
 import { useCart } from '@/context/CartContext';
+import { OrderSummary } from '../order/orderSummary';
 import { ROUTES } from '@/lib/routes';
-import dynamic from 'next/dynamic';
-
-const OrderSummary = dynamic(
-  () => import('../order/orderSummary').then((mod) => mod.OrderSummary),
-  { ssr: false },
-);
 
 export const CartPopover = () => {
   const { CART } = ROUTES;
