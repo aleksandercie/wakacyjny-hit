@@ -37,7 +37,7 @@ export const Video = ({
         playsInline
         preload="metadata"
         aria-hidden="true"
-        className="w-full h-auto rounded-md pointer-events-none"
+        className="w-full h-auto rounded-md pointer-events-none relative z-[1]"
       >
         <source src={videoSrc} type="video/mp4" />
         Twoja przeglądarka nie obsługuje tagu video.
@@ -56,7 +56,7 @@ export const Video = ({
       playsInline
       preload="metadata"
       aria-hidden="true"
-      className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md pointer-events-none"
+      className="w-full h-full object-cover object-top min-[500px]:object-bottom rounded-md pointer-events-none relative z-[1]"
     >
       <source src={videoSrcMobile} type="video/mp4" />
       Twoja przeglądarka nie obsługuje tagu video.
