@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import { OffersList } from '@/components/offersList';
-import { getTrips } from '@/lib/api/getTrips';
 import { createMetadata } from '@/lib/seo';
 import { CardSkeleton } from '@/components/card';
 
@@ -18,13 +17,7 @@ export const generateMetadata = () =>
     noIndex: false,
   });
 
-export default async function OffersPagee() {
-  const { trips = [] } = await getTrips({
-    limit: 6,
-    offset: 0,
-    expired: false,
-  });
-
+export default function OffersPage() {
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col p-2 gap-8 md:gap-12 items-center mb-12">
@@ -37,7 +30,7 @@ export default async function OffersPagee() {
             </div>
           }
         >
-          <OffersList initialTrips={trips} />
+          <OffersList />
         </Suspense>
       </main>
     </div>

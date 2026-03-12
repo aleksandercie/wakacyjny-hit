@@ -55,7 +55,7 @@ const buildParams = ({
   return params;
 };
 
-export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
+export const OffersList = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -92,20 +92,8 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
     () => Number(searchParams.get('page')) || 1,
   );
 
-  // If URL has filters/page params, initialTrips won't match — start loading
-  const hasUrlFilters =
-    searchParams.has('search') ||
-    searchParams.has('minPrice') ||
-    searchParams.has('maxPrice') ||
-    searchParams.has('from') ||
-    searchParams.has('to') ||
-    searchParams.has('departures') ||
-    searchParams.has('food') ||
-    searchParams.has('tab') ||
-    searchParams.has('page');
-
-  const [trips, setTrips] = useState<Trip[]>(hasUrlFilters ? [] : initialTrips);
-  const [loading, setLoading] = useState(hasUrlFilters);
+  const [trips, setTrips] = useState<Trip[]>([]);
+  const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
 
   const totalPages = Math.ceil(total / LIMIT);

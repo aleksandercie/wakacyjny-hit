@@ -1,11 +1,7 @@
 import { Banner } from '@/components/banner';
-import { getTrips } from '@/lib/api/getTrips';
 import { createMetadata } from '@/lib/seo';
 import dynamic from 'next/dynamic';
-
-const DynamicOffers = dynamic(() =>
-  import('../components/offers').then((mod) => mod.Offers),
-);
+import { Offers } from '@/components/offers';
 
 const DynamicGallery = dynamic(() =>
   import('../components/gallery').then((mod) => mod.Gallery),
@@ -28,13 +24,7 @@ export const generateMetadata = () =>
     noIndex: false,
   });
 
-export default async function Home() {
-  const { trips = [] } = await getTrips({
-    limit: 6,
-    offset: 0,
-    expired: false,
-  });
-
+export default function Home() {
   return (
     <div className="font-[family-name:var(--font-nunito-sans)]">
       <main className="flex flex-col gap-8 md:gap-12 p-2 mb-12">
@@ -44,7 +34,7 @@ export default async function Home() {
           title="Planujesz wymarzone wakacje?"
           description="Znajdź najlepsze oferty wyjazdów w najniższych cenach! Wiele destynacji na całym świecie - idealne miejsca na relaks, przygody i niezapomniane wspomnienia."
         />
-        <DynamicOffers trips={trips} />
+        <Offers />
         <DynamicGallery />
         <DynamicHowItWorks />
       </main>
