@@ -33,6 +33,7 @@ export const Navigation = () => {
         </div>
       </div>
       <MobileNavigation links={links} />
+      <div className="w-full h-[36px] md:hidden" />
     </div>
   );
 };

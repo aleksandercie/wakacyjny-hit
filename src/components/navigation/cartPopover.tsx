@@ -39,7 +39,7 @@ export const CartPopover = () => {
           href={CART}
           className="relative flex items-center gap-2 font-bold"
         >
-          <ShoppingCart size={20} />
+          <ShoppingCart size={20} className="size-5" />
           Koszyk
           <NavigationBadge className="-top-[8px] -right-[10px]" />
         </Link>
