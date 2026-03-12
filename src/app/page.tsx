@@ -27,7 +27,7 @@ export const generateMetadata = () =>
 
 export default async function Home() {
   const { trips = [] } = await getTrips({
-    limit: 8,
+    limit: 6,
     offset: 0,
     expired: false,
   });

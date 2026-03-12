@@ -20,7 +20,7 @@ export const generateMetadata = () =>
 
 export default async function OffersPagee() {
   const { trips = [] } = await getTrips({
-    limit: 8,
+    limit: 6,
     offset: 0,
     expired: false,
   });
@@ -31,7 +31,7 @@ export default async function OffersPagee() {
         <Suspense
           fallback={
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full">
-              {Array.from({ length: 8 }).map((_, i) => (
+              {Array.from({ length: 6 }).map((_, i) => (
                 <CardSkeleton key={i} />
               ))}
             </div>

@@ -18,8 +18,7 @@ import {
 } from '../ui/pagination';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-const LIMIT = 9;
-const MOBILE_LIMIT = 8;
+const LIMIT = 6;
 
 // Helper: build URLSearchParams from current filter state
 const buildParams = ({
@@ -61,11 +60,6 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const initializedRef = useRef(false);
-  const [limit, setLimit] = useState(LIMIT);
-
-  useEffect(() => {
-    setLimit(window.innerWidth > 1023 ? LIMIT : MOBILE_LIMIT);
-  }, []);
 
   // Initialize state from URL params
   const [priceRange, setPriceRange] = useState<number[]>(() => {
@@ -114,7 +108,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
   const [loading, setLoading] = useState(hasUrlFilters);
   const [total, setTotal] = useState(0);
 
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.ceil(total / LIMIT);
 
   // Update URL without navigation (shallow)
   const updateUrl = useCallback(
@@ -146,14 +140,14 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
     }) => {
       setLoading(true);
       try {
-        const offset = (page - 1) * limit;
+        const offset = (page - 1) * LIMIT;
         const { trips: fetchedTrips, total: fetchedTotal } = await getTrips({
           priceRange: priceRangeVal,
           date: dateVal,
           departures: airportsVal,
           food: foodVal,
           search: searchVal,
-          limit: limit,
+          limit: LIMIT,
           offset,
           expired:
             tabVal === 'completed'
@@ -168,7 +162,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
 
       setLoading(false);
     },
-    [limit],
+    [],
   );
 
   const scrollToResults = () => {
@@ -350,7 +344,7 @@ export const OffersList = ({ initialTrips }: { initialTrips: Trip[] }) => {
           ),
         )}
         {loading &&
-          Array.from({ length: limit }).map((_, index) => (
+          Array.from({ length: LIMIT }).map((_, index) => (
             <CardSkeleton key={index} />
           ))}
       </div>
