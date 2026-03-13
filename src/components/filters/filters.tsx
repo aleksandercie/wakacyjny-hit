@@ -5,7 +5,13 @@ import { DatePickerWithRange } from '@/components/datePickerWithRange';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { Separator } from '../ui/separator';
 import { DateRange } from 'react-day-picker';
 import { AdditionalFilters } from './additionalFilters';
@@ -13,7 +19,6 @@ import { airportOptions } from '@/lib/airports';
 import { foodOptions } from '@/lib/food';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -95,6 +100,8 @@ export const Filters = ({
     setSearch('');
   };
 
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>
     setSearch(e.target.value);
 
@@ -103,6 +110,42 @@ export const Filters = ({
     { name: 'Wszystkie', value: 'all' },
     { name: 'Zakończone', value: 'completed' },
   ];
+
+  useEffect(() => {
+    if (dialogOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.touchAction = 'none';
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.touchAction = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY) * -1);
+      }
+    }
+
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.touchAction = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY) * -1);
+      }
+    };
+  }, [dialogOpen]);
 
   return (
     <div className="flex flex-col items-center gap-6 md:gap-8 w-full px-2 md:px-0">
@@ -138,7 +181,11 @@ export const Filters = ({
           />
           <Separator orientation="vertical" className="mr-3 hidden md:block" />
           <div className="hidden md:block">
-            <Dialog modal={false}>
+            <Dialog
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+              modal={false}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline" className="rounded-full relative">
                   <SlidersHorizontal size={16} />
@@ -156,17 +203,16 @@ export const Filters = ({
                   </DialogHeader>
                   {additionalFilters}
                   <DialogFooter className="flex gap-4">
-                    <DialogClose asChild>
-                      <Button
-                        onClick={reset}
-                        className="p-0 bg-transparent border-none shadow-none text-foreground hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
-                      >
-                        Wyczyść
-                      </Button>
-                    </DialogClose>
-                    <DialogClose asChild>
-                      <Button>Zapisz</Button>
-                    </DialogClose>
+                    <Button
+                      onClick={() => {
+                        reset();
+                        setDialogOpen(false);
+                      }}
+                      className="p-0 bg-transparent border-none shadow-none text-foreground hover:bg-transparent border-0 hover:text-primary focus:ring-0 focus:outline-none"
+                    >
+                      Wyczyść
+                    </Button>
+                    <Button onClick={() => setDialogOpen(false)}>Zapisz</Button>
                   </DialogFooter>
                 </DialogContent>
               </DialogPortal>
