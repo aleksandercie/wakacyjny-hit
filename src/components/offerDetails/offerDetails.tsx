@@ -177,7 +177,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'AddToCart', {
         content_type: 'product',
-        content_ids: [String(id)], // offer id
+        content_id: String(id), // offer id
       });
     }
 
@@ -207,6 +207,15 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     }
   };
 
+  const trackSelectQuantity = (value: string) => {
+    if (window && typeof window.fbq === 'function') {
+      window?.fbq('track', 'ViewContent', {
+        content_id: String(id), // offer id
+        value,
+      });
+    }
+  };
+
   const inputs = [
     {
       label: 'Ilość osób',
@@ -217,6 +226,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       setSelected: (value: string) => {
         setSelectedQuantity(value);
         setSelectedRooms('');
+        trackSelectQuantity(value);
       },
       disabled: expired,
     },
