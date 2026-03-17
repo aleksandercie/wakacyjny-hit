@@ -16,6 +16,17 @@ export const Success = () => {
     const successFlag = localStorage.getItem('orderSuccess');
     const storedOrderId = localStorage.getItem('orderId');
     const storedEmail = localStorage.getItem('orderEmail');
+    const cartContentIds = localStorage.getItem('cartContentIds');
+    const cartTotalValue = localStorage.getItem('cartTotalValue');
+
+    if (window && typeof window.fbq === 'function') {
+      window.fbq('track', 'Purchase', {
+        content_ids: cartContentIds ? JSON.parse(cartContentIds) : [],
+        eventref: 'fb_oea',
+        currency: 'PLN',
+        value: cartTotalValue,
+      });
+    }
 
     if (successFlag === 'true' && storedOrderId && storedEmail) {
       setOrderId(storedOrderId);
@@ -24,6 +35,8 @@ export const Success = () => {
         localStorage.removeItem('orderSuccess');
         localStorage.removeItem('orderId');
         localStorage.removeItem('orderEmail');
+        localStorage.removeItem('cartContentIds');
+        localStorage.removeItem('cartTotalValue');
       }, 100);
     } else {
       router.replace('/');

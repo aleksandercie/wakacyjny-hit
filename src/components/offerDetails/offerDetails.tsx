@@ -117,6 +117,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'ViewContent', {
         content_ids: [id],
+        eventref: '',
       });
     }
   }, [id]);
@@ -177,7 +178,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'AddToCart', {
         content_type: 'product',
-        content_id: String(id), // offer id
+        content_ids: [String(id)], // offer id
+        eventref: '',
       });
     }
 
@@ -210,8 +212,9 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
   const trackSelectQuantity = (value: string) => {
     if (window && typeof window.fbq === 'function') {
       window?.fbq('track', 'ViewContent', {
-        content_id: String(id), // offer id
+        content_ids: [String(id)], // offer id
         value,
+        eventref: '',
       });
     }
   };

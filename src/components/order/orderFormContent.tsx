@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { CircleCheck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { OrderSummary } from './orderSummary';
+import { calculateTotalPrice, OrderSummary } from './orderSummary';
 import { OrderDetailsSection } from './orderDetailsSection';
 import {
   CustomerInfoSection,
@@ -15,6 +15,7 @@ import {
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useRouter } from 'next/navigation';
 import { useReCaptcha } from 'next-recaptcha-v3';
+import { quantityOptions } from '@/lib/quantityOptions';
 
 export const OrderFormContent = ({
   clientSecret,
@@ -75,6 +76,14 @@ export const OrderFormContent = ({
       token,
       stripe_payment_intent_id: 'not_set',
     };
+
+    if (window && typeof window.fbq === 'function') {
+      const contentIds = cart.map((item) => item.orderId);
+      window.fbq('track', 'InitiateCheckout', {
+        content_ids: contentIds,
+        eventref: '',
+      });
+    }
 
     let orderId: string | null = null;
 
@@ -152,9 +161,16 @@ export const OrderFormContent = ({
       duration: 2000,
     });
 
+    const totalPrice = calculateTotalPrice({ cart, quantityOptions });
+
     localStorage.setItem('orderSuccess', 'true');
     localStorage.setItem('orderId', orderId ?? '');
     localStorage.setItem('orderEmail', email);
+    localStorage.setItem('cartTotalValue', String(totalPrice));
+    localStorage.setItem(
+      'cartContentIds',
+      JSON.stringify(cart.map((item) => item.orderId)),
+    );
     window.scrollTo({ top: 0, behavior: 'smooth' });
     router.push('/zamowienie-potwierdzone');
     reset();
