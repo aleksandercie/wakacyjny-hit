@@ -51,13 +51,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body
-        className={`${nunitoSans.variable} antialiased relative bg-background overflow-x-hidden`}
-      >
+      <body className={`${nunitoSans.variable} antialiased bg-background`}>
         <ClientLayout>
           <Navigation />
-          <div className="container mx-auto max-w-[1920px]">{children}</div>
-          <Footer />
+          <div className="relative [overflow-x:clip]">
+            <div className="container mx-auto max-w-[1920px]">{children}</div>
+            <Footer />
+          </div>
         </ClientLayout>
       </body>
     </html>
