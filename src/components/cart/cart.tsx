@@ -22,7 +22,7 @@ export const Cart = () => {
   const { OFFERS } = ROUTES;
 
   return (
-    <div className="max-w-[1200px] mx-auto">
+    <div className="max-w-[1200px] mx-auto min-h-[50vh]">
       {isLoading ? (
         <div className="flex w-full justify-center min-h-[40vh] items-center">
           <p>Ładowanie koszyka...</p>

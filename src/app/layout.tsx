@@ -54,7 +54,7 @@ export default function RootLayout({
       <body className={`${nunitoSans.variable} antialiased bg-background`}>
         <ClientLayout>
           <Navigation />
-          <div className="relative [overflow-x:clip]">
+          <div className="relative [overflow-x:clip] pt-[60px]">
             <div className="container mx-auto max-w-[1920px]">{children}</div>
             <Footer />
           </div>
