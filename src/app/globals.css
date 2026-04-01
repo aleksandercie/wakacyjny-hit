@@ -4,18 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html {
+html, body {
   max-width: 100%;
   width: 100%;
   scrollbar-width: thin;
 }
 
 body {
-  max-width: 100%;
-  width: 100%;
   overflow-x: hidden;
   position: relative;
-  scrollbar-width: thin;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html, body {
+    overflow-x: hidden;
+  }
 }
 
 .dark::-webkit-scrollbar {
