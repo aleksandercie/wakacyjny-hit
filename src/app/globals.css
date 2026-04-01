@@ -18,6 +18,16 @@ body {
   scrollbar-width: thin;
 }
 
+.dark::-webkit-scrollbar {
+background-color: #333;
+width: 12px;
+}
+
+.dark::-webkit-scrollbar-thumb {
+background-color: #555;
+  border-radius: 9999px;
+}
+
 @theme {
   --font-sans: var(--font-nunito-sans);
 
