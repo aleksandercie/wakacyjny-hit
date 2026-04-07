@@ -42,7 +42,10 @@ export async function POST(req: Request) {
     if (error || !orderData) {
       await sgMail.send({
         to: orderData.email,
-        from: process.env.SENDGRID_FROM_EMAIL!,
+        from: {
+          email: process.env.SENDGRID_FROM_EMAIL!,
+          name: 'Wakacyjny Hit',
+        },
         templateId: 'd-ea11531847554e6c8e504621d6753c65',
         dynamicTemplateData: {
           firstName: orderData.firstName,
@@ -51,7 +54,10 @@ export async function POST(req: Request) {
 
       await sgMail.send({
         to: process.env.SENDGRID_FROM_EMAIL!,
-        from: process.env.SENDGRID_FROM_EMAIL!,
+        from: {
+          email: process.env.SENDGRID_FROM_EMAIL!,
+          name: 'Wakacyjny Hit',
+        },
         subject: `❌ Błąd aktualizacji zamówienia #${orderId}`,
         html: `
             <p>❗ Wystąpił błąd podczas aktualizacji zamówienia:</p>
@@ -68,7 +74,10 @@ export async function POST(req: Request) {
     if (status === 'paid') {
       await sgMail.send({
         to: orderData.email,
-        from: process.env.SENDGRID_FROM_EMAIL!,
+        from: {
+          email: process.env.SENDGRID_FROM_EMAIL!,
+          name: 'Wakacyjny Hit',
+        },
         templateId: 'd-121fc47d1e9046bdb7e114871366005c',
         dynamicTemplateData: {
           firstName: orderData.firstName,
@@ -125,7 +134,10 @@ export async function POST(req: Request) {
 
       await sgMail.send({
         to: process.env.SENDGRID_FROM_EMAIL!,
-        from: process.env.SENDGRID_FROM_EMAIL!,
+        from: {
+          email: process.env.SENDGRID_FROM_EMAIL!,
+          name: 'Wakacyjny Hit',
+        },
         subject: `✅ Nowe opłacone zamówienie #${orderData.id}`,
         html: `
                     <p>id zamówienia: #${orderData.id}</p>

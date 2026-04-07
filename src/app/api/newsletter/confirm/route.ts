@@ -61,7 +61,10 @@ export async function POST(req: Request) {
 
     await sgMail.send({
       to: subscriber.email,
-      from: process.env.SENDGRID_FROM_EMAIL!,
+      from: {
+        email: process.env.SENDGRID_FROM_EMAIL!,
+        name: 'Wakacyjny Hit',
+      },
       templateId: 'd-f794793e712d4417875cf4102e1398bb',
       dynamicTemplateData: {
         unsubscribe_url: unsubscribeUrl,

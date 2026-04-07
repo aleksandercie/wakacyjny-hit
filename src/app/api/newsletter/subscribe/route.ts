@@ -71,7 +71,10 @@ export async function POST(req: Request) {
 
     await sgMail.send({
       to: email,
-      from: process.env.SENDGRID_FROM_EMAIL!,
+      from: {
+        email: process.env.SENDGRID_FROM_EMAIL!,
+        name: 'Wakacyjny Hit',
+      },
       templateId: 'd-f593fffa0e9346159cc9bd9f6e610aeb',
       dynamicTemplateData: {
         confirmation_url: confirmUrl,

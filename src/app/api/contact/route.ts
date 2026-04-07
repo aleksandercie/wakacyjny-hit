@@ -12,7 +12,7 @@ const schema = z.object({
   phone: z.string().regex(/^(?:\+|00)\d{6,15}$/, 'Invalid phone number'),
   title: z.string().min(3),
   message: z.string().min(10),
-  token: z.string()
+  token: z.string(),
 });
 
 export async function POST(req: Request) {
@@ -33,13 +33,16 @@ export async function POST(req: Request) {
     if (!recaptchaRes.success || recaptchaRes.score < 0.5) {
       return NextResponse.json(
         { error: 'Failed reCAPTCHA verification' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     await sgMail.send({
       to: process.env.SENDGRID_FROM_EMAIL!,
-      from: process.env.SENDGRID_FROM_EMAIL!,
+      from: {
+        email: process.env.SENDGRID_FROM_EMAIL!,
+        name: 'Wakacyjny Hit',
+      },
       subject: `Nowa wiadomość z formularza kontaktowego: ${safeHtml(title)}`,
       html: `
         <p><strong>Od:</strong> ${safeHtml(email)}</p>
@@ -47,9 +50,9 @@ export async function POST(req: Request) {
         <p><strong>Temat:</strong> ${safeHtml(title)}</p>
         <p><strong>Wiadomość:</strong><br/>${safeHtml(message).replace(
           /\n/g,
-          '<br/>'
+          '<br/>',
         )}</p>
-      `
+      `,
     });
 
     return NextResponse.json({ success: true });

@@ -50,7 +50,10 @@ export async function POST(req: Request) {
 
     await sgMail.send({
       to: existing.email,
-      from: process.env.SENDGRID_FROM_EMAIL!,
+      from: {
+        email: process.env.SENDGRID_FROM_EMAIL!,
+        name: 'Wakacyjny Hit',
+      },
       templateId: 'd-b20ffa4a81cc42999aea67405f81cb00',
     });
 
