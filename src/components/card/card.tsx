@@ -2,13 +2,15 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ROUTES } from '@/lib/routes';
+import { formatDate } from '@/lib/formatDate';
 
 export const Card = ({
   id,
   title,
   price,
   duration,
-  date,
+  startDate,
+  endDate,
   photo,
   description,
   variant,
@@ -18,7 +20,8 @@ export const Card = ({
   title: string;
   price: number;
   duration: string;
-  date: string;
+  startDate: string;
+  endDate: string;
   photo: string;
   description?: string;
   variant: 'small' | 'large';
@@ -26,6 +29,8 @@ export const Card = ({
 }) => {
   const { OFFERS } = ROUTES;
   const isLarge = variant === 'large';
+  const isExpired = expired || new Date(startDate) < new Date();
+  const date = `${formatDate(startDate)} - ${formatDate(endDate)}`;
 
   return (
     <div className="relative w-full">
@@ -44,14 +49,14 @@ export const Card = ({
             quality={75}
             loading="lazy"
             className={`rounded-md object-cover w-full h-full ${
-              expired ? 'opacity-40' : ''
+              isExpired ? 'opacity-40' : ''
             }`}
           />
         </div>
         <p className="absolute top-3 left-3 bg-background py-1 px-2 rounded-3xl text-sm">
           {duration}
         </p>
-        {expired && (
+        {isExpired && (
           <span className="absolute top-3 right-3 bg-destructive/70 text-background text-sm px-2 py-1 rounded-full">
             Zakończona
           </span>

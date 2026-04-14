@@ -7,6 +7,7 @@ import {
   ChevronRight,
   CircleCheck,
   Clock10,
+  // Gem,
   HandCoins,
   PlaneTakeoff,
 } from 'lucide-react';
@@ -90,7 +91,9 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     // stable-ish starting point (still random)
     return 8 + Math.floor(Math.random() * 12); // 8..19
   });
+  // const [bannerVisible, setBannerVisible] = useState(false);
   const isViewingTime = isViewingHours();
+  const isExpired = expired || new Date(startDate) < new Date();
 
   useEffect(() => {
     if (!isViewingTime) return;
@@ -121,6 +124,11 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       });
     }
   }, [id]);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setBannerVisible(true), 800);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const { addToCart, cart } = useCart();
   const router = useRouter();
@@ -231,7 +239,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
         setSelectedRooms('');
         trackSelectQuantity(value);
       },
-      disabled: expired,
+      disabled: isExpired,
     },
     {
       label: 'Ilość pokoi',
@@ -247,7 +255,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       placeholder: 'Wybierz ilość pokoi',
       selected: selectedRooms,
       setSelected: setSelectedRooms,
-      disabled: selectedQuantity === '' || expired,
+      disabled: selectedQuantity === '' || isExpired,
     },
   ];
 
@@ -274,7 +282,32 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
     selectedRooms === '' ||
     cart.length === 5 ||
     isSubmitting ||
-    expired;
+    isExpired;
+
+  // const bannerText = 'Wyjątkowa okazja! Ta oferta jest zazwyczaj bardzo szybko rezerwowana.';
+
+  // const urgencyBanner = !isExpired && (
+  //   <div
+  //     className={`transition-all duration-700 ease-out ${
+  //       bannerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+  //     }`}
+  //   >
+  //     <div className="flex items-center gap-3 p-4 border border-border rounded-xl shadow-sm bg-background">
+  //       <Gem size={28} className="text-rose-400 shrink-0" />
+  //       <p className="font-semibold text-sm leading-snug">
+  //         {bannerText.split('').map((char, i) => (
+  //           <span
+  //             key={i}
+  //             className={bannerVisible ? 'wave-letter' : ''}
+  //             style={{ animationDelay: `${i * 22}ms` }}
+  //           >
+  //             {char === ' ' ? '\u00A0' : char}
+  //           </span>
+  //         ))}
+  //       </p>
+  //     </div>
+  //   </div>
+  // );
 
   const form = (
     <form
@@ -333,7 +366,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           W koszyku znajduje się maksymalna ilość ofert.
         </p>
       )}
-      {isViewingTime && !expired && (
+      {isViewingTime && !isExpired && (
         <p className="text-muted text-sm">{formatViewersText(viewersCount)}</p>
       )}
       <Button disabled={isDisabledButton} variant="secondary">
@@ -369,7 +402,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           fill
           sizes="(max-width: 768px) 100vw, 984px"
           priority
-          className={`object-cover ${expired ? 'opacity-40' : ''}`}
+          className={`object-cover ${isExpired ? 'opacity-40' : ''}`}
         />
       </div>
       <div className="flex items-center gap-1 justify-start w-full">
@@ -387,7 +420,7 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
       <div className="flex gap-8">
         <div className="flex flex-col w-full md:w-3/5 lg:w-7/10 gap-10">
           <div className="flex flex-col gap-8">
-            {expired && (
+            {isExpired && (
               <p className="text-destructive">
                 Oferta zakończona. Oferta nie jest już dostępna do rezerwacji.
               </p>
@@ -406,7 +439,10 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
                 </div>
               ))}
             </div>
-            <div className=" block md:hidden">{form}</div>
+            <div className="block md:hidden flex flex-col gap-4">
+              {/* {urgencyBanner} */}
+              {form}
+            </div>
             <Separator
               orientation="horizontal"
               className="h-[1px] bg-separator"
@@ -487,7 +523,8 @@ export const OfferDetails = ({ trip }: { trip: Trip }) => {
           </div>
         </div>
         <div className="w-2/5 lg:w-3/10 hidden md:block relative">
-          <div className="w-full sticky top-20 self-start max-h-[360px]">
+          <div className="w-full sticky top-20 self-start flex flex-col gap-4">
+            {/* {urgencyBanner} */}
             {form}
           </div>
         </div>

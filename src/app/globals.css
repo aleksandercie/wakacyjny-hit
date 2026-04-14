@@ -95,6 +95,32 @@ background-color: #555;
 }
 
 
+@keyframes waveLetter {
+  0% {
+    color: rgb(251, 113, 133); /* rose-400 */
+    font-size: 1.4em;
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  35% {
+    font-size: 1em;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    color: inherit;
+    font-size: 1em;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wave-letter {
+  display: inline-block;
+  animation: waveLetter 0.9s ease-out forwards;
+  opacity: 0;
+}
+
 .grecaptcha-badge {
   visibility: hidden !important;
   opacity: 0;

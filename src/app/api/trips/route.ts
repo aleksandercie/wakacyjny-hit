@@ -64,10 +64,14 @@ export async function GET(req: Request) {
     query = query.overlaps('food', food);
   }
 
+  const today = new Date().toISOString();
+
   if (expired === 'true') {
-    query = query.eq('expired', true);
+    // completed: explicitly expired OR start date is in the past
+    query = query.or(`expired.eq.true,startDate.lt.${today}`);
   } else if (expired === 'false') {
-    query = query.eq('expired', false);
+    // active: not expired AND start date is today or in the future
+    query = query.eq('expired', false).gte('startDate', today);
   }
 
   const { data, error, count } = await query;

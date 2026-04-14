@@ -1,6 +1,5 @@
 import { Card } from '../card';
 import { Trip } from '@/types/trip';
-import { formatDate } from '@/lib/formatDate';
 
 export const OffersCards = ({ trips }: { trips: Trip[] }) => {
   return (
@@ -15,6 +14,7 @@ export const OffersCards = ({ trips }: { trips: Trip[] }) => {
           id,
           startDate,
           endDate,
+          expired,
         }) => (
           <Card
             id={id}
@@ -22,10 +22,12 @@ export const OffersCards = ({ trips }: { trips: Trip[] }) => {
             title={title}
             price={price}
             duration={duration}
-            date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
+            startDate={startDate}
+            endDate={endDate}
             photo={image}
             description={shortDescription}
             variant="small"
+            expired={expired}
           />
         ),
       )}

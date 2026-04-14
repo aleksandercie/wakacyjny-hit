@@ -6,7 +6,6 @@ import { DateRange } from 'react-day-picker';
 import { Filters, Tab } from '../filters';
 import { Card, CardSkeleton } from '../card';
 import { getTrips } from '@/lib/api/getTrips';
-import { formatDate } from '@/lib/formatDate';
 import { defaultPriceRange } from '../filters/additionalFilters';
 import {
   Pagination,
@@ -323,7 +322,8 @@ export const OffersList = () => {
               title={title}
               price={price}
               duration={duration}
-              date={`${formatDate(startDate)} - ${formatDate(endDate)}`}
+              startDate={startDate}
+              endDate={endDate}
               photo={image}
               description={shortDescription}
               variant="large"
