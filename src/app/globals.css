@@ -10,6 +10,11 @@ html, body {
   scrollbar-width: thin;
 }
 
+::selection {
+  background-color: #f85808;
+  color: #ffffff;
+}
+
 body {
   overflow-x: hidden;
   position: relative;
