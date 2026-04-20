@@ -69,6 +69,10 @@ export const OrderForm = () => {
       '.AccordionItem': {
         borderColor: resolvedTheme === 'dark' ? '#434a55' : '#e5e7eb',
       },
+      '.Input:focus': {
+        boxShadow: 'none',
+        borderWidth: '2px',
+      },
     },
   };
 

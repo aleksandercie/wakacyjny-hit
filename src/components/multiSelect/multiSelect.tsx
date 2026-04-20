@@ -60,7 +60,7 @@ export const MultiSelect = ({
           placeholder="Szukaj..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="p-1 border rounded w-full mb-2 focus-visible:border-2 hidden md:block"
+          className="p-1 border rounded w-full mb-2 focus-visible:border-2 focus-visible:border-primary hidden md:block"
         />
         <ScrollArea className="h-[160px] w-full rounded-md border">
           <div className="p-2">
