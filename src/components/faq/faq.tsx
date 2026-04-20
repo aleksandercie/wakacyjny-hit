@@ -69,7 +69,7 @@ export const Faq = () => {
     {
       question: 'Co nas odróżnia od konkurencji?',
       answers: [
-        'Jako firma specjalizująca się w poradach podróżniczych, stawiamy na pełną transparentność i uczciwość. Zawsze informujemy jasno o wszystkich aspektach podróży, w tym kwestiach związanych z bagażem. Nasze podejście jest pro-konsumenckie: dbamy o zadowolenie naszych klientów na każdym etapie planowania podróży. Co więcej, jeśli koszt wyjazdu wzrośnie o 50%, zwracamy środki, aby zapewnić Ci maksymalną ochronę i komfort.',
+        'Jako firma specjalizująca się w poradach podróżniczych, stawiamy na pełną transparentność i uczciwość. Zawsze informujemy jasno o wszystkich aspektach podróży, w tym kwestiach związanych z bagażem. Nasze podejście jest pro-konsumenckie: dbamy o zadowolenie naszych klientów na każdym etapie planowania podróży.',
       ],
     },
   ];

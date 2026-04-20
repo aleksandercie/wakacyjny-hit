@@ -304,7 +304,7 @@ export const OffersList = () => {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch w-full"
         id="show-items"
       >
-        {trips.map(
+        {trips?.map(
           ({
             id,
             title,
@@ -336,7 +336,7 @@ export const OffersList = () => {
             <CardSkeleton key={index} />
           ))}
       </div>
-      {!loading && trips.length === 0 && (
+      {!loading && trips?.length === 0 && (
         <div className="min-h-[121px]" id="show-items">
           <p className="text-center text-muted py-6">
             Brak ofert spełniających wybrane kryteria.

@@ -4,7 +4,7 @@ import { Trip } from '@/types/trip';
 export const OffersCards = ({ trips }: { trips: Trip[] }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {trips.map(
+      {trips?.map(
         ({
           title,
           price,
