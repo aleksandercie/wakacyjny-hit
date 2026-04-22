@@ -72,8 +72,7 @@ export const Filters = ({
       ? 1
       : 0) +
     (selectedAirports.length > 0 ? 1 : 0) +
-    (selectedfoodOptions.length > 0 ? 1 : 0) +
-    (date?.from || date?.to ? 1 : 0);
+    (selectedfoodOptions.length > 0 ? 1 : 0);
 
   const additionalFilters = (
     <AdditionalFilters
